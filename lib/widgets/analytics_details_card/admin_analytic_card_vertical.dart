@@ -1,4 +1,3 @@
-import 'package:ewastecare/screens/admin/admin_homepage.dart';
 import 'package:ewastecare/widgets/shimmers/shimmer.dart';
 import 'package:ewastecare/controllers/admin_dashboard_controller.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +20,8 @@ class AdminAnalyticCardVertical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = HelperFunctions.isDarkMode(context);
-    final controller = Get.find<AdminHomePageController>();
+    final isDarkMode = WasteHelperFunctions.isDarkMode(context);
+    final controller = Get.find<AdminDashboardController>();
 
     return GestureDetector(
       child: Container(

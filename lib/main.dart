@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
-import 'screens/splash_screen.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:ewastecare/app.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:ewastecare/firebase_options.dart';
+import 'package:ewastecare/data/repositories/authentication/authentication_repository.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+Future<void> main() async {
+  final WidgetsBinding widgetsBinding =
+      WidgetsFlutterBinding.ensureInitialized();
+
+  await GetStorage.init();
+
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final authenticationRepository = AuthenticationRepository();
 
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'eWasteCare',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Poppins', primarySwatch: Colors.green),
-      home: const SplashScreen(),
-    );
-  }
+  Get.put(authenticationRepository);
+
+  runApp(const App());
 }

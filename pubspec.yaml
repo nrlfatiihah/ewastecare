@@ -41,7 +41,18 @@ dependencies:
   cloud_firestore: ^5.4.0
   get: ^4.7.2
   qr: ^3.0.2
-  iconsax_flutter: ^1.0.1
+  iconsax: ^0.0.8
+  url_launcher: ^6.3.2
+  intl: ^0.20.2
+  fl_chart: ^1.1.1
+  shimmer: ^3.0.0
+  excel: ^4.0.6
+  path_provider: ^2.1.5
+  share_plus: ^12.0.1
+  flutter_native_splash: ^2.4.4
+  get_storage: ^2.1.1
+  connectivity_plus: ^7.0.0
+  image_picker: ^1.2.1
 
 dev_dependencies:
   flutter_test:
