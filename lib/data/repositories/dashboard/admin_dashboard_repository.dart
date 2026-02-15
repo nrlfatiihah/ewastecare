@@ -38,6 +38,24 @@ class AdminDashboardRepository extends GetxController {
     }
   }
 
+  // Future<List<Map<String, dynamic>>> getAdminDashboardData() async {
+  //   try {
+  //     // Fetch all documents in the AdminDashboard collection
+  //     final querySnapshot = await _db.collection("AdminDashboard").get();
+
+  //     // Extract and return data from each document
+  //     return querySnapshot.docs.map((doc) => doc.data()).toList();
+  //   } on FirebaseException catch (e) {
+  //     throw WasteFirebaseException(e.code).message;
+  //   } on FormatException catch (_) {
+  //     throw const WasteFormatException();
+  //   } on PlatformException catch (e) {
+  //     throw WastePlatformException(e.code).message;
+  //   } catch (e) {
+  //     throw "Something went wrong, Please try again";
+  //   }
+  // }
+
   Future<List<Map<String, dynamic>>> getAdminDashboardData() async {
     try {
       // Fetch all documents in the AdminDashboard collection
@@ -94,10 +112,39 @@ class AdminDashboardRepository extends GetxController {
     }
   }
 
+  // Future<Map<String, int>> fetchGenderStatistics() async {
+  //   try {
+  //     final querySnapshot = await _db.collection('Users').get();
+
+  //     int maleCount = 0;
+  //     int femaleCount = 0;
+
+  //     // Iterate over each document in the query snapshot
+  //     for (var doc in querySnapshot.docs) {
+  //       final gender = doc['Gender'] ?? '';
+  //       if (gender.toLowerCase() == 'male') {
+  //         maleCount++;
+  //       } else if (gender.toLowerCase() == 'female') {
+  //         femaleCount++;
+  //       }
+  //     }
+
+  //     return {
+  //       'maleUsers': maleCount,
+  //       'femaleUsers': femaleCount,
+  //     };
+  //   } catch (e) {
+  //     return {
+  //       'maleUsers': 0,
+  //       'femaleUsers': 0,
+  //     };
+  //   }
+  // }
+
   Future<Map<String, int>> fetchGenderStatistics() async {
     try {
       // Fetch all documents from the 'Users' collection
-      QuerySnapshot snapshot = await _db.collection('users').get();
+      QuerySnapshot snapshot = await _db.collection('Users').get();
 
       // Initialize counters for male and female users
       int maleCount = 0;

@@ -40,7 +40,6 @@ dependencies:
   firebase_auth: ^5.3.0
   cloud_firestore: ^5.4.0
   get: ^4.7.2
-  qr: ^3.0.2
   iconsax: ^0.0.8
   url_launcher: ^6.3.2
   intl: ^0.20.2
@@ -53,6 +52,14 @@ dependencies:
   get_storage: ^2.1.1
   connectivity_plus: ^7.0.0
   image_picker: ^1.2.1
+  cached_network_image: ^3.4.1
+  lottie: ^3.3.0
+  firebase_storage: ^12.4.10
+  google_sign_in: ^7.2.0
+  qr_flutter: ^4.1.0
+  mobile_scanner: ^7.1.4
+  readmore: ^3.0.0
+  logger: ^2.6.2
 
 dev_dependencies:
   flutter_test:
@@ -110,6 +117,12 @@ flutter:
 #-------------------------------Assets-----------------------------
   assets:
     - assets/images/
+    - assets/icons/
+    - assets/logos/
+    - assets/images/on_boarding_images/
+    - assets/images/animations/
+    - assets/images/content/
+    - assets/images/ecobako_module/
 
   #-------------------------------Fonts------------------------------
   fonts:

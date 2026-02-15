@@ -1,6 +1,6 @@
 import 'package:ewastecare/bindings/general_bindings.dart';
-import 'package:ewastecare/constants/colors.dart';
-import 'package:ewastecare/constants/theme/theme.dart';
+import 'package:ewastecare/utils/constants/colors.dart';
+import 'package:ewastecare/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
