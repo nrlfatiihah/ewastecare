@@ -1,7 +1,7 @@
 // use and checked
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ewastecare/admin_navigation_menu.dart';
-import 'package:ewastecare/features/authentication/screens/choose_role/choose_role.dart';
+import 'package:ewastecare/features/authentication/screens/welcome/welcome.dart';
 import 'package:ewastecare/features/authentication/screens/login/login_admin/admin_login.dart';
 import 'package:ewastecare/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:ewastecare/features/authentication/screens/signup/admin_signup/admin_verify_email.dart';
@@ -47,7 +47,7 @@ class AdminAuthenticationRepository extends GetxController {
         return;
       } else if (user.emailVerified) {
         // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to ChooseRole
-        Get.offAll(() => const ChooseRole());
+        Get.offAll(() => const Welcome());
         return;
       } else {
         // User email not verified, redirect to email verification screen
@@ -59,9 +59,7 @@ class AdminAuthenticationRepository extends GetxController {
       // User not logged in, handle first-time launch or other scenarios
       deviceStorage.writeIfNull("isFirstTime", true);
       deviceStorage.read("isFirstTime") != true
-          ? Get.offAll(
-              () => const ChooseRole(),
-            ) // Redirect to choose role screen
+          ? Get.offAll(() => const Welcome()) // Redirect to choose role screen
           : Get.offAll(
               () => const OnBoardingScreen(),
             ); // Redirect to onboarding screen if user is first time

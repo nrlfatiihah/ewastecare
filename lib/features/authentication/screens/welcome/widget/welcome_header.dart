@@ -1,6 +1,6 @@
 // use and checked
-import 'package:ewastecare/features/authentication/screens/login/login_admin/admin_login.dart';
 import 'package:ewastecare/features/authentication/screens/login/login_user/login.dart';
+import 'package:ewastecare/features/authentication/screens/signup/user_signup/signup.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
@@ -77,7 +77,7 @@ class WelcomeHeader extends StatelessWidget {
 
           const SizedBox(height: WasteSizes.spaceBtwItems),
 
-          // button for user
+          // button for login
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -86,21 +86,21 @@ class WelcomeHeader extends StatelessWidget {
                 backgroundColor: WasteColors.buttonPrimary,
                 side: const BorderSide(color: WasteColors.buttonPrimary),
               ),
-              child: const Text(WasteTexts.userRole),
+              child: const Text(WasteTexts.login),
             ),
           ),
           const SizedBox(height: WasteSizes.spaceBtwSections),
 
-          // button for admin
+          // button for create account
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => Get.to(() => const AdminLoginScreen()),
+              onPressed: () => Get.to(() => const SignupScreen()),
               style: ElevatedButton.styleFrom(
                 backgroundColor: WasteColors.buttonPrimary,
                 side: const BorderSide(color: WasteColors.buttonPrimary),
               ),
-              child: const Text(WasteTexts.adminRole),
+              child: const Text(WasteTexts.createAccount),
             ),
           ),
           const SizedBox(height: WasteSizes.spaceBtwSections),

@@ -1,7 +1,7 @@
 // use and checked
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ewastecare/data/repositories/user/user_repository.dart';
-import 'package:ewastecare/features/authentication/screens/choose_role/choose_role.dart';
+import 'package:ewastecare/features/authentication/screens/welcome/welcome.dart';
 import 'package:ewastecare/features/authentication/screens/login/login_user/login.dart';
 import 'package:ewastecare/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:ewastecare/features/authentication/screens/signup/user_signup/verify_email.dart';
@@ -44,24 +44,24 @@ class AuthenticationRepository extends GetxController {
         box.read('user_logged_in') ?? false; // Check login flag
     if (user != null) {
       if (user.emailVerified && isUserLoggedIn) {
-        // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to ChooseRole
+        // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to Welcome
         Get.offAll(() => const UserNavigationMenu());
         return;
       } else if (!isUserLoggedIn) {
-        // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to ChooseRole
-        Get.offAll(() => const ChooseRole());
+        // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to Welcome
+        Get.offAll(() => const Welcome());
         return;
       } else {
         // User email not verified, redirect to email verification screen
-        Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
+        Get.offAll(
+          () => VerifyEmailScreen(email: _auth.currentUser?.email, role: ''),
+        );
       }
     } else {
       // User not logged in, handle first-time launch or other scenarios
       deviceStorage.writeIfNull("isFirstTime", true);
       deviceStorage.read("isFirstTime") != true
-          ? Get.offAll(
-              () => const ChooseRole(),
-            ) // Redirect to choose role screen
+          ? Get.offAll(() => const Welcome()) // Redirect to welcome screen
           : Get.offAll(
               () => const OnBoardingScreen(),
             ); // Redirect to onboarding screen if user is first time
@@ -124,23 +124,6 @@ class AuthenticationRepository extends GetxController {
       return null;
     }
   }
-
-  /// Email auth - registration
-  // Future<UserCredential> registerWithEmailAndPassword(String email, String password) async{
-  //   try{
-  //     return await _auth.createUserWithEmailAndPassword(email: email, password: password);
-  //   } on FirebaseAuthException catch (e) {
-  //     throw WasteFirebaseAuthException(e.code).message;
-  //   } on FirebaseException catch (e) {
-  //     throw WasteFirebaseException(e.code).message;
-  //   } on FormatException catch (_) {
-  //     throw const WasteFormatExecption();
-  //   } on PlatformException catch (e){
-  //     throw WastePlatformException(e.code).message;
-  //   } catch (e) {
-  //     throw "Something went wrong, Please try again";
-  //   }
-  // }
 
   Future<UserCredential> registerWithEmailAndPassword(
     String email,

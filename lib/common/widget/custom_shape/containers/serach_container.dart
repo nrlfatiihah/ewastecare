@@ -57,7 +57,7 @@ class WastePointContainer extends StatelessWidget {
                   return const WasteShimmerEffect(width: 100, height: 100);
                 } else {
                   return Text(
-                    controller.user.value.ecoPoint.toString(),
+                    controller.user.value.wastePoint.toString(),
                     style: Theme.of(
                       context,
                     ).textTheme.headlineLarge!.apply(color: textColor),

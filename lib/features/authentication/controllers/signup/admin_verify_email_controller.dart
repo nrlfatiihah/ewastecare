@@ -18,7 +18,7 @@ class AdminVerifyEmailController extends GetxController {
     super.onInit();
   }
 
-  // Send email verfication link to user
+  // Send email verification link to user
   sendEmailVerification() async {
     try {
       await AdminAuthenticationRepository.instance.sendEmailVerification();
@@ -40,7 +40,7 @@ class AdminVerifyEmailController extends GetxController {
         timer.cancel();
         Get.off(
           () => SuccessScreen(
-            image: WasteImages.sccessfullyRegisterAnimation,
+            image: WasteImages.successfullyRegisterAnimation,
             title: WasteTexts.yourAccountCreatedTitle,
             subTitle: WasteTexts.yourAccountCreatedSubTitle,
             onPressed: () =>
@@ -57,7 +57,7 @@ class AdminVerifyEmailController extends GetxController {
     if (currentUser != null && currentUser.emailVerified) {
       Get.off(
         () => SuccessScreen(
-          image: WasteImages.sccessfullyRegisterAnimation,
+          image: WasteImages.successfullyRegisterAnimation,
           title: WasteTexts.yourAccountCreatedTitle,
           subTitle: WasteTexts.yourAccountCreatedSubTitle,
           onPressed: () =>

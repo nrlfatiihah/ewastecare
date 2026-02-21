@@ -21,18 +21,18 @@ class SignupController extends GetxController {
   final hidePassword = true.obs; // Observable for hiding/showing password
   final privacyPolicy = true.obs; // Observable for hiding/showing password
   final firstName = TextEditingController(); // controller for first name input
-  final lastName = TextEditingController(); // controller for lastname input
+  final lastName = TextEditingController(); // controller for last name input
   final username = TextEditingController(); // controller for username input
   final homeAddress = TextEditingController(); // controller for address input
   final gender = Rx<String?>(null); // controller for gender input
   final age = TextEditingController(); // controller for age input
+  final role = Rx<String?>(null); // controller for role input
   final email = TextEditingController(); // controller for email input
   final phoneNo = TextEditingController(); // controller for phone number input
   final password = TextEditingController(); // controller for password input
   GlobalKey<FormState> signupFormKey =
       GlobalKey<FormState>(); // Form key for form validation
 
-  // SIGNUP CONTROLLER FUNCTION FOR USER
   void signup() async {
     try {
       // Start loading
@@ -66,105 +66,82 @@ class SignupController extends GetxController {
         return;
       }
 
-      // Register user in the Firebase Aurhentication & Save user data in the Firebase
-      final userCredential = await AuthenticationRepository.instance
-          .registerWithEmailAndPassword(
-            email.text.trim(),
-            password.text.trim(),
-          );
+      // User Registration
+      if (role.value == "user") {
+        // Register user in the Firebase Authentication & Save user data in the Firebase
+        final userCredential = await AuthenticationRepository.instance
+            .registerWithEmailAndPassword(
+              email.text.trim(),
+              password.text.trim(),
+            );
 
-      // Save Authenticated user data in the Firebase Firestore
-      final newUser = UserModel(
-        id: userCredential.user!.uid,
-        firstName: firstName.text.trim(),
-        lastName: lastName.text.trim(),
-        username: username.text.trim(),
-        homeAddress: homeAddress.text.trim(),
-        gender: gender.value?.trim() ?? "",
-        age: age.text.trim(),
-        email: email.text.trim(),
-        phoneNo: phoneNo.text.trim(),
-        profilePicture: "",
-        ecoPoint: 0,
-        role: "user",
-        userQR: '',
-      );
+        // Save Authenticated user data in the Firebase Firestore
+        final newUser = UserModel(
+          id: userCredential.user!.uid,
+          firstName: firstName.text.trim(),
+          lastName: lastName.text.trim(),
+          username: username.text.trim(),
+          homeAddress: homeAddress.text.trim(),
+          gender: gender.value?.trim() ?? "",
+          age: age.text.trim(),
+          email: email.text.trim(),
+          phoneNo: phoneNo.text.trim(),
+          profilePicture: "",
+          wastePoint: 0,
+          role: "user",
+          userQR: '',
+        );
 
-      final userRepository = Get.put(UserRepository());
-      await userRepository.saveUserRecord(newUser);
+        final userRepository = Get.put(UserRepository());
+        await userRepository.saveUserRecord(newUser);
 
-      WasteFullScreenLoader.stopLoading();
-
-      // Show Success Message
-      WasteLoaders.successSnackBar(
-        title: "Success",
-        message:
-            "Your account has been created successfully! Verify email to continue",
-      );
-
-      // Move to Verify Email Screen
-      Get.to(() => VerifyEmailScreen(email: email.text.trim()));
-    } catch (e) {
-      // Remove loader
-      WasteFullScreenLoader.stopLoading();
-      // Show some generic error message to the user
-      WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
-    }
-  }
-
-  // SIGNUP CONTROLLER FUNCTION FOR ADMIN
-  void adminSignup() async {
-    try {
-      // Start loading
-      WasteFullScreenLoader.openLoadingDialog(
-        "We are processing your information...",
-        WasteImages.docerAnimation,
-      );
-
-      // Check Internet connectivity
-      final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected) {
         WasteFullScreenLoader.stopLoading();
-        return;
-      }
 
-      // Form validation
-      if (!signupFormKey.currentState!.validate()) {
-        // Remove loader
+        // Show Success Message
+        WasteLoaders.successSnackBar(
+          title: "Success",
+          message:
+              "Your account has been created successfully! Verify email to continue",
+        );
+
+        // Move to Verify Email Screen
+        Get.to(
+          () => VerifyEmailScreen(email: email.text.trim(), role: role.value!),
+        );
+      } else if (role.value == "admin") {
+        // Register admin in the Firebase Authentication & Save admin data in the Firebase
+        final userCredential = await AdminAuthenticationRepository.instance
+            .registerWithEmailAndPassword(
+              email.text.trim(),
+              password.text.trim(),
+            );
+
+        // Save Authenticated user data in the Firebase Firestore
+        final newAdmin = AdminModel(
+          id: userCredential.user!.uid,
+          email: email.text.trim(),
+          username: username.text.trim(),
+          profilePicture: "",
+          role: "admin",
+        );
+
+        final userRepository = Get.put(AdminRepository());
+        await userRepository.saveAdminRecord(newAdmin);
+
         WasteFullScreenLoader.stopLoading();
-        return;
+
+        // Show Success Message
+        WasteLoaders.successSnackBar(
+          title: "Success",
+          message:
+              "Your account has been created successfully! Verify email to continue",
+        );
+
+        // Move to Verify Email Screen
+        Get.to(
+          () => VerifyEmailScreen(email: email.text.trim(), role: role.value!),
+        );
       }
-
-      // Register admin in the Firebase Aurhentication & Save admin data in the Firebase
-      final userCredential = await AdminAuthenticationRepository.instance
-          .registerWithEmailAndPassword(
-            email.text.trim(),
-            password.text.trim(),
-          );
-
-      // Save Authenticated user data in the Firebase Firestore
-      final newAdmin = AdminModel(
-        id: userCredential.user!.uid,
-        email: email.text.trim(),
-        username: username.text.trim(),
-        profilePicture: "",
-        role: "admin",
-      );
-
-      final userRepository = Get.put(AdminRepository());
-      await userRepository.saveAdminRecord(newAdmin);
-
-      WasteFullScreenLoader.stopLoading();
-
-      // Show Success Message
-      WasteLoaders.successSnackBar(
-        title: "Success",
-        message:
-            "Your account has been created successfully! Verify email to continue",
-      );
-
-      // Move to Verify Email Screen
-      Get.to(() => AdminVerifyEmailScreen(email: email.text.trim()));
     } catch (e) {
       // Remove loader
       WasteFullScreenLoader.stopLoading();

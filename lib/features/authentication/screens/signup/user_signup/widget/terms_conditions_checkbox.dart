@@ -4,6 +4,7 @@ import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/helpers/helper_functions.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,11 +40,31 @@ class WasteTermsAndConditionCheckbox extends StatelessWidget {
                 text: '${WasteTexts.privacyPolicy} ',
                 style: Theme.of(context).textTheme.bodyMedium!.apply(
                   color: dark ? WasteColors.white : WasteColors.primary,
-                  decoration: TextDecoration.underline,
+                  fontWeightDelta: 700,
                   decorationColor: dark
                       ? WasteColors.white
                       : WasteColors.primary,
                 ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text("Privacy Policy"),
+                        content: const SingleChildScrollView(
+                          child: Text(
+                            "Your privacy is important to us. We collect personal data only to improve your eWasteCare experience. Your data will not be shared with third parties without your consent. You can request to delete your account and data anytime",
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text("Close"),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
               ),
               TextSpan(
                 text: '${WasteTexts.and} ',
@@ -53,11 +74,31 @@ class WasteTermsAndConditionCheckbox extends StatelessWidget {
                 text: '${WasteTexts.termsOfUse} ',
                 style: Theme.of(context).textTheme.bodyMedium!.apply(
                   color: dark ? WasteColors.white : WasteColors.primary,
-                  decoration: TextDecoration.underline,
+                  fontWeightDelta: 700,
                   decorationColor: dark
                       ? WasteColors.white
                       : WasteColors.primary,
                 ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text("Terms of Use"),
+                        content: const SingleChildScrollView(
+                          child: Text(
+                            "By using eWasteCare, you agree to follow all local e-waste recycling rules and use the app responsibly. You must provide accurate information when creating an account. Your account may be suspended if any misuse or false reporting is detected. eWasteCare reserves the right to update these terms at any time.",
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text("Close"),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
               ),
             ],
           ),

@@ -11,13 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({super.key, this.email});
+  const VerifyEmailScreen({super.key, this.email, required this.role});
 
   final String? email;
+  final String role;
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(VerifyEmailController());
+    final controller = Get.put(VerifyEmailController(role));
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

@@ -24,7 +24,7 @@ class PolicyNPrivacyScreen extends StatelessWidget {
                   // Title, price, stock
                   SizedBox(height: WasteSizes.spaceBtwItems / 2),
                   Text(
-                    """She got stressed out whenever she saw a notification on her email. The game looked fun, but all the pieces were missing. A big tree in the field was struck by lightning. Sales have dropped off at every department store. I caught a catfish yesterday with my bare hands. I can tell you're angry about the time change. That's the biggest grasshopper I've ever seen. She created an app to match zombies with willing victims. My mom drove me to school fifteen minutes late on Tuesday. Let's all just take a moment to breathe, please!""",
+                    "Your privacy is important to us. We collect personal data only to improve your eWasteCare experience. Your data will not be shared with third parties without your consent. You can request to delete your account and data anytime",
                     textAlign: TextAlign.justify,
                   ),
                   SizedBox(height: WasteSizes.spaceBtwItems),

@@ -6,6 +6,7 @@ import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/validators/validation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -99,15 +100,27 @@ class WasteLoginForm extends StatelessWidget {
             ),
             const SizedBox(height: WasteSizes.spaceBtwItems),
 
-            // Create Account Button
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton(
-                onPressed: () => Get.to(() => const SignupScreen()),
-                style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: WasteColors.buttonPrimary),
+            // Create Account Text
+            Center(
+              child: RichText(
+                text: TextSpan(
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  children: [
+                    const TextSpan(
+                      text: "Don't have an account? ",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    TextSpan(
+                      text: "Create Account",
+                      style: const TextStyle(
+                        color: WasteColors.buttonPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => Get.to(() => const SignupScreen()),
+                    ),
+                  ],
                 ),
-                child: const Text(WasteTexts.createAccount),
               ),
             ),
             const SizedBox(height: WasteSizes.spaceBtwItems),

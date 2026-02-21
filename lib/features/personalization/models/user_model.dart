@@ -12,7 +12,7 @@ class UserModel {
   final String email;
   String phoneNo;
   String profilePicture;
-  int ecoPoint;
+  int wastePoint;
   final String role;
   String userQR;
 
@@ -27,7 +27,7 @@ class UserModel {
     required this.email,
     required this.phoneNo,
     required this.profilePicture,
-    required this.ecoPoint,
+    required this.wastePoint,
     required this.role,
     required this.userQR,
   });
@@ -65,7 +65,7 @@ class UserModel {
     email: "",
     phoneNo: "",
     profilePicture: "",
-    ecoPoint: 0,
+    wastePoint: 0,
     role: "",
     userQR: "",
   );
@@ -82,7 +82,7 @@ class UserModel {
       "Email": email,
       "PhoneNumber": phoneNo,
       "ProfilePicture": profilePicture,
-      "EcoPoint": ecoPoint,
+      "WastePoint": wastePoint,
       "Role": role,
       "UserQR": userQR,
     };
@@ -106,7 +106,7 @@ class UserModel {
         email: data["Email"] ?? "",
         phoneNo: data["PhoneNumber"] ?? "",
         profilePicture: data["ProfilePicture"] ?? "",
-        ecoPoint: data["EcoPoint"] ?? "",
+        wastePoint: data["WastePoint"] ?? "",
         role: data["Role"] ?? "",
         userQR: data["UserQR"] ?? "",
       );

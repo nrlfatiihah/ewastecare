@@ -12,6 +12,10 @@ import 'package:get/get.dart';
 class VerifyEmailController extends GetxController {
   static VerifyEmailController get instance => Get.find();
 
+  final String role;
+
+  VerifyEmailController(this.role);
+
   @override
   void onInit() {
     sendEmailVerification();
@@ -19,10 +23,10 @@ class VerifyEmailController extends GetxController {
     super.onInit();
   }
 
-  // Send email verfication link to user
+  // Send email verification link to user
   sendEmailVerification() async {
     try {
-      await AuthenticationRepository.instance.sendEmailVerification();
+      await FirebaseAuth.instance.currentUser?.sendEmailVerification();
       WasteLoaders.successSnackBar(
         title: "Email Sent",
         message: "Please Check your inbox and verify your email",
@@ -43,7 +47,7 @@ class VerifyEmailController extends GetxController {
         await userDashboardController.setDefaultDashboardValues();
         Get.off(
           () => SuccessScreen(
-            image: WasteImages.sccessfullyRegisterAnimation,
+            image: WasteImages.successfullyRegisterAnimation,
             title: WasteTexts.yourAccountCreatedTitle,
             subTitle: WasteTexts.yourAccountCreatedSubTitle,
             onPressed: () =>
@@ -63,7 +67,7 @@ class VerifyEmailController extends GetxController {
 
       Get.off(
         () => SuccessScreen(
-          image: WasteImages.sccessfullyRegisterAnimation,
+          image: WasteImages.successfullyRegisterAnimation,
           title: WasteTexts.yourAccountCreatedTitle,
           subTitle: WasteTexts.yourAccountCreatedSubTitle,
           onPressed: () =>

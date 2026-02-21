@@ -27,8 +27,8 @@ class WasteTexts {
       "Exchange Your Points into Goods - Easy, Convenient, and Efficient";
 
   // Sign in/Sign Up
-  static const String adminRole = "Create Account";
-  static const String userRole = "Login";
+  static const String createAccount = "Create Account";
+  static const String login = "Login";
   static const String title = "Welcome to eWasteCare";
   static const String subTitle = "Small Actions, Big Impact";
 
@@ -53,7 +53,6 @@ class WasteTexts {
   static const String rememberMe = "Remember Me";
   static const String forgetPassword = "Forget Password?";
   static const String signIn = "Sign In";
-  static const String createAccount = "Create Account";
   static const String orSignInWith = "or sign in with";
   static const String orSignUpWith = "or sign up with";
   static const String iAgreeTo = "I agree to";

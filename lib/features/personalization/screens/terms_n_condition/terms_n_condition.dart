@@ -27,7 +27,7 @@ class TermsNConditionScreen extends StatelessWidget {
                   // Title, price, stock
                   SizedBox(height: WasteSizes.spaceBtwItems / 2),
                   Text(
-                    """She got stressed out whenever she saw a notification on her email. The game looked fun, but all the pieces were missing. A big tree in the field was struck by lightning. Sales have dropped off at every department store. I caught a catfish yesterday with my bare hands. I can tell you're angry about the time change. That's the biggest grasshopper I've ever seen. She created an app to match zombies with willing victims. My mom drove me to school fifteen minutes late on Tuesday. Let's all just take a moment to breathe, please!""",
+                    "By using eWasteCare, you agree to follow all local e-waste recycling rules and use the app responsibly. You must provide accurate information when creating an account. Your account may be suspended if any misuse or false reporting is detected. eWasteCare reserves the right to update these terms at any time.",
                     textAlign: TextAlign.justify,
                   ),
                   SizedBox(height: WasteSizes.spaceBtwItems),

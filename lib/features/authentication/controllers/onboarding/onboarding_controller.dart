@@ -1,5 +1,5 @@
 // use and checked
-import 'package:ewastecare/features/authentication/screens/choose_role/choose_role.dart';
+import 'package:ewastecare/features/authentication/screens/welcome/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -37,7 +37,7 @@ class OnBoardingController extends GetxController {
         print(storage.read("isFirstTime"));
       }
 
-      Get.offAll(() => const ChooseRole());
+      Get.offAll(() => const Welcome());
     } else {
       int page = currentPageIndex.value + 1;
       pageController.jumpToPage(page);

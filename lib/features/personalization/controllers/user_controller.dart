@@ -42,19 +42,6 @@ class UserController extends GetxController {
     fetchTransactions();
   }
 
-  // fetch user record
-  // Future<void> fetchUserRecord() async {
-  //   try {
-  //     profileLoading.value = true;
-  //     final user = await userRepository.fetchUserDetails();
-  //     this.user(user);
-  //   } catch (e) {
-  //     user(UserModel.empty());
-  //   } finally {
-  //     profileLoading.value = false;
-  //   }
-  // }
-
   Future<void> fetchUserRecord() async {
     try {
       profileLoading.value = true;
@@ -83,23 +70,6 @@ class UserController extends GetxController {
       dataFetched2.value = true;
     }
   }
-
-  //  Future<void> fetchDetailsTransactions([DateTime? startDate, DateTime? endDate]) async {
-  //     try {
-  //       final userId = FirebaseAuth.instance.currentUser?.uid;
-  //       if (userId == null) {
-  //         throw Exception("User is not authenticated");
-  //       }
-
-  //       dataFetched2.value = false;
-  //       transactions.value = await userRepository.fetchDetailsTransactions(userId, startDate, endDate);
-  //       dataFetched2.value = true;
-  //     } catch (e) {
-  //       print('Error fetching transactions: $e');
-  //       transactions.value = [];
-  //       dataFetched2.value = true;
-  //     }
-  //   }
 
   Future<void> fetchDetailsTransactions([
     DateTime? startDate,
@@ -143,7 +113,7 @@ class UserController extends GetxController {
     dataFetched = false;
   }
 
-  // Save user record from any registation provider
+  // Save user record from any registration provider
   Future<void> saveUserRecord(UserCredential? userCredentials) async {
     try {
       await fetchUserRecord();
@@ -168,7 +138,7 @@ class UserController extends GetxController {
           email: userCredentials.user!.email ?? "",
           phoneNo: userCredentials.user!.phoneNumber ?? "",
           profilePicture: userCredentials.user!.photoURL ?? "",
-          ecoPoint: 0,
+          wastePoint: 0,
           role: "user",
           userQR: "",
         );
@@ -180,7 +150,7 @@ class UserController extends GetxController {
       WasteLoaders.warningSnackBar(
         title: "Data not saved",
         message:
-            "Something went wrong while saving your information. Ypu can resave your data in your Profile.",
+            "Something went wrong while saving your information. You can resave your data in your Profile.",
       );
     }
   }

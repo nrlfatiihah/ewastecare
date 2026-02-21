@@ -81,6 +81,7 @@ class WasteSignUpForm extends StatelessWidget {
           ),
           const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
+          // Age & Gender
           Row(
             children: [
               Expanded(
@@ -118,6 +119,27 @@ class WasteSignUpForm extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: WasteSizes.spaceBtwInputFields),
+
+          // Role
+          Obx(
+            () => DropdownButtonFormField<String>(
+              value: controller.role.value,
+              validator: (value) => value == null ? 'Select your role' : null,
+              onChanged: (String? newValue) {
+                controller.role.value = newValue;
+              },
+              items: const [
+                DropdownMenuItem(value: 'user', child: Text('User')),
+                DropdownMenuItem(value: 'admin', child: Text('Admin')),
+              ],
+              decoration: const InputDecoration(
+                labelText: 'Role',
+                prefixIcon: Icon(Iconsax.security_user),
+              ),
+            ),
+          ),
+
           const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
           // Email

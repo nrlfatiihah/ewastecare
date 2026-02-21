@@ -23,6 +23,6 @@ class WasteImages {
       "assets/images/animations/sammy-line-man-receives-a-mail.png";
   static const String docerAnimation =
       "assets/images/animations/141594-animation-of-docer.json";
-  static const String sccessfullyRegisterAnimation =
+  static const String successfullyRegisterAnimation =
       "assets/images/animations/right.png";
 }
