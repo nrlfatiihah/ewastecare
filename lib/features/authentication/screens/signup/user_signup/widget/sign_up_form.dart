@@ -68,7 +68,7 @@ class WasteSignUpForm extends StatelessWidget {
           ),
           const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
-          // Address line 1
+          // Address line
           TextFormField(
             validator: (value) =>
                 WasteValidator.validateAddress("Home address", value),
@@ -142,18 +142,6 @@ class WasteSignUpForm extends StatelessWidget {
 
           const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
-          // Email
-          TextFormField(
-            controller: controller.email,
-            validator: (value) => WasteValidator.validateEmail(value),
-            expands: false,
-            decoration: const InputDecoration(
-              labelText: WasteTexts.email,
-              prefixIcon: Icon(Iconsax.direct),
-            ),
-          ),
-          const SizedBox(height: WasteSizes.spaceBtwInputFields),
-
           // Phone Number
           TextFormField(
             controller: controller.phoneNo,
@@ -162,6 +150,18 @@ class WasteSignUpForm extends StatelessWidget {
             decoration: const InputDecoration(
               labelText: WasteTexts.phoneNo,
               prefixIcon: Icon(Iconsax.call),
+            ),
+          ),
+          const SizedBox(height: WasteSizes.spaceBtwInputFields),
+
+          // Email
+          TextFormField(
+            controller: controller.email,
+            validator: (value) => WasteValidator.validateEmail(value),
+            expands: false,
+            decoration: const InputDecoration(
+              labelText: WasteTexts.email,
+              prefixIcon: Icon(Iconsax.direct),
             ),
           ),
           const SizedBox(height: WasteSizes.spaceBtwInputFields),

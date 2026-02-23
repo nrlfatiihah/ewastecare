@@ -122,7 +122,7 @@ flutter:
     - assets/images/on_boarding_images/
     - assets/images/animations/
     - assets/images/content/
-    - assets/images/ecobako_module/
+    - assets/images/waste_module/
 
   #-------------------------------Fonts------------------------------
   fonts:

@@ -2,7 +2,7 @@ import 'package:ewastecare/features/module/models/learning_module_model.dart';
 
 LearningModule learningModule5() {
   return LearningModule(
-    imagePath: "assets/images/Waste_module/modul5.png",
+    imagePath: "assets/images/waste_module/modul5.png",
     title: "Modul 5",
     subTitle: "Konsep 5R: Reduce (Kurang)",
     contentSections: [
@@ -10,7 +10,7 @@ LearningModule learningModule5() {
         sectionTitle1: "2. Definisi Reduce (Kurang)",
         sectionContent1:
             "Mengelakkan dari menggunakan produk yang mengandungi atau diperbuat dari plastik dan menggunakan alternatif lain. Pengurangan sisa plastik mampu untuk mengembalikan sesuatu ke keadadan sebelumnya yang lebih lestari.",
-        sectionImage1: ["assets/images/Waste_module/modul5.png"],
+        sectionImage1: ["assets/images/waste_module/modul5.png"],
         sectionTitle2: "Strategi Pengurangan Sisa Plastik",
         sectionContent2AddPoint1:
             "1. Menjadikan amalan atau tabiat menukar barang plastik kepada alternatif yang lebih lestari.",

@@ -28,13 +28,14 @@ class WasteTexts {
 
   // Sign in/Sign Up
   static const String createAccount = "Create Account";
-  static const String login = "Login";
+  static const String loginUser = "Login as User";
+  static const String loginAdmin = "Login as Admin";
   static const String title = "Welcome to eWasteCare";
   static const String subTitle = "Small Actions, Big Impact";
 
   //Admin login page details
   static const String adminLoginTitle = "Welcome back Admin";
-  static const String adminLoginSubTitle = "Bright future start from here";
+  static const String adminLoginSubTitle = "Small Actions, Big Impact";
   static const String adminEmail = "Email";
 
   // -- Authentication Forms
@@ -74,13 +75,13 @@ class WasteTexts {
       "Your Account Security is Our Priority! We've Sent You a Secure Link to Safely Change Your Password and Keep Your Account Protected.";
   static const String confirmEmail = "Verify your email address!";
   static const String confirmEmailSubTitle =
-      "Congratulations! Your Account Awaits: Verify Your Email to Start Using The Application";
+      "Congratulations! Your Account Awaits: Verify your email to start using the application";
   static const String emailNotReceivedMessage =
       "Didn’t get the email? Check your junk/spam or resend it.";
   static const String yourAccountCreatedTitle =
       "Your account successfully created!";
   static const String yourAccountCreatedSubTitle =
-      "Welcome to the Waste App! Your account has been created. Start learning how to recycle, earn EcoPoints, and redeem them for goods.";
+      "Welcome to the eWasteCare App! Your account has been created. Start learning how to recycle, earn WastePoints, and redeem them for goods.";
 
   // -- Product
   static const String popularProducts = "Popular Products";

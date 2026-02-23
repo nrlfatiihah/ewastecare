@@ -2,7 +2,7 @@ import 'package:ewastecare/features/module/models/learning_module_model.dart';
 
 LearningModule learningModule4() {
   return LearningModule(
-    imagePath: "assets/images/Waste_module/modul4.png",
+    imagePath: "assets/images/waste_module/modul4.png",
     title: "Modul 4",
     subTitle: "Konsep 5R: Refuse (Tolak)",
     contentSections: [
@@ -13,7 +13,7 @@ LearningModule learningModule4() {
         sectionTitle2: "Bagaimana hendak tolak?",
         sectionContent2:
             "Kita haruslah membuat penilaian dan keputusan yang bijak sebelum menerima atau menolak bahan tersebut.",
-        sectionImage1: ["assets/images/Waste_module/modul4.png"],
+        sectionImage1: ["assets/images/waste_module/modul4.png"],
       ),
       ContentSection(
         sectionTitle1: "Tolak Plastik Sekali Guna",
@@ -26,7 +26,7 @@ LearningModule learningModule4() {
             "2. Terlalu bergantung tanpa fikirkan kesan kepada alam sekitar pada jangka masa panjang",
         sectionContent3AddPoint3:
             "3. Plastik tidak boleh terurai secara sepenuhnya. Ia akan menjadi mikroplastik",
-        sectionImage1: ["assets/images/Waste_module/plastik_sekali_guna.png"],
+        sectionImage1: ["assets/images/waste_module/plastik_sekali_guna.png"],
       ),
     ],
   );

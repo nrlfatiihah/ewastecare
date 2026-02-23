@@ -1,9 +1,11 @@
 // use and checked
 import 'package:ewastecare/features/authentication/controllers/login/admin_login/admin_login_controller.dart';
+import 'package:ewastecare/features/authentication/screens/signup/user_signup/signup.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/validators/validation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -70,15 +72,32 @@ class AdminLoginForm extends StatelessWidget {
             ),
             const SizedBox(height: WasteSizes.spaceBtwItems),
 
-            // Open only, want to add new admin
-            // SizedBox(
-            //     width: double.infinity,
-            //     child: OutlinedButton(
-            //         onPressed: () => Get.to(() => const AdminSignupScreen()),
-            //         style: OutlinedButton.styleFrom(
-            //             side:
-            //                 const BorderSide(color: WasteColors.buttonPrimary)),
-            //         child: const Text(WasteTexts.createAccount))),
+            const SizedBox(height: WasteSizes.spaceBtwItems),
+
+            // Create Account Text
+            Center(
+              child: RichText(
+                text: TextSpan(
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  children: [
+                    const TextSpan(
+                      text: "Don't have an account? ",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    TextSpan(
+                      text: "Create Account",
+                      style: const TextStyle(
+                        color: WasteColors.buttonPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => Get.to(() => const SignupScreen()),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: WasteSizes.spaceBtwItems),
           ],
         ),
       ),

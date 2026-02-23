@@ -4,7 +4,7 @@ LearningModule learningModule2() {
   return LearningModule(
     title: "Modul 2",
     subTitle: "Saya Menghasilkan Sisa Pepejal",
-    imagePath: "assets/images/Waste_module/modul2.png",
+    imagePath: "assets/images/waste_module/modul2.png",
     contentSections: [
       ContentSection(
         sectionTitle1: "Objektif",
@@ -12,17 +12,17 @@ LearningModule learningModule2() {
             "1. Memberi pengetahuan akan jenis-jenis sisa pepejal yang dihasilkan di rumah (Domestic Waste) dan yang lain-lain (contoh: Industry Waste, Clinical Waste, Agricultural Waste).",
         sectionContent1AddPoint2:
             "2. Mengkelaskan sisa pepejal kepada yang boleh terurai dan tidak terurai.",
-        mainImage: ["assets/images/Waste_module/modul2.png"],
+        mainImage: ["assets/images/waste_module/modul2.png"],
       ),
       ContentSection(
         sectionTitle1: "Sisa Domestik",
-        sectionImage1: ["assets/images/Waste_module/sisa_domestik.png"],
+        sectionImage1: ["assets/images/waste_module/sisa_domestik.png"],
         sectionContent1:
             "Terdapat pelbagai jenis sisa domestik. Antaranya ialah besi, kertas, kaca, plastik, bahan-bahan organik, bateri, lampu dan bahan elektronik",
       ),
       ContentSection(
         sectionTitle1: "Sisa Industri",
-        sectionImage1: ["assets/images/Waste_module/sisa_industri.png"],
+        sectionImage1: ["assets/images/waste_module/sisa_industri.png"],
         sectionContent1:
             "Terdapat pelbagai jenis sisa industri. Antaranya adalah:",
         sectionContent1AddPoint1: "1. Sisa toksik",
@@ -31,7 +31,7 @@ LearningModule learningModule2() {
       ),
       ContentSection(
         sectionTitle1: "Sisa Klinikal",
-        sectionImage1: ["assets/images/Waste_module/sisa_perubatan.png"],
+        sectionImage1: ["assets/images/waste_module/sisa_perubatan.png"],
         sectionContent1:
             "Antara contoh-contoh sisa perubatan adalah seperti berikut:",
         sectionContent1AddPoint1:
@@ -45,7 +45,7 @@ LearningModule learningModule2() {
       ),
       ContentSection(
         sectionTitle1: "Sisa Pertanian",
-        sectionImage1: ["assets/images/Waste_module/sisa_pertanian.png"],
+        sectionImage1: ["assets/images/waste_module/sisa_pertanian.png"],
         sectionContent1:
             "Antara contoh-contoh sisa perubatan adalah seperti berikut:",
         sectionContent1AddPoint1: "1. Sisa pembalakkan",
@@ -56,7 +56,7 @@ LearningModule learningModule2() {
       ),
       ContentSection(
         sectionTitle1: "Asingkan Sisa Sampah Buangan Anda",
-        sectionImage1: ["assets/images/Waste_module/asing_sampah.png"],
+        sectionImage1: ["assets/images/waste_module/asing_sampah.png"],
         sectionContent1:
             "Asingkan sisa sampah anda kepada dua bahagian iaitu sisa sampah kering (non-biodegradable) dan sisa sampah basah (biodegradable)",
         sectionTitle2: "Jenis Sisa Sampah kering (non-biodegradable)",
@@ -69,7 +69,7 @@ LearningModule learningModule2() {
       ),
       ContentSection(
         sectionTitle1: "Aktiviti",
-        sectionImage1: ["assets/images/Waste_module/aktiviti_modul_2.png"],
+        sectionImage1: ["assets/images/waste_module/aktiviti_modul_2.png"],
         sectionContent1AddPoint1:
             "1. Pengkelasan sampah dari setiap rumah mengikut sisa organik dan tidak organik",
         sectionContent1AddPoint2:
@@ -79,7 +79,7 @@ LearningModule learningModule2() {
       ),
       ContentSection(
         sectionTitle1: "Perbincangan",
-        sectionImage1: ["assets/images/Waste_module/perbincangan_modul_2.png"],
+        sectionImage1: ["assets/images/waste_module/perbincangan_modul_2.png"],
         sectionContent1AddPoint1:
             "1. Bincang kepentingan & mengetahui jenis sampah yang dihasilkan",
         sectionContent1AddPoint2:

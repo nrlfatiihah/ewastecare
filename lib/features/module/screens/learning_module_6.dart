@@ -2,13 +2,13 @@ import 'package:ewastecare/features/module/models/learning_module_model.dart';
 
 LearningModule learningModule6() {
   return LearningModule(
-    imagePath: "assets/images/Waste_module/modul6.png",
+    imagePath: "assets/images/waste_module/modul6.png",
     title: "Modul 6",
     subTitle: "Konsep 5R: Reuse (Guna Semula)",
     contentSections: [
       ContentSection(
         sectionTitle1: "3. Definisi Reuse (Guna Semula)",
-        sectionImage1: ["assets/images/Waste_module/modul6.png"],
+        sectionImage1: ["assets/images/waste_module/modul6.png"],
         sectionContent1AddPoint1:
             "1. Menggunakan semula produk atau bahan yang boleh digunakan lagi.",
         sectionContent1AddPoint2:
@@ -27,8 +27,8 @@ LearningModule learningModule6() {
       ),
       ContentSection(
         sectionTitle1: "Guna Semula: Cara Inovatif Guna Semula Plastik",
-        sectionImage1: ["assets/images/Waste_module/guna_semula1.png"],
-        sectionImage2: ["assets/images/Waste_module/guna_semula2.png"],
+        sectionImage1: ["assets/images/waste_module/guna_semula1.png"],
+        sectionImage2: ["assets/images/waste_module/guna_semula2.png"],
       ),
     ],
   );
