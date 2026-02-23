@@ -1,5 +1,5 @@
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
-import 'package:ewastecare/features/ecobako_point/screen/recycle_rate.dart';
+import 'package:ewastecare/features/waste_point/screen/recycle_rate.dart';
 import 'package:ewastecare/features/home/controllers/admin_setting_controller.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:flutter/material.dart';

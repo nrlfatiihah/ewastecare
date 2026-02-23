@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ewastecare/data/repositories/dashboard/admin_dashboard_repository.dart';
 import 'package:ewastecare/data/repositories/dashboard/new_admin_dashboard_repository.dart';
-import 'package:ewastecare/features/ecobako_point/model/material_model.dart';
+import 'package:ewastecare/features/waste_point/model/material_model.dart';
 import 'package:get/get.dart';
 
 class AdminDashboardService extends GetxController {

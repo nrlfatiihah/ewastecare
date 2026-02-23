@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ewastecare/features/ecobako_point/model/add_point_model.dart';
-import 'package:ewastecare/features/ecobako_point/model/material_model.dart';
-import 'package:ewastecare/features/ecobako_point/model/point_result.dart';
+import 'package:ewastecare/features/waste_point/model/add_point_model.dart';
+import 'package:ewastecare/features/waste_point/model/material_model.dart';
+import 'package:ewastecare/features/waste_point/model/point_result.dart';
 import 'package:ewastecare/utils/exceptions/firebase_exceptions.dart';
 import 'package:ewastecare/utils/exceptions/format_exceptions.dart';
 import 'package:ewastecare/utils/exceptions/platform_exceptions.dart';

@@ -1,29 +1,29 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
-import 'package:ewastecare/features/ecobako_point/controller/material_controller.dart';
-import 'package:ewastecare/features/ecobako_point/model/material_model.dart';
-import 'package:ewastecare/features/ecobako_point/widget/test_add_rate_action_button.dart';
+import 'package:ewastecare/features/waste_point/controller/test_controller.dart';
+import 'package:ewastecare/features/waste_point/model/rate_model.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RecycleRate extends StatelessWidget {
-  const RecycleRate({super.key});
+class EditRate extends StatelessWidget {
+  const EditRate({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(MaterialController());
+    final controller = Get.put(AdminPointControllerTest());
 
     return Scaffold(
       appBar: WasteAppBar(
         showBackArrow: true,
         title: Text(
-          "Recycle Rate",
+          "Edit Recycle Rate",
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
           controller.resetDataFetched(); // Reset dataFetched flag
-          await controller.fetchRateMaterials(); // Fetch user record again
+          await controller.fetchMaterials(); // Fetch user record again
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -46,7 +46,7 @@ class RecycleRate extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .outline, // Change this to your desired border color
-                      width: 2, // Adjust the border width as needed
+                      width: 1, // Adjust the border width as needed
                     ),
                   ),
                   child: Column(
@@ -118,8 +118,6 @@ class RecycleRate extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: const TestRateActionbutton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -129,8 +127,8 @@ class RecycleRate extends StatelessWidget {
     required IconData icon,
     required bool isExpanded,
     required void Function(bool) onExpansionChanged,
-    required List<MaterialModel> materials,
-    required MaterialController controller,
+    required List<OldMaterialModel> materials,
+    required AdminPointControllerTest controller,
   }) {
     return ExpansionPanelList(
       elevation: 0,
@@ -158,6 +156,7 @@ class RecycleRate extends StatelessWidget {
             padding: EdgeInsets.all(16),
             child: Column(
               children: materials.map((material) {
+                // Create a TextEditingController for each material
                 final TextEditingController textController =
                     TextEditingController(
                       text: material.value.toStringAsFixed(2),

@@ -1,6 +1,6 @@
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/material/older_material_repository.dart';
-import 'package:ewastecare/features/ecobako_point/model/rate_model.dart';
+import 'package:ewastecare/features/waste_point/model/rate_model.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
 import 'package:ewastecare/utils/helpers/network_manager.dart';
 import 'package:ewastecare/utils/popups/full_screen_loader.dart';

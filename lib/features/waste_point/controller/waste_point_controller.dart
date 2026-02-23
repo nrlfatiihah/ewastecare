@@ -4,8 +4,8 @@ import 'package:ewastecare/data/repositories/dashboard/new_user_dashboard_reposi
 import 'package:ewastecare/data/repositories/material/material_repository.dart';
 import 'package:ewastecare/data/repositories/transaction/transaction_repository.dart';
 import 'package:ewastecare/data/repositories/user/user_repository.dart';
-import 'package:ewastecare/features/ecobako_point/model/add_point_model.dart';
-import 'package:ewastecare/features/ecobako_point/model/material_model.dart';
+import 'package:ewastecare/features/waste_point/model/add_point_model.dart';
+import 'package:ewastecare/features/waste_point/model/material_model.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
 import 'package:ewastecare/utils/helpers/network_manager.dart';
 import 'package:ewastecare/utils/popups/full_screen_loader.dart';
@@ -281,7 +281,10 @@ class AllocateWastePointController extends GetxController {
       final newTotalPoints = existingPoints + result.finalPoints;
 
       // Update user points with new total points
-      await userRepository.updateUserEcoPoints(userID.text, newTotalPoints);
+      await userRepository.updateUserEcoPoints(
+        userID.text,
+        newTotalPoints as int,
+      );
 
       // Save the transaction using the repository
       await _materialRepository.saveUserPoints(transaction);

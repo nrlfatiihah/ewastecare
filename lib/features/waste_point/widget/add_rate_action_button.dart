@@ -1,11 +1,11 @@
-import 'package:ewastecare/features/ecobako_point/widget/test_add_rate.dart';
+import 'package:ewastecare/features/waste_point/widget/add_rate.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class TestRateActionbutton extends StatelessWidget {
-  const TestRateActionbutton({super.key});
+class RateActionbutton extends StatelessWidget {
+  const RateActionbutton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class TestRateActionbutton extends StatelessWidget {
         // Clear form data before navigating to the form screen
         // ProductController.instance.clearFormData();
         // Navigate to the form screen
-        Get.to(() => const TestAdminAddMaterialScreen());
+        Get.to(() => const AdminAddMaterialScreen());
       },
       // Add your FAB button logic here,
       backgroundColor: WasteColors.primary,

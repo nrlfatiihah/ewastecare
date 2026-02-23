@@ -1,6 +1,6 @@
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ewastecare/features/dashboard/screens/admin/admin_dashboard.dart';
-import 'package:ewastecare/features/ecobako_point/ecobako_point_allocation.dart';
+import 'package:ewastecare/features/waste_point/ecobako_point_allocation.dart';
 import 'package:ewastecare/features/home/screens/admin/admin_home.dart';
 import 'package:ewastecare/features/store/screens/admin/store/admin_store.dart';
 import 'package:ewastecare/utils/constants/colors.dart';

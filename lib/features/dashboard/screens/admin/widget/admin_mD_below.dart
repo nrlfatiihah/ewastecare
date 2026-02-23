@@ -1,5 +1,5 @@
 import 'package:ewastecare/features/dashboard/screens/admin/admin_new_dashboard.dart';
-import 'package:ewastecare/features/ecobako_point/model/material_model.dart';
+import 'package:ewastecare/features/waste_point/model/material_model.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';

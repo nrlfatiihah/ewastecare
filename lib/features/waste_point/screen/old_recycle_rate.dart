@@ -1,8 +1,8 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
 import 'package:ewastecare/features/dashboard/screens/admin/admin_new_dashboard.dart';
-import 'package:ewastecare/features/ecobako_point/controller/test_controller.dart';
-import 'package:ewastecare/features/ecobako_point/model/rate_model.dart';
-import 'package:ewastecare/features/ecobako_point/widget/add_rate_action_button.dart';
+import 'package:ewastecare/features/waste_point/controller/test_controller.dart';
+import 'package:ewastecare/features/waste_point/model/rate_model.dart';
+import 'package:ewastecare/features/waste_point/widget/add_rate_action_button.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

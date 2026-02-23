@@ -1,5 +1,5 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
-import 'package:ewastecare/features/ecobako_point/controller/old_material_controller.dart';
+import 'package:ewastecare/features/waste_point/controller/old_material_controller.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
