@@ -1,5 +1,6 @@
 // use and checked
 import 'dart:io';
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ewastecare/features/personalization/models/admin_modal.dart';
@@ -10,6 +11,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 class AdminRepository extends GetxController {
   static AdminRepository get instance => Get.find();
@@ -107,18 +109,27 @@ class AdminRepository extends GetxController {
   // Upload any Image
   Future<String> uploadImage(String path, XFile image) async {
     try {
-      final ref = FirebaseStorage.instance.ref(path).child(image.name);
-      await ref.putFile(File(image.path));
-      final url = await ref.getDownloadURL();
-      return url;
-    } on FirebaseException catch (e) {
-      throw WasteFirebaseException(e.code).message;
-    } on FormatException catch (_) {
-      throw const WasteFormatException();
-    } on PlatformException catch (e) {
-      throw WastePlatformException(e.code).message;
+      final uri = Uri.parse(
+        "https://api.cloudinary.com/v1_1/dfcwleooo/image/upload",
+      );
+
+      final request = http.MultipartRequest("POST", uri);
+
+      request.fields['upload_preset'] = 'ewastecare_preset';
+
+      request.files.add(await http.MultipartFile.fromPath('file', image.path));
+
+      final response = await request.send();
+      final responseData = await response.stream.bytesToString();
+      final decoded = json.decode(responseData);
+
+      if (response.statusCode == 200) {
+        return decoded['secure_url'];
+      } else {
+        throw "Image upload failed";
+      }
     } catch (e) {
-      throw "Something went wrong, Please try again";
+      throw "Cloudinary upload error: $e";
     }
   }
 }

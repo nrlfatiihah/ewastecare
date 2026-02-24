@@ -24,11 +24,11 @@ class AppInformationScreen extends StatelessWidget {
                   // Title, price, stock
                   SizedBox(height: WasteSizes.spaceBtwItems / 2),
                   Text(
-                    """She got stressed out whenever she saw a notification on her email. The game looked fun, but all the pieces were missing. A big tree in the field was struck by lightning. Sales have dropped off at every department store. I caught a catfish yesterday with my bare hands. I can tell you're angry about the time change. That's the biggest grasshopper I've ever seen. She created an app to match zombies with willing victims. My mom drove me to school fifteen minutes late on Tuesday. Let's all just take a moment to breathe, please!""",
+                    "eWasteCare is a mobile application designed to encourage sustainable waste management and the 3R (Reduce, Reuse, Recycle) principles. The app allows users to monitor their waste contributions, learn proper recycling practices, and earn reward points for participating in recycling activities. By promoting responsible waste disposal and reducing landfill waste, eWasteCare aims to raise community awareness, encourage recycling, and support environmental sustainability.",
                     textAlign: TextAlign.justify,
                   ),
                   SizedBox(height: WasteSizes.spaceBtwSections),
-                  Text("App Version: 1.0.0.0", textAlign: TextAlign.center),
+                  Text("App Version: 2.0.0.0", textAlign: TextAlign.center),
                 ],
               ),
             ),

@@ -1,8 +1,8 @@
 import 'package:ewastecare/data/repositories/authentication/authentication_repository.dart';
-import 'package:ewastecare/features/dashboard/screens/user/user_dashboard.dart';
 import 'package:ewastecare/features/personalization/screens/settings/settings.dart';
 import 'package:ewastecare/features/home/screens/user/home.dart';
 import 'package:ewastecare/features/module/screens/user/user_module.dart';
+import 'package:ewastecare/features/store/screens/admin/store/user_store.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/helpers/helper_functions.dart';
 import 'package:ewastecare/utils/popups/logout_popup.dart';
@@ -50,10 +50,7 @@ class UserNavigationMenu extends StatelessWidget {
                 icon: Icon(Iconsax.teacher),
                 label: "Module",
               ),
-              NavigationDestination(
-                icon: Icon(Iconsax.status_up),
-                label: "Analytics",
-              ),
+              NavigationDestination(icon: Icon(Iconsax.shop), label: "Store"),
               NavigationDestination(icon: Icon(Iconsax.user), label: "Profile"),
             ],
           ),
@@ -70,7 +67,7 @@ class UserNavigationController extends GetxController {
   final screens = [
     const UserHomeScreen(),
     UserModuleScreen(),
-    const UserDashboardScreen(),
+    const UserStoreScreen(),
     const UserSettingScreen(),
   ];
 }

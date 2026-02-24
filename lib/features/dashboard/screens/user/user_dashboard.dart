@@ -29,6 +29,7 @@ class UserDashboardScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     WasteAppBar(
+                      showBackArrow: true,
                       title: Text(
                         "Performance Analytics",
                         style: Theme.of(context).textTheme.headlineMedium!

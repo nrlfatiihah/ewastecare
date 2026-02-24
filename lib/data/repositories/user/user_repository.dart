@@ -1,5 +1,6 @@
 // use and checked
 import 'dart:io';
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ewastecare/data/repositories/authentication/authentication_repository.dart';
 import 'package:ewastecare/features/personalization/models/user_model.dart';
@@ -12,6 +13,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:path_provider/path_provider.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
@@ -111,18 +116,27 @@ class UserRepository extends GetxController {
   // Upload any Image
   Future<String> uploadImage(String path, XFile image) async {
     try {
-      final ref = FirebaseStorage.instance.ref(path).child(image.name);
-      await ref.putFile(File(image.path));
-      final url = await ref.getDownloadURL();
-      return url;
-    } on FirebaseException catch (e) {
-      throw WasteFirebaseException(e.code).message;
-    } on FormatException catch (_) {
-      throw const WasteFormatException();
-    } on PlatformException catch (e) {
-      throw WastePlatformException(e.code).message;
+      final uri = Uri.parse(
+        "https://api.cloudinary.com/v1_1/dfcwleooo/image/upload",
+      );
+
+      final request = http.MultipartRequest("POST", uri);
+
+      request.fields['upload_preset'] = 'ewastecare_preset';
+
+      request.files.add(await http.MultipartFile.fromPath('file', image.path));
+
+      final response = await request.send();
+      final responseData = await response.stream.bytesToString();
+      final decoded = json.decode(responseData);
+
+      if (response.statusCode == 200) {
+        return decoded['secure_url'];
+      } else {
+        throw "Image upload failed";
+      }
     } catch (e) {
-      throw "Something went wrong, Please try again";
+      throw "Cloudinary upload error: $e";
     }
   }
 
@@ -185,10 +199,9 @@ class UserRepository extends GetxController {
   // Generate User qr code, render in image format and save in database
   Future<String> generateAndSaveQRCode(String userId) async {
     try {
-      // Generate QR code
-      final qrData = userId;
+      // 1️⃣ Generate QR code for the user ID
       final qrPainter = QrPainter(
-        data: qrData,
+        data: userId,
         version: QrVersions.auto,
         gapless: true,
         eyeStyle: const QrEyeStyle(
@@ -201,25 +214,69 @@ class UserRepository extends GetxController {
         ),
       );
 
-      // Convert QR image to bytes
+      // 2️⃣ Convert QR code to PNG bytes
       final picData = await qrPainter.toImageData(200);
-      final imageData = picData!.buffer.asUint8List();
+      if (picData == null) throw "Failed to generate QR image data";
+      final qrBytes = picData.buffer.asUint8List();
 
-      // Upload QR code image to Firebase Storage
-      final storageRef = _storage.ref().child(
-        'Users/Images/qr_codes/$userId.png',
-      );
-      await storageRef.putData(imageData);
+      // 3️⃣ Save the QR image temporarily
+      final tempDir = await getTemporaryDirectory();
+      final filePath = '${tempDir.path}/$userId.png';
+      final file = File(filePath);
+      await file.writeAsBytes(qrBytes);
 
-      // Get download URL of the uploaded QR code image
-      final downloadUrl = await storageRef.getDownloadURL();
+      // 4️⃣ Upload QR image to Cloudinary
+      final qrUrl = await _uploadQRCodeToCloudinary(filePath, userId);
 
-      // Update UserQR field in Firestore with the download URL
-      await _db.collection('Users').doc(userId).update({'UserQR': downloadUrl});
+      // 5️⃣ Save the QR code URL in Firestore under "UserQR"
+      await _db.collection('Users').doc(userId).update({'UserQR': qrUrl});
 
-      return downloadUrl;
+      return qrUrl;
     } catch (e) {
-      rethrow;
+      throw "Failed to generate/save user QR code: $e";
+    }
+  }
+
+  // Helper function to upload QR image to Cloudinary
+  Future<String> _uploadQRCodeToCloudinary(
+    String filePath,
+    String userId,
+  ) async {
+    try {
+      final cloudName = "dfcwleooo";
+      final uploadPreset = "ewastecare_preset";
+      final url = Uri.parse(
+        "https://api.cloudinary.com/v1_1/$cloudName/image/upload",
+      );
+
+      final file = File(filePath);
+      final mimeType = lookupMimeType(filePath) ?? 'image/png';
+      final mimeParts = mimeType.split('/');
+
+      final request = http.MultipartRequest('POST', url)
+        ..fields['upload_preset'] = uploadPreset
+        ..files.add(
+          await http.MultipartFile.fromPath(
+            'file',
+            file.path,
+            contentType: MediaType(mimeParts[0], mimeParts[1]),
+          ),
+        );
+
+      final response = await request.send();
+      final resBody = await http.Response.fromStream(response);
+
+      if (response.statusCode == 200) {
+        final secureUrl = RegExp(
+          r'"secure_url"\s*:\s*"(.+?)"',
+        ).firstMatch(resBody.body)?.group(1);
+        if (secureUrl != null) return secureUrl;
+        throw "Failed to get QR image URL from Cloudinary";
+      } else {
+        throw "Cloudinary upload failed: ${resBody.body}";
+      }
+    } catch (e) {
+      throw "Cloudinary QR upload error: $e";
     }
   }
 

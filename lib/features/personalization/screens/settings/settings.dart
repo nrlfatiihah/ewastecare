@@ -4,11 +4,11 @@ import 'package:ewastecare/common/widget/list_tiles/settings_menu_tile.dart';
 import 'package:ewastecare/common/widget/list_tiles/user_profile_tiles.dart';
 import 'package:ewastecare/common/widget/texts/section_heading.dart';
 import 'package:ewastecare/data/repositories/authentication/authentication_repository.dart';
+import 'package:ewastecare/features/dashboard/screens/user/user_dashboard.dart';
 import 'package:ewastecare/features/personalization/screens/app_information/app_information.dart';
 import 'package:ewastecare/features/personalization/screens/policy_n_privacy/policy_n_privacy.dart';
 import 'package:ewastecare/features/personalization/screens/profile/profile.dart';
 import 'package:ewastecare/features/personalization/screens/terms_n_condition/terms_n_condition.dart';
-import 'package:ewastecare/features/store/screens/admin/store/user_store.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -63,23 +63,23 @@ class UserSettingScreen extends StatelessWidget {
                   WasteSettingMenuTile(
                     icon: Iconsax.user,
                     title: "User Profile",
-                    subTitle: "Set user profile details",
+                    subTitle: "Set your profile details",
                     onTap: () => Get.to(() => const ProfileScreen()),
                   ),
 
                   // Redeem Point Options
                   WasteSettingMenuTile(
-                    icon: Iconsax.convert,
-                    title: "Redeem Points",
-                    subTitle: "Redeem goods from the stores",
-                    onTap: () => Get.to(() => const UserStoreScreen()),
+                    icon: Iconsax.graph,
+                    title: "Performance Analytics",
+                    subTitle: "View your performance",
+                    onTap: () => Get.to(() => const UserDashboardScreen()),
                   ),
 
                   // Language Options
                   WasteSettingMenuTile(
-                    icon: Iconsax.text_block,
+                    icon: Iconsax.language_square,
                     title: "Language",
-                    subTitle: "set prefered language",
+                    subTitle: "Set your preferred language",
                     onTap: () {},
                   ),
 
@@ -92,7 +92,7 @@ class UserSettingScreen extends StatelessWidget {
 
                   // Terms & Conditions Options
                   WasteSettingMenuTile(
-                    icon: Iconsax.document_copy,
+                    icon: Iconsax.document,
                     title: "Terms & Conditions",
                     subTitle:
                         "Details of terms & conditions of the application",

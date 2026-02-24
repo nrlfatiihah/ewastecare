@@ -48,7 +48,6 @@ class UserStoreScreen extends StatelessWidget {
                     children: [
                       // appBar
                       WasteAppBar(
-                        showBackArrow: true,
                         title: Text(
                           "Waste Store",
                           style: Theme.of(context).textTheme.headlineMedium!

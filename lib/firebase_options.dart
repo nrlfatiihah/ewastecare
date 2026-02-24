@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'ewastecare',
     storageBucket: 'ewastecare.firebasestorage.app',
   );
+
 }
