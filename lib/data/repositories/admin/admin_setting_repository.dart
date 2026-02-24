@@ -1,18 +1,28 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AdminSettingsRepository {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<String> getRecycleRatePassword() async {
-    DocumentSnapshot doc = await _firestore
-        .collection('admin_settings')
-        .doc('recycle_rate_access')
-        .get();
+  Future<void> reauthenticateAdmin(String enteredPassword) async {
+    final user = _auth.currentUser;
 
-    if (doc.exists) {
-      return doc['password'];
-    } else {
-      throw Exception('Password document not found.');
+    if (user == null) {
+      throw Exception("No admin is currently logged in.");
+    }
+
+    try {
+      final credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: enteredPassword,
+      );
+
+      await user.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password') {
+        throw Exception("Incorrect password.");
+      } else {
+        throw Exception(e.message ?? "Authentication failed.");
+      }
     }
   }
 }

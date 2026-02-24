@@ -126,13 +126,13 @@ class WasteTexts {
   static const String redeemProductQuantity = "Quantity";
   static const String confirmRedeem = "Confirm";
 
-  //-- filter dashboard analytics buttoon
+  //-- filter dashboard analytics button
   static const String fliterCancel = "Cancel";
 
   //-- Material rate
   static const String materialID = "Material ID";
   static const String materialName = "Material Name";
-  static const String materialType = "Material Tyoe";
+  static const String materialType = "Material Type";
   static const String materialValue = "Material Value";
   static const String materialAddButton = "Add Material";
 }

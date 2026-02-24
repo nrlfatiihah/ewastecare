@@ -1,6 +1,7 @@
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ewastecare/features/dashboard/screens/admin/admin_dashboard.dart';
-import 'package:ewastecare/features/waste_point/ecobako_point_allocation.dart';
+import 'package:ewastecare/features/waste_point/older_ecopoint_allocation.dart';
+import 'package:ewastecare/features/waste_point/waste_point_allocation.dart';
 import 'package:ewastecare/features/home/screens/admin/admin_home.dart';
 import 'package:ewastecare/features/store/screens/admin/store/admin_store.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
@@ -69,7 +70,12 @@ class AdminNavigationMenu extends StatelessWidget {
 class AdminNavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
-  // final screens = [const AdminHomeScreen(), const AdminStoreScreen(), AdminDashboardScreen(), const AdminPointAllocationScreen()];
+  /* final screens = [
+    const AdminHomeScreen(),
+    const AdminStoreScreen(),
+    AdminDashboardScreen(),
+    const OlderAdminPointAllocationScreen(),
+  ]; */
   final screens = [
     const AdminHomeScreen(),
     const AdminStoreScreen(),

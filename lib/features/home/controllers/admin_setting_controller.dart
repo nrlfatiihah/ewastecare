@@ -6,41 +6,43 @@ class AdminSettingsController {
   final AdminSettingsRepository _repository = AdminSettingsRepository();
 
   Future<bool> verifyRecycleRatePassword(BuildContext context) async {
-    String storedPassword = await _repository.getRecycleRatePassword();
     TextEditingController passwordController = TextEditingController();
-
     bool isVerified = false;
 
     await showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Enter Admin Password'),
+          title: const Text('Enter Admin Password'),
           content: TextField(
             controller: passwordController,
             obscureText: true,
-            decoration: InputDecoration(hintText: 'Password'),
+            decoration: const InputDecoration(hintText: 'Password'),
           ),
           actions: [
             TextButton(
-              onPressed: () {
-                if (passwordController.text.trim() == storedPassword) {
+              onPressed: () async {
+                try {
+                  await _repository.reauthenticateAdmin(
+                    passwordController.text.trim(),
+                  );
+
                   isVerified = true;
                   Navigator.of(context).pop();
-                } else {
+                } catch (e) {
                   WasteLoaders.errorSnackBar(
-                    title: "Wrong Password",
-                    message: "Please insert a correct password",
+                    title: "Authentication Failed",
+                    message: e.toString(),
                   );
                 }
               },
-              child: Text('Submit'),
+              child: const Text('Submit'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
           ],
         );

@@ -15,9 +15,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:http/http.dart' as http;
-import 'package:mime/mime.dart';
-import 'package:http_parser/http_parser.dart';
 
 class ProductController extends GetxController {
   static ProductController get instance => Get.find();
@@ -86,18 +83,17 @@ class ProductController extends GetxController {
   // Function to generate QR code as an image file
   Future<String> generateQRCode(String productId) async {
     try {
-      // 1️⃣ Generate the QR code
+      // Generate the QR code
       final qrValidationResult = QrValidator.validate(
         data: productId,
         version: QrVersions.auto,
         errorCorrectionLevel: QrErrorCorrectLevel.L,
       );
       final qrCode = qrValidationResult.qrCode;
-      if (qrCode == null) throw "Failed to generate QR code";
 
-      // 2️⃣ Convert QR code to image bytes
+      // Convert to Image
       final painter = QrPainter.withQr(
-        qr: qrCode,
+        qr: qrCode!,
         eyeStyle: const QrEyeStyle(
           eyeShape: QrEyeShape.square,
           color: Color(0xFF000000),
@@ -105,65 +101,37 @@ class ProductController extends GetxController {
         gapless: true,
       );
 
+      // Save to file
+      final tempDir = await getTemporaryDirectory();
+      final filePath = '${tempDir.path}/$productId.png';
+      final file = File(filePath);
       final picData = await painter.toImageData(
         300,
         format: ImageByteFormat.png,
       );
-      if (picData == null) throw "Failed to convert QR code to image";
+      await file.writeAsBytes(picData!.buffer.asUint8List());
 
-      // 3️⃣ Save bytes to a temporary file
-      final tempDir = await getTemporaryDirectory();
-      final filePath = '${tempDir.path}/$productId.png';
-      final file = File(filePath);
-      await file.writeAsBytes(picData.buffer.asUint8List());
+      // Upload the file to Firebase Storage
+      final qrImageUrl = await uploadQRCodeToStorage(filePath, productId);
 
-      // 4️⃣ Upload QR image to Cloudinary
-      final qrUrl = await uploadQRCodeToCloudinary(filePath, productId);
-
-      return qrUrl;
+      return qrImageUrl;
     } catch (e) {
-      throw "QR code generation/upload failed: $e";
+      throw "QR code generation failed: $e";
     }
   }
 
   // Function to upload QR code image to Firebase Storage
-  Future<String> uploadQRCodeToCloudinary(
+  Future<String> uploadQRCodeToStorage(
     String filePath,
     String productId,
   ) async {
-    final cloudName = "dfcwleooo";
-    final uploadPreset = "ewastecare_preset";
-    final url = Uri.parse(
-      "https://api.cloudinary.com/v1_1/$cloudName/image/upload",
+    final storageRef = FirebaseStorage.instance.ref().child(
+      'product_qr_codes/$productId.png',
     );
-
-    final file = File(filePath);
-    final mimeType = lookupMimeType(filePath) ?? 'image/png';
-    final mimeParts = mimeType.split('/');
-
-    final request = http.MultipartRequest('POST', url)
-      ..fields['upload_preset'] = uploadPreset
-      ..files.add(
-        await http.MultipartFile.fromPath(
-          'file',
-          file.path,
-          contentType: MediaType(mimeParts[0], mimeParts[1]),
-        ),
-      );
-
-    final response = await request.send();
-    final resBody = await http.Response.fromStream(response);
-
-    if (response.statusCode == 200) {
-      final data = resBody.body;
-      final secureUrl = RegExp(
-        r'"secure_url"\s*:\s*"(.+?)"',
-      ).firstMatch(data)?.group(1);
-      if (secureUrl != null) return secureUrl;
-      throw "Failed to get QR image URL from Cloudinary";
-    } else {
-      throw "Cloudinary upload failed: ${resBody.body}";
-    }
+    final uploadTask = storageRef.putFile(File(filePath));
+    final snapshot = await uploadTask.whenComplete(() => null);
+    final downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
   }
 
   void addNewProduct() async {
@@ -193,7 +161,7 @@ class ProductController extends GetxController {
         return;
       }
 
-      final imageUrl = await uploadImageToCloudinary(imagePath.value);
+      final imageUrl = await uploadImageToStorage(imagePath.value);
       final qrCodeUrl = await generateQRCode(productID.text.trim());
 
       final newProduct = ProductModel(
@@ -258,9 +226,7 @@ class ProductController extends GetxController {
 
       // Check if new image is pick
       if (imagePath.value.isNotEmpty) {
-        oldProduct.productImage = await uploadImageToCloudinary(
-          imagePath.value,
-        );
+        oldProduct.productImage = await uploadImageToStorage(imagePath.value);
       }
 
       // Update the new data to database
@@ -289,50 +255,19 @@ class ProductController extends GetxController {
     }
   }
 
-  Future<String> uploadImageToCloudinary(String imagePath) async {
+  Future<String> uploadImageToStorage(String imagePath) async {
     try {
       imageUploading.value = true;
+      final reference = FirebaseStorage.instance
+          .ref()
+          .child("ProductImages")
+          .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
 
-      final cloudName = "dfcwleooo";
-      final uploadPreset = "ewastecare_preset";
-      final url = Uri.parse(
-        "https://api.cloudinary.com/v1_1/$cloudName/image/upload",
-      );
+      final uploadTask = reference.putFile(File(imagePath));
+      final snapshot = await uploadTask.whenComplete(() {});
 
-      final file = File(imagePath);
-      final mimeType = lookupMimeType(imagePath) ?? 'image/jpeg';
-      final mimeParts = mimeType.split('/');
-
-      final request = http.MultipartRequest('POST', url)
-        ..fields['upload_preset'] = uploadPreset
-        ..files.add(
-          await http.MultipartFile.fromPath(
-            'file',
-            file.path,
-            contentType: MediaType(mimeParts[0], mimeParts[1]),
-          ),
-        );
-
-      final response = await request.send();
-      final resBody = await http.Response.fromStream(response);
-
-      if (response.statusCode == 200) {
-        final data = resBody.body;
-        // Cloudinary response JSON example:
-        // {"secure_url":"https://res.cloudinary.com/.../image.jpg", ...}
-        final secureUrl = RegExp(
-          r'"secure_url"\s*:\s*"(.+?)"',
-        ).firstMatch(data)?.group(1);
-
-        if (secureUrl != null) {
-          imageUploading.value = false;
-          return secureUrl;
-        } else {
-          throw "Failed to get uploaded image URL";
-        }
-      } else {
-        throw "Cloudinary upload failed: ${resBody.body}";
-      }
+      imageUploading.value = false;
+      return await snapshot.ref.getDownloadURL();
     } catch (e) {
       imageUploading.value = false;
       WasteLoaders.errorSnackBar(

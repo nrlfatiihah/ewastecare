@@ -45,10 +45,14 @@ class AdminDashboardScreen extends StatelessWidget {
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Performance Analytics",
-                            style: Theme.of(context).textTheme.headlineMedium!
-                                .apply(color: WasteColors.white),
+                          Expanded(
+                            child: Text(
+                              "Performance Analytics",
+                              style: Theme.of(context).textTheme.headlineMedium!
+                                  .apply(color: WasteColors.white),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
                           ),
                           const SizedBox(width: WasteSizes.inputFieldRadius),
                           IconButton(
