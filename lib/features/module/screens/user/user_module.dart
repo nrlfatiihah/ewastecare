@@ -1,68 +1,65 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
 import 'package:ewastecare/common/widget/custom_shape/containers/primary_header_container.dart';
+import 'package:ewastecare/features/module/controllers/module_controller.dart';
 import 'package:ewastecare/features/module/models/learning_module_model.dart';
-import 'package:ewastecare/features/module/screens/learning_module_2.dart';
-import 'package:ewastecare/features/module/screens/learning_module_1.dart';
-import 'package:ewastecare/features/module/screens/learning_module_3.dart';
-import 'package:ewastecare/features/module/screens/learning_module_4.dart';
-import 'package:ewastecare/features/module/screens/learning_module_5.dart';
-import 'package:ewastecare/features/module/screens/learning_module_6.dart';
-import 'package:ewastecare/features/module/screens/learning_module_7.dart';
-import 'package:ewastecare/features/module/screens/learning_module_8.dart';
 import 'package:ewastecare/features/module/screens/widget/learning_module_content.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class UserModuleScreen extends StatelessWidget {
   UserModuleScreen({super.key});
 
-  final List<LearningModule> modules = [
-    learningModule1(),
-    learningModule2(),
-    learningModule3(),
-    learningModule4(),
-    learningModule5(),
-    learningModule6(),
-    learningModule7(),
-    learningModule8(),
-  ];
+  // Access the controller
+  final controller = ModuleController.instance;
 
   @override
   Widget build(BuildContext context) {
     final dark = WasteHelperFunctions.isDarkMode(context);
+
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            WastePrimaryHeaderContainer(
-              child: Column(
-                children: [
-                  WasteAppBar(
-                    title: Text(
-                      "Learning Module",
-                      style: Theme.of(context).textTheme.headlineMedium!.apply(
-                        color: WasteColors.white,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          controller.resetModuleDataFetched();
+          await controller.fetchLearningModule();
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              WastePrimaryHeaderContainer(
+                child: Column(
+                  children: [
+                    WasteAppBar(
+                      title: Text(
+                        "Learning Module",
+                        style: Theme.of(context).textTheme.headlineMedium!
+                            .apply(color: WasteColors.white),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: WasteSizes.defaultSpace),
-                ],
+                    const SizedBox(height: WasteSizes.defaultSpace),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(WasteSizes.defaultSpace),
-              child: Column(
-                children: [
-                  ListView.builder(
-                    shrinkWrap:
-                        true, // Add this to fix the unbounded height issue
-                    physics:
-                        const NeverScrollableScrollPhysics(), // Add this to prevent inner ListView scrolling
-                    itemCount: modules.length,
+              Padding(
+                padding: const EdgeInsets.all(WasteSizes.defaultSpace),
+                child: Obx(() {
+                  if (controller.isLoading.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (controller.learningModule.isEmpty) {
+                    return const Center(child: Text("No modules found."));
+                  }
+
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controller.learningModule.length,
                     itemBuilder: (context, index) {
-                      final module = modules[index];
+                      final module = controller.learningModule[index];
+
                       return Column(
                         children: [
                           GestureDetector(
@@ -70,16 +67,14 @@ class UserModuleScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
+                                  builder: (_) =>
                                       LearningModuleContent(module: module),
                                 ),
                               );
                             },
                             child: Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  16.0,
-                                ), // Adjust the radius as needed
+                                borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -87,45 +82,38 @@ class UserModuleScreen extends StatelessWidget {
                                   // Image
                                   ClipRRect(
                                     borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(
-                                        16.0,
-                                      ), // Same radius as Card
-                                      topRight: Radius.circular(
-                                        16.0,
-                                      ), // Same radius as Card
+                                      topLeft: Radius.circular(16.0),
+                                      topRight: Radius.circular(16.0),
                                     ),
                                     child: Container(
                                       constraints: const BoxConstraints(
-                                        maxHeight:
-                                            250, // Adjust maximum height as needed
-                                        maxWidth: double
-                                            .infinity, // Ensure container stretches to card width
+                                        maxHeight: 250,
+                                        maxWidth: double.infinity,
                                       ),
-                                      child: Image.asset(
-                                        module.imagePath,
-                                        fit: BoxFit
-                                            .fitHeight, // Fit the image nicely inside the container
+                                      child: Image.network(
+                                        module.moduleImage,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
                                   // Title and Subtitle
                                   ListTile(
-                                    title: Text(module.title),
-                                    subtitle: Text(module.subTitle),
+                                    title: Text(module.moduleTitle),
+                                    subtitle: Text(module.moduleSubtitle),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                          const SizedBox(height: 16.0), // Add gap between cards
+                          const SizedBox(height: 16.0),
                         ],
                       );
                     },
-                  ),
-                ],
+                  );
+                }),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

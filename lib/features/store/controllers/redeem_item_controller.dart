@@ -75,8 +75,7 @@ class RedeemItemController extends GetxController {
     // final userEcoPointBalanceString = await productRepository.getUserEcoPointBalance();
 
     // final userEcoPointBalance = int.tryParse(userEcoPointBalanceString) ?? 0;
-    final userEcoPointBalance = await productRepository
-        .getUserEcoPointBalance();
+    final userEcoPointBalance = await productRepository.getUserWasteBalance();
     final userId = await userController.getCurrentUserId();
 
     // final userEcoPointBalance = int.tryParse(userEcoPointBalanceString) ?? 0;

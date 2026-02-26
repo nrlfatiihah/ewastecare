@@ -338,8 +338,8 @@ class ProductController extends GetxController {
     try {
       // Update product stock
       await productRepository.updateProductStock(productId, newStock);
-      // Update user's EcoPoint balance
-      await productRepository.updateUserEcoPointBalance(newUserBalance);
+      // Update user's Waste balance
+      await productRepository.updateUserWasteBalance(newUserBalance);
       await transactionCollection.logTransaction(
         userId: userid,
         type: 'Deduct',

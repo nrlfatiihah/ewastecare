@@ -1,4 +1,5 @@
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
+import 'package:ewastecare/features/module/controllers/module_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
@@ -29,6 +30,7 @@ Future<void> main() async {
   // Initialize GetX Controllers
   Get.put(authenticationRepository);
   Get.put(adminAuthenticationRepository);
+  Get.put(ModuleController());
   // Get.put(AdminDashboardService());
 
   runApp(const App());

@@ -162,7 +162,7 @@ class ProductRepository extends GetxController {
     }
   }
 
-  Future<int> getUserEcoPointBalance() async {
+  Future<int> getUserWasteBalance() async {
     try {
       final User? user = _auth.currentUser;
       if (user == null) {
@@ -176,7 +176,7 @@ class ProductRepository extends GetxController {
         return 0; // User data not found
       }
       final userData = userDoc.data() as Map<String, dynamic>;
-      return userData['EcoPoint'] as int;
+      return userData['Waste'] as int;
     } catch (e) {
       return 0;
     }
@@ -198,7 +198,7 @@ class ProductRepository extends GetxController {
     }
   }
 
-  Future<void> updateUserEcoPointBalance(int newUserBalance) async {
+  Future<void> updateUserWasteBalance(int newUserBalance) async {
     try {
       final User? user = _auth.currentUser;
       if (user == null) {
