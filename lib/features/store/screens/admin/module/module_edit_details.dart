@@ -1,26 +1,31 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
 import 'package:ewastecare/features/module/controllers/module_controller.dart';
+import 'package:ewastecare/features/module/models/learning_module_model.dart';
 import 'package:ewastecare/features/module/screens/admin/widget/add_module_image.dart';
 import 'package:ewastecare/features/module/screens/admin/widget/add_section_image.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
-import 'package:ewastecare/utils/constants/texts.dart';
-import 'package:ewastecare/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
-class AdminAddModuleScreen extends StatelessWidget {
-  const AdminAddModuleScreen({super.key});
+class AdminEditModuleScreen extends StatelessWidget {
+  final ModuleModel module;
+
+  const AdminEditModuleScreen({super.key, required this.module});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ModuleController());
 
+    // Load existing module data
+    if (controller.isEditing.value == false) {
+      controller.loadModuleForEditing(module);
+    }
+
     return Scaffold(
       appBar: const WasteAppBar(
         showBackArrow: true,
-        title: Text("Add New Module"),
+        title: Text("Edit Module"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -33,40 +38,25 @@ class AdminAddModuleScreen extends StatelessWidget {
                 // Module ID
                 TextFormField(
                   controller: controller.moduleID,
-                  validator: (value) =>
-                      WasteValidator.validateEmptyText("Module ID", value),
-                  decoration: const InputDecoration(
-                    labelText: "Module ID",
-                    prefixIcon: Icon(Iconsax.tag),
-                  ),
+                  readOnly: true,
+                  decoration: const InputDecoration(labelText: "Module ID"),
                 ),
                 const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
                 // Module Title
                 TextFormField(
                   controller: controller.moduleTitle,
-                  validator: (value) =>
-                      WasteValidator.validateEmptyText("Module Title", value),
-                  decoration: const InputDecoration(
-                    labelText: "Module Title",
-                    prefixIcon: Icon(Iconsax.book),
-                  ),
+                  decoration: const InputDecoration(labelText: "Module Title"),
                 ),
                 const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
                 // Module Subtitle
                 TextFormField(
                   controller: controller.moduleSubtitle,
-                  validator: (value) => WasteValidator.validateEmptyText(
-                    "Module Subtitle",
-                    value,
-                  ),
                   decoration: const InputDecoration(
                     labelText: "Module Subtitle",
-                    prefixIcon: Icon(Iconsax.text),
                   ),
                 ),
-
                 const SizedBox(height: WasteSizes.spaceBtwSections),
 
                 // Module Image
@@ -215,15 +205,31 @@ class AdminAddModuleScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: controller.addNewModule,
+                    onPressed: () => controller.updateModule(module),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: WasteColors.primary,
                     ),
-                    child: const Text("Save Module"),
+                    child: const Text("Save Changes"),
                   ),
                 ),
 
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
+
+                // Delete Module button
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      controller.showDeleteConfirmationDialog(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      side: const BorderSide(color: Colors.red),
+                    ),
+                    child: const Text("Delete Module"),
+                  ),
+                ),
+                const SizedBox(height: WasteSizes.spaceBtwSections),
               ],
             ),
           ),

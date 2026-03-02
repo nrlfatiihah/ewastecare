@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/module/module_repository.dart';
 import 'package:ewastecare/features/module/models/learning_module_model.dart';
@@ -20,6 +19,7 @@ class ModuleController extends GetxController {
 
   final isLoading = false.obs;
   final imagePath = "".obs;
+  final sectionImagePath = "".obs;
   final imageUploading = false.obs;
   final moduleRepository = Get.put(ModuleRepository());
   final moduleID = TextEditingController();
@@ -28,6 +28,7 @@ class ModuleController extends GetxController {
   final sections = <SectionFormModel>[].obs;
   RxList<ModuleModel> learningModule = <ModuleModel>[].obs;
   bool moduleDataFetched = false;
+  final isEditing = false.obs;
 
   @override
   void onInit() {
@@ -52,6 +53,7 @@ class ModuleController extends GetxController {
     super.onClose();
   }
 
+  // Fetch modules
   Future<void> fetchLearningModule() async {
     try {
       isLoading.value = true;
@@ -68,6 +70,7 @@ class ModuleController extends GetxController {
     moduleDataFetched = false;
   }
 
+  // Image picking
   Future<String?> selectModuleImage() async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -79,6 +82,41 @@ class ModuleController extends GetxController {
     imagePath.value = path;
   }
 
+  Future<void> pickSectionImage(int index) async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      sections[index].sectionImageFile = File(pickedFile.path);
+      sections.refresh();
+    }
+  }
+
+  Future<String> uploadImageToStorage(String imagePath) async {
+    try {
+      imageUploading.value = true;
+      final reference = FirebaseStorage.instance
+          .ref()
+          .child("MaterialImages")
+          .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+      final uploadTask = reference.putFile(File(imagePath));
+      final snapshot = await uploadTask.whenComplete(() {});
+
+      imageUploading.value = false;
+      return await snapshot.ref.getDownloadURL();
+    } catch (e) {
+      imageUploading.value = false;
+      WasteLoaders.errorSnackBar(
+        title: "Oops!",
+        message: "Failed to upload image: $e",
+      );
+      throw Exception("Image upload failed");
+    }
+  }
+
+  // Add Module
   void addNewModule() async {
     try {
       WasteFullScreenLoader.openLoadingDialog(
@@ -108,21 +146,34 @@ class ModuleController extends GetxController {
 
       final imageUrl = await uploadImageToStorage(imagePath.value);
 
-      final List<SectionModel> contentSections = sections.map((section) {
-        return SectionModel(
-          sectionTitle1: section.sectionTitle.text.trim(),
-          sectionContent1: section.sectionContent.text.trim(),
-          sectionContent1AddPoint1: section.points.isNotEmpty
-              ? section.points[0].text.trim()
-              : null,
-          sectionContent1AddPoint2: section.points.length > 1
-              ? section.points[1].text.trim()
-              : null,
-          sectionContent1AddPoint3: section.points.length > 2
-              ? section.points[2].text.trim()
-              : null,
+      final List<SectionModel> contentSections = [];
+
+      for (var section in sections) {
+        String? sectionImageUrl;
+
+        if (section.sectionImageFile != null) {
+          sectionImageUrl = await uploadImageToStorage(
+            section.sectionImageFile!.path,
+          );
+        }
+
+        contentSections.add(
+          SectionModel(
+            sectionTitle1: section.sectionTitle.text.trim(),
+            sectionContent1: section.sectionContent.text.trim(),
+            sectionImage: sectionImageUrl,
+            sectionContent1AddPoint1: section.points.isNotEmpty
+                ? section.points[0].text.trim()
+                : null,
+            sectionContent1AddPoint2: section.points.length > 1
+                ? section.points[1].text.trim()
+                : null,
+            sectionContent1AddPoint3: section.points.length > 2
+                ? section.points[2].text.trim()
+                : null,
+          ),
         );
-      }).toList();
+      }
 
       final newModule = ModuleModel(
         id: moduleID.text.trim(),
@@ -163,7 +214,50 @@ class ModuleController extends GetxController {
     }
   }
 
-  void updateModule(ModuleModel oldModule) async {
+  // Load module for editing
+  void loadModuleForEditing(ModuleModel module) {
+    if (isEditing.value) return;
+    isEditing.value = true;
+
+    moduleID.text = module.id;
+    moduleTitle.text = module.moduleTitle;
+    moduleSubtitle.text = module.moduleSubtitle;
+    imagePath.value = module.moduleImage;
+
+    sections.clear();
+
+    for (var section in module.contentSections) {
+      final sectionForm = SectionFormModel();
+      sectionForm.sectionTitle.text = section.sectionTitle1;
+      sectionForm.sectionContent.text = section.sectionContent1;
+
+      // Load image URL in the form
+      if (section.sectionImage != null && section.sectionImage!.isNotEmpty) {
+        sectionForm.sectionImageFile = null;
+        sectionForm.sectionImageUrl = section.sectionImage;
+      }
+
+      // Load points
+      if (section.sectionContent1AddPoint1 != null) {
+        sectionForm.points.add(
+          TextEditingController()..text = section.sectionContent1AddPoint1!,
+        );
+      }
+      if (section.sectionContent1AddPoint2 != null) {
+        sectionForm.points.add(
+          TextEditingController()..text = section.sectionContent1AddPoint2!,
+        );
+      }
+      if (section.sectionContent1AddPoint3 != null) {
+        sectionForm.points.add(
+          TextEditingController()..text = section.sectionContent1AddPoint3!,
+        );
+      }
+      sections.add(sectionForm);
+    }
+  }
+
+  Future<void> updateModule(ModuleModel oldModule) async {
     try {
       WasteFullScreenLoader.openLoadingDialog(
         "We are processing your request",
@@ -181,68 +275,60 @@ class ModuleController extends GetxController {
         return;
       }
 
-      if (imagePath.value.isNotEmpty) {
-        oldModule.moduleImage = await uploadImageToStorage(imagePath.value);
+      // Upload module image if new one selected
+      String moduleImageUrl = oldModule.moduleImage;
+      if (imagePath.value != oldModule.moduleImage) {
+        moduleImageUrl = await uploadImageToStorage(imagePath.value);
       }
 
-      final List<SectionModel> contentSections = sections.map((section) {
-        return SectionModel(
-          sectionTitle1: section.sectionTitle.text.trim(),
-          sectionContent1: section.sectionContent.text.trim(),
-          sectionContent1AddPoint1: section.points.isNotEmpty
-              ? section.points[0].text.trim()
-              : null,
-          sectionContent1AddPoint2: section.points.length > 1
-              ? section.points[1].text.trim()
-              : null,
-          sectionContent1AddPoint3: section.points.length > 2
-              ? section.points[2].text.trim()
-              : null,
+      // Upload section images if any new selected
+      final List<SectionModel> contentSections = [];
+      for (var section in sections) {
+        String? sectionImageUrl = section.sectionImageUrl; // existing URL
+        if (section.sectionImageFile != null) {
+          sectionImageUrl = await uploadImageToStorage(
+            section.sectionImageFile!.path,
+          );
+        }
+
+        contentSections.add(
+          SectionModel(
+            sectionTitle1: section.sectionTitle.text.trim(),
+            sectionContent1: section.sectionContent.text.trim(),
+            sectionImage: sectionImageUrl,
+            sectionContent1AddPoint1: section.points.isNotEmpty
+                ? section.points[0].text.trim()
+                : null,
+            sectionContent1AddPoint2: section.points.length > 1
+                ? section.points[1].text.trim()
+                : null,
+            sectionContent1AddPoint3: section.points.length > 2
+                ? section.points[2].text.trim()
+                : null,
+          ),
         );
-      }).toList();
+      }
 
       final updatedModule = ModuleModel(
         id: oldModule.id,
         moduleTitle: moduleTitle.text.trim(),
         moduleSubtitle: moduleSubtitle.text.trim(),
-        moduleImage: oldModule.moduleImage,
+        moduleImage: moduleImageUrl,
         contentSections: contentSections,
       );
 
-      // await moduleRepository.updateModuleRecord(updatedModule);
+      await moduleRepository.updateModuleRecord(updatedModule);
+
+      await fetchLearningModule();
 
       WasteFullScreenLoader.stopLoading();
-
       WasteLoaders.successSnackBar(
         title: "Success",
-        message: "Your material has been successfully updated.",
+        message: "Your module has been successfully updated.",
       );
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
       WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
-    }
-  }
-
-  Future<String> uploadImageToStorage(String imagePath) async {
-    try {
-      imageUploading.value = true;
-      final reference = FirebaseStorage.instance
-          .ref()
-          .child("ProductImages")
-          .child('${DateTime.now().millisecondsSinceEpoch}.jpg');
-
-      final uploadTask = reference.putFile(File(imagePath));
-      final snapshot = await uploadTask.whenComplete(() {});
-
-      imageUploading.value = false;
-      return await snapshot.ref.getDownloadURL();
-    } catch (e) {
-      imageUploading.value = false;
-      WasteLoaders.errorSnackBar(
-        title: "Oops!",
-        message: "Failed to upload image: $e",
-      );
-      throw Exception("Image upload failed");
     }
   }
 
@@ -301,7 +387,7 @@ class ModuleController extends GetxController {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text("Confirm Deletion"),
-          content: const Text("Are you sure you want to delete this product?"),
+          content: const Text("Are you sure you want to delete this module?"),
           actions: [
             TextButton(
               onPressed: () {
@@ -328,13 +414,13 @@ class ModuleController extends GetxController {
       await moduleRepository.deleteModule(id);
       WasteLoaders.successSnackBar(
         title: "Success",
-        message: "The product have been deleted successfully",
+        message: "The module have been deleted successfully",
       );
       Get.off(() => const AdminModule());
     } catch (e) {
       WasteLoaders.errorSnackBar(
         title: "Opps",
-        message: "Failed to delete the product. Please try again",
+        message: "Failed to delete the module. Please try again",
       );
     }
   }

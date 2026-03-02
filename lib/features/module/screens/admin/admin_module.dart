@@ -27,6 +27,7 @@ class AdminModule extends StatelessWidget {
           await controller.fetchLearningModule();
         },
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
               const WastePrimaryHeaderContainer(

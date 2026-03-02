@@ -61,24 +61,30 @@ class ModuleRepository extends GetxController {
     }
   }
 
-  // Future<void> updateModuleRecord(ModuleModel products) async {
-  //   try {
-  //     await _db
-  //         .collection("Materials")
-  //         .doc(module.id)
-  //         .update(products.toJson());
-  //   } on FirebaseException catch (e) {
-  //     throw WasteFirebaseException(e.code).message;
-  //   } on FormatException catch (_) {
-  //     throw const WasteFormatException();
-  //   } on PlatformException catch (e) {
-  //     throw WastePlatformException(e.code).message;
-  //   } on SocketException catch (e) {
-  //     throw "Error socket ${e.message}";
-  //   } catch (e) {
-  //     throw "Something went wrong, Please try again";
-  //   }
-  // }
+  Future<void> updateModuleRecord(ModuleModel module) async {
+    try {
+      final docRef = _db.collection("Materials").doc(module.id);
+
+      // Prepare sections as List<Map<String, dynamic>>
+      final sectionsData = module.contentSections
+          .map((section) => section.toJson())
+          .toList();
+
+      final moduleData = {
+        "moduleTitle": module.moduleTitle,
+        "moduleSubtitle": module.moduleSubtitle,
+        "moduleImage": module.moduleImage,
+        "contentSections": sectionsData,
+        "updatedAt": FieldValue.serverTimestamp(),
+      };
+
+      await docRef.update(moduleData);
+    } on FirebaseException catch (e) {
+      throw "Failed to update module: ${e.message}";
+    } catch (e) {
+      throw "Something went wrong while updating the module: $e";
+    }
+  }
 
   Future<Map<String, dynamic>> getModuleData(String id) async {
     try {

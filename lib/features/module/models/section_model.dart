@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class SectionModel {
   String sectionTitle1;
   String sectionContent1;
+  String? sectionImage;
   String? sectionContent1AddPoint1;
   String? sectionContent1AddPoint2;
   String? sectionContent1AddPoint3;
@@ -11,6 +12,7 @@ class SectionModel {
   SectionModel({
     required this.sectionTitle1,
     required this.sectionContent1,
+    this.sectionImage,
     this.sectionContent1AddPoint1,
     this.sectionContent1AddPoint2,
     this.sectionContent1AddPoint3,
@@ -28,6 +30,13 @@ class SectionModel {
         const SizedBox(height: WasteSizes.spaceBtwItems),
         if (sectionContent1.isNotEmpty)
           Text(sectionContent1, style: const TextStyle(fontSize: 16)),
+        if (sectionImage != null && sectionImage!.isNotEmpty) ...[
+          const SizedBox(height: 10),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(sectionImage!, fit: BoxFit.cover),
+          ),
+        ],
         if (sectionContent1AddPoint1 != null)
           Text(sectionContent1AddPoint1!, style: const TextStyle(fontSize: 16)),
         if (sectionContent1AddPoint2 != null)
@@ -43,6 +52,7 @@ class SectionModel {
     return {
       "sectionTitle1": sectionTitle1,
       "sectionContent1": sectionContent1,
+      "sectionImage": sectionImage,
       "sectionContent1AddPoint1": sectionContent1AddPoint1,
       "sectionContent1AddPoint2": sectionContent1AddPoint2,
       "sectionContent1AddPoint3": sectionContent1AddPoint3,
@@ -53,6 +63,7 @@ class SectionModel {
     return SectionModel(
       sectionTitle1: map["sectionTitle1"] ?? "",
       sectionContent1: map["sectionContent1"] ?? "",
+      sectionImage: map["sectionImage"],
       sectionContent1AddPoint1: map["sectionContent1AddPoint1"],
       sectionContent1AddPoint2: map["sectionContent1AddPoint2"],
       sectionContent1AddPoint3: map["sectionContent1AddPoint3"],

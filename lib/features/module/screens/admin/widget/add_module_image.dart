@@ -1,40 +1,69 @@
 import 'dart:io';
-import 'package:ewastecare/features/module/controllers/module_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ewastecare/features/module/controllers/module_controller.dart';
+import 'package:ewastecare/utils/constants/colors.dart';
 
 class AddModuleImage extends StatelessWidget {
   const AddModuleImage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Get.find<ModuleController>().selectModuleImage().then((value) {
-          if (value != null) {
-            Get.find<ModuleController>().setImagePath(value);
-          }
-        });
-      },
-      child: Obx(() {
-        final imagePath = Get.find<ModuleController>().imagePath.value;
-        return Container(
-          height: 200,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.grey[200],
-          ),
-          child: Center(
-            child: imagePath.isEmpty
-                ? Icon(
-                    Icons.add_photo_alternate,
-                    size: 30,
-                    color: Colors.grey[400],
-                  )
-                : Image.file(File(imagePath), fit: BoxFit.cover),
+    final controller = Get.find<ModuleController>();
+
+    return Obx(() {
+      final imagePath = controller.imagePath.value;
+
+      Widget imageWidget;
+
+      if (imagePath.isEmpty) {
+        // No image selected yet
+        imageWidget = const SizedBox(
+          height: 150,
+          child: Center(child: Text("No image selected")),
+        );
+      } else if (imagePath.startsWith("http")) {
+        // Network image (existing module image)
+        imageWidget = ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.network(
+            imagePath,
+            height: 200,
+            width: double.infinity,
+            fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) =>
+                const Center(child: Text("Failed to load image")),
           ),
         );
-      }),
-    );
+      } else {
+        // Local file selected
+        imageWidget = ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.file(
+            File(imagePath),
+            height: 200,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+        );
+      }
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Module Image", style: Theme.of(context).textTheme.labelLarge),
+          const SizedBox(height: 8),
+          imageWidget,
+          TextButton.icon(
+            onPressed: () async {
+              final path = await controller.selectModuleImage();
+              if (path != null) controller.setImagePath(path);
+            },
+            icon: const Icon(Icons.image),
+            label: const Text("Select Image"),
+          ),
+        ],
+      );
+    });
   }
 }

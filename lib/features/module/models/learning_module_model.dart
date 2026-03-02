@@ -29,7 +29,7 @@ class ModuleModel {
       "moduleTitle": moduleTitle,
       "moduleSubtitle": moduleSubtitle,
       "moduleImage": moduleImage,
-      "Section": contentSections.map((e) => e.toJson()).toList(),
+      "contentSections": contentSections.map((e) => e.toJson()).toList(),
     };
   }
 

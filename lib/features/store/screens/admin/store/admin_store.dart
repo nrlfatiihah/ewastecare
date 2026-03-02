@@ -56,8 +56,9 @@ class AdminStoreScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: WasteSizes.spaceBtwSections),
                     Obx(() {
-                      if (controller.isLoading.value)
+                      if (controller.isLoading.value) {
                         return const WasteVerticalProductShimmer();
+                      }
                       if (controller.storeProducts.isEmpty) {
                         return Center(
                           child: Text(
