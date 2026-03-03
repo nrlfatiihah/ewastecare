@@ -1,6 +1,6 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
 import 'package:ewastecare/common/widget/custom_shape/containers/primary_header_container.dart';
-import 'package:ewastecare/features/waste_point/controller/old_ecopoint_test_controller.dart';
+import 'package:ewastecare/features/waste_point/controller/old_wastepoint_test_controller.dart';
 import 'package:ewastecare/features/waste_point/model/rate_model.dart';
 import 'package:ewastecare/features/waste_point/widget/eco_point_qr_scan.dart';
 import 'package:ewastecare/features/home/screens/admin/widgets/drawer_admin.dart';
@@ -17,7 +17,7 @@ class AdminPointAllocationScreenTest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AllocateEcoPointController());
+    final controller = Get.put(AllocateWastePointController());
     return Scaffold(
       endDrawer: AdminEndDrawer(),
       body: SingleChildScrollView(
@@ -229,7 +229,7 @@ class AdminPointAllocationScreenTest extends StatelessWidget {
         child: Column(
           children: materials.map((material) {
             final weightController =
-                Get.find<AllocateEcoPointController>()
+                Get.find<AllocateWastePointController>()
                     .weightControllers[material.name] ??
                 TextEditingController();
 

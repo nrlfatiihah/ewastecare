@@ -85,15 +85,28 @@ class AdminAddModuleScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: 150, // set width
                       child: ElevatedButton.icon(
                         onPressed: controller.addSection,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: WasteColors.primary,
-                        ),
+                        style:
+                            ElevatedButton.styleFrom(
+                              backgroundColor: WasteColors.primary,
+                              side: BorderSide.none,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                            ).copyWith(
+                              overlayColor: MaterialStateProperty.all(
+                                Colors.transparent,
+                              ),
+                            ),
                         icon: const Icon(Icons.add),
-                        label: const Text("Add Section"),
+                        label: const Text(
+                          "Add Section",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ],
@@ -216,10 +229,19 @@ class AdminAddModuleScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: controller.addNewModule,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: WasteColors.primary,
+                    style:
+                        ElevatedButton.styleFrom(
+                          backgroundColor: WasteColors.primary,
+                          side: BorderSide.none,
+                        ).copyWith(
+                          overlayColor: MaterialStateProperty.all(
+                            Colors.transparent,
+                          ),
+                        ),
+                    child: const Text(
+                      "Save Module",
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    child: const Text("Save Module"),
                   ),
                 ),
 

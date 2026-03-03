@@ -6,7 +6,7 @@ class AdminDashboardModel {
   final double pp;
   final double pet;
   final double hdpe;
-  final int totalEcoPoints;
+  final int totalWastePoints;
   final double totalAllPlastic;
   final DateTime date;
 
@@ -16,36 +16,38 @@ class AdminDashboardModel {
     required this.pp,
     required this.pet,
     required this.hdpe,
-    required this.totalEcoPoints,
+    required this.totalWastePoints,
     required this.totalAllPlastic,
     required this.date,
   });
 
   static AdminDashboardModel empty() => AdminDashboardModel(
-      id: '',
-      userId: '',
-      pp: 0.0,
-      pet: 0.0,
-      hdpe: 0.0,
-      totalEcoPoints: 0,
-      totalAllPlastic: 0.0,
-      date: DateTime.now());
+    id: '',
+    userId: '',
+    pp: 0.0,
+    pet: 0.0,
+    hdpe: 0.0,
+    totalWastePoints: 0,
+    totalAllPlastic: 0.0,
+    date: DateTime.now(),
+  );
 
   toJson() {
     return {
-      "id":id,
+      "id": id,
       "UserID": userId,
       "TypePP": pp,
       "TypePET": pet,
       "TypeHDPE": hdpe,
-      "TotalEcoPoints": totalEcoPoints,
+      "TotalWastePoints": totalWastePoints,
       "TotalAllPlastic": totalAllPlastic,
       "date": date,
     };
   }
 
   factory AdminDashboardModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> document) {
+    DocumentSnapshot<Map<String, dynamic>> document,
+  ) {
     if (document.data() == null) return AdminDashboardModel.empty();
     final data = document.data()!;
     return AdminDashboardModel(
@@ -54,7 +56,7 @@ class AdminDashboardModel {
       pp: data["TypePP"],
       pet: data["TypePET"],
       hdpe: data["TypeHDPE"],
-      totalEcoPoints: data["TotalEcoPoints"],
+      totalWastePoints: data["TotalWastePoints"],
       totalAllPlastic: data["TotalAllPlastic"],
       date: (data['date'] as Timestamp).toDate(),
     );

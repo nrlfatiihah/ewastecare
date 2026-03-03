@@ -1,8 +1,8 @@
 import 'package:ewastecare/common/widget/analytic_details_card/admin_analytic_card_verticle.dart';
 import 'package:ewastecare/features/dashboard/controllers/admin_dashboard_controller.dart';
 import 'package:ewastecare/features/dashboard/screens/admin/admin_new_dashboard.dart';
-import 'package:ewastecare/features/dashboard/screens/admin/widget/admin_dashboard_chart3.dart';
 import 'package:ewastecare/features/dashboard/screens/admin/widget/admin_dashboard_chart2.dart';
+import 'package:ewastecare/features/dashboard/screens/admin/widget/admin_dashboard_chart3.dart';
 import 'package:ewastecare/features/dashboard/screens/admin/widget/filter_date.dart';
 import 'package:ewastecare/features/dashboard/screens/admin/widget/filter_download.dart';
 import 'package:flutter/material.dart';
@@ -19,42 +19,38 @@ class AdminDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = AdminDashboardController.instance;
-    final controller2 = AdminDashboardService.instance;
+    final service = AdminDashboardService.instance;
 
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          controller.resetDataFetched(); // Reset dataFetched flag
-          // await controller.fetchAdminDashboardData();
-          // await controller.fetchAdminDashboardDataByFilterDate();
-          await controller2.fetchRateMaterials();
-          await controller2.fetchMaterialWeights();
-          await controller2.calculateMaterialWeights();
-          // await controller2.calculateWeights();
-          // await controller2._processMaterialData();
-          // await controller2.fetchUserStatistics();
+          controller.resetDataFetched();
+          await service.fetchRateMaterials();
+          await service.fetchMaterialWeights();
+          await service.calculateMaterialWeights();
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
+              // ================= HEADER =================
               WastePrimaryHeaderContainer(
                 child: Column(
                   children: [
                     WasteAppBar(
                       title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: Text(
                               "Performance Analytics",
                               style: Theme.of(context).textTheme.headlineMedium!
-                                  .apply(color: WasteColors.white),
+                                  .copyWith(
+                                    color: WasteColors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                               overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
                             ),
                           ),
-                          const SizedBox(width: WasteSizes.inputFieldRadius),
                           IconButton(
                             icon: const Icon(
                               Iconsax.filter,
@@ -62,7 +58,8 @@ class AdminDashboardScreen extends StatelessWidget {
                             ),
                             onPressed: () => showModalBottomSheet(
                               context: context,
-                              builder: (context) => const BottomSheetContent(),
+                              isScrollControlled: true,
+                              builder: (_) => const BottomSheetContent(),
                             ),
                           ),
                           IconButton(
@@ -72,7 +69,8 @@ class AdminDashboardScreen extends StatelessWidget {
                             ),
                             onPressed: () => showModalBottomSheet(
                               context: context,
-                              builder: (context) => const DownloadData(),
+                              isScrollControlled: true,
+                              builder: (_) => const DownloadData(),
                             ),
                           ),
                         ],
@@ -82,117 +80,79 @@ class AdminDashboardScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: WasteSizes.spaceBtwItems / 2),
-              // Conditionally show either BarGraphPlasticInformation or BarGraphUserInformation
+
+              const SizedBox(height: WasteSizes.spaceBtwItems),
+
+              // ================= CHART =================
               Obx(() {
-                // if (controller.selectedType.value == "Plastic Collection") {
-                //   return const BarGraphPlasticInformation();
-                // }
-                if (controller.selectedType.value == "User Information") {
-                  return const BarGraphUserInformation();
-                } else if (controller.selectedType.value ==
-                    "Materials Distribution") {
-                  return const PieChartMaterialInformation();
-                } else {
-                  return const SizedBox(); // Fallback if none matched
+                switch (controller.selectedType.value) {
+                  case "User Information":
+                    return const BarGraphUserInformation();
+                  case "Materials Distribution":
+                    return const PieChartMaterialInformation();
+                  default:
+                    return const SizedBox();
                 }
               }),
-              const SizedBox(height: WasteSizes.spaceBtwItems),
+
+              const SizedBox(height: WasteSizes.spaceBtwSections),
+
+              // ================= ANALYTIC CARDS =================
               Padding(
-                padding: const EdgeInsets.all(WasteSizes.defaultSpace),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Obx(() {
-                          // if (controller.selectedType.value ==
-                          //     "Plastic Collection") {
-                          //   return AdminAnalyticCardVertical(
-                          //     title: 'PP',
-                          //     value: "${controller.totalTypePPSum.value} Kg",
-                          //   );
-                          // }
-                          if (controller.selectedType.value ==
-                              "User Information") {
-                            return AdminAnalyticCardVertical(
-                              title: 'Active User',
-                              value:
-                                  "${controller2.totalActiveUser.value} User",
-                            );
-                          } else {
-                            return const SizedBox();
-                          }
-                        }),
-                        Obx(() {
-                          // if (controller.selectedType.value ==
-                          //     "Plastic Collection") {
-                          //   return AdminAnalyticCardVertical(
-                          //     title: 'PET',
-                          //     value: "${controller.totalTypePETSum.value} Kg",
-                          //   );
-                          // }
-                          if (controller.selectedType.value ==
-                              "User Information") {
-                            return AdminAnalyticCardVertical(
-                              title: 'Top Performer',
-                              value: controller2.mostPerformantUsername.value,
-                            );
-                          } else {
-                            return const SizedBox();
-                          }
-                        }),
-                      ],
-                    ),
-                    const SizedBox(height: WasteSizes.spaceBtwItems),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Obx(() {
-                          // if (controller.selectedType.value ==
-                          //     "Plastic Collection") {
-                          //   return AdminAnalyticCardVertical(
-                          //     title: 'HDPE',
-                          //     value: "${controller.totalTypeHDPESum.value} Kg",
-                          //   );
-                          // }
-                          if (controller.selectedType.value ==
-                              "User Information") {
-                            return AdminAnalyticCardVertical(
-                              title: 'Total Waste Points',
-                              value:
-                                  // "${controller.totalGeneratedPoint.value} Points",
-                                  "${controller2.displaySumOfWastePoints.value} Points",
-                            );
-                          } else {
-                            return const SizedBox();
-                          }
-                        }),
-                        Obx(() {
-                          // if (controller.selectedType.value ==
-                          //     "Plastic Collection") {
-                          //   return AdminAnalyticCardVertical(
-                          //     title: 'Total Recycled Plastic',
-                          //     value:
-                          //         "${controller.totalAllPlasticOverallSum.value} Kg",
-                          //   );
-                          // }
-                          if (controller.selectedType.value ==
-                              "User Information") {
-                            return AdminAnalyticCardVertical(
-                              title: 'Total Recycled Item',
-                              value:
-                                  "${controller2.displaySumOfAllMaterials.value} Kg",
-                            );
-                          } else {
-                            return const SizedBox();
-                          }
-                        }),
-                      ],
-                    ),
-                  ],
+                padding: const EdgeInsets.symmetric(
+                  horizontal: WasteSizes.defaultSpace,
                 ),
+                child: Obx(() {
+                  if (controller.selectedType.value != "User Information") {
+                    return const SizedBox();
+                  }
+
+                  return GridView.count(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    mainAxisSpacing: WasteSizes.spaceBtwItems,
+                    crossAxisSpacing: WasteSizes.spaceBtwItems,
+                    childAspectRatio: 1.4,
+                    children: [
+                      AdminAnalyticCardVertical(
+                        title: 'Active Users',
+                        value: "${service.totalActiveUser.value} Users",
+                        icon: Iconsax.people,
+                        iconColor: Colors.black,
+                        gradientStart: Colors.blueAccent,
+                        gradientEnd: Colors.lightBlue,
+                      ),
+                      AdminAnalyticCardVertical(
+                        title: 'Top Performer',
+                        value: service.mostPerformantUsername.value,
+                        icon: Iconsax.crown,
+                        iconColor: Colors.black,
+                        gradientStart: Colors.deepOrange,
+                        gradientEnd: Colors.orangeAccent,
+                      ),
+                      AdminAnalyticCardVertical(
+                        title: 'Total Waste Points',
+                        value:
+                            "${service.displaySumOfWastePoints.value} Points",
+                        icon: Iconsax.star,
+                        iconColor: Colors.black,
+                        gradientStart: Colors.green,
+                        gradientEnd: Colors.lightGreen,
+                      ),
+                      AdminAnalyticCardVertical(
+                        title: 'Total Recycled Items',
+                        value: "${service.displaySumOfAllMaterials.value} Kg",
+                        icon: Icons.recycling,
+                        iconColor: Colors.black,
+                        gradientStart: Colors.purple,
+                        gradientEnd: Colors.purpleAccent,
+                      ),
+                    ],
+                  );
+                }),
               ),
+
               const SizedBox(height: WasteSizes.spaceBtwSections),
             ],
           ),

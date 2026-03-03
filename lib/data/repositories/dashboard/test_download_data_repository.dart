@@ -16,7 +16,7 @@ class TestDownloadWasteDataRepo {
         'FirstName': data['FirstName'],
         'LastName': data['LastName'],
         'Username': data['Username'],
-        'WastePoint': data['EcoPoint'].toString(),
+        'WastePoint': data['WastePoint'].toString(),
         'Email': data['Email'],
         'Age': data['Age'],
         'Gender': data['Gender'],
@@ -232,7 +232,7 @@ class TestDownloadWasteDataRepo {
         'ProductID': doc.id,
         'ProductName': data['productName'],
         'Description': data['Description'],
-        'ProductPrice': data['EcoPoint']
+        'ProductPrice': data['WastePoint']
             .toString(), // Convert Firestore timestamp to DateTime
         'Stock': data['Stock']
             .toString(), // Convert Firestore timestamp to DateTime

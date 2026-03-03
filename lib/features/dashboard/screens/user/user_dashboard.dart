@@ -43,44 +43,6 @@ class UserDashboardScreen extends StatelessWidget {
               const SizedBox(height: WasteSizes.spaceBtwItems / 2),
               const TierCard(),
               const SizedBox(height: WasteSizes.spaceBtwItems / 2),
-              // Padding(
-              //   padding: const EdgeInsets.all(WasteSizes.defaultSpace),
-              //   child: Column(
-              //     children: [
-              //       Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //         children: [
-              //           Obx(() => UserAnalyticCardVertical(
-              //                 title: 'HDPE',
-              //                 value:
-              //                     "${controller.userDashboardData.value.hdpe.toString()} Kg",
-              //               )),
-              //           Obx(() => UserAnalyticCardVertical(
-              //                 title: 'PP',
-              //                 value:
-              //                     "${controller.userDashboardData.value.pp.toString()} Kg",
-              //               )),
-              //         ],
-              //       ),
-              //       const SizedBox(height: WasteSizes.spaceBtwItems),
-              //       Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //         children: [
-              //           Obx(() => UserAnalyticCardVertical(
-              //                 title: 'PET',
-              //                 value:
-              //                     "${controller.userDashboardData.value.pet.toString()} Kg",
-              //               )),
-              //           Obx(() => UserAnalyticCardVertical(
-              //                 title: 'Collected Points',
-              //                 value:
-              //                     "${controller.userDashboardData.value.totalEcoPoints.toString()} Points",
-              //               )),
-              //         ],
-              //       ),
-              //     ],
-              //   ),
-              // ),
               const SizedBox(height: WasteSizes.spaceBtwItems),
               const PieChartProgressIndicator(),
               const SizedBox(height: WasteSizes.spaceBtwSections),

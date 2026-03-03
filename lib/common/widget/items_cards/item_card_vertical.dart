@@ -1,5 +1,5 @@
 import 'package:ewastecare/common/styles/shadow.dart';
-import 'package:ewastecare/common/widget/images/bako_roundimage.dart';
+import 'package:ewastecare/common/widget/images/waste_roundimage.dart';
 import 'package:ewastecare/common/widget/rounded_container/rounded_container.dart';
 import 'package:ewastecare/common/widget/texts/module_item_title_text.dart';
 import 'package:ewastecare/features/store/models/product_model.dart';

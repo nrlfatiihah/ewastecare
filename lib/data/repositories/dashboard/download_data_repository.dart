@@ -18,7 +18,7 @@ class DownloadWasteData extends GetxController {
         'FirstName': doc['FirstName'],
         'LastName': doc['LastName'],
         'Username': doc['Username'],
-        'WastePoint': doc['EcoPoint'].toString(),
+        'WastePoint': doc['WastePoint'].toString(),
         'Email': doc['Email'],
         'Age': doc['Age'],
         'Gender': doc['Gender'],
@@ -55,7 +55,7 @@ class DownloadWasteData extends GetxController {
         'TotalPET': doc['TypePET'].toString(),
         'TotalHDPE': doc['TypeHDPE'].toString(),
         'TotalAllPlastic': doc['TotalAllPlastic'].toString(),
-        'TotalWastePoints': doc['TotalEcoPoints'].toString(),
+        'TotalWastePoints': doc['TotalWastePoints'].toString(),
         'Date': doc['date'].toDate(), // Convert Firestore timestamp to DateTime
       };
     }).toList();
@@ -124,7 +124,7 @@ class DownloadWasteData extends GetxController {
         'ProductID': doc.id,
         'ProductName': doc['productName'],
         'Description': doc['Description'],
-        'ProductPrice': doc['EcoPoint']
+        'ProductPrice': doc['WastePoint']
             .toString(), // Convert Firestore timestamp to DateTime
         'Stock': doc['Stock']
             .toString(), // Convert Firestore timestamp to DateTime

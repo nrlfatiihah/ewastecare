@@ -23,26 +23,18 @@ class RedeemItemController extends GetxController {
     super.onClose();
   }
 
-  // void scanQRCode() async {
-  //   // QR code scanning logic here
-  // }
-
   Future<void> validateAndProceed() async {
     if (redeemItemFormKey.currentState?.validate() ?? false) {
       final validationResult = await validateRedemption();
       if (validationResult['isValid']) {
         redeemItemFormKey.currentState?.save();
-        // Proceed only if the validation is successful
-        // Retrieve validation result values
-
-        // Navigate to the summary page with the retrieved values
 
         Get.to(
           () => SummaryPage(
             productId: validationResult["productId"],
             quantity: validationResult["quantity"],
             totalCost: validationResult["totalCost"],
-            userEcoPointBalance: validationResult["userEcoPointBalance"],
+            userWastePointBalance: validationResult["userWastePointBalance"],
             productName: validationResult["productName"],
             productPrice: validationResult["productPrice"],
             userId: validationResult["userId"],
@@ -69,26 +61,21 @@ class RedeemItemController extends GetxController {
     }
 
     final productStock = productData['Stock'] as int;
-    final productPrice = productData['EcoPoint'] as int;
+    final productPrice = productData['WastePoint'] as int;
     final productName = productData['productName'] as String;
-
-    // final userEcoPointBalanceString = await productRepository.getUserEcoPointBalance();
-
-    // final userEcoPointBalance = int.tryParse(userEcoPointBalanceString) ?? 0;
-    final userEcoPointBalance = await productRepository.getUserWasteBalance();
+    final userWastePointBalance = await productRepository.getUserWasteBalance();
     final userId = await userController.getCurrentUserId();
-
-    // final userEcoPointBalance = int.tryParse(userEcoPointBalanceString) ?? 0;
     final totalCost = productPrice * quantity;
 
     if (quantity > productStock) {
       return {'isValid': false, 'errorMessage': 'Insufficient stock'};
     }
 
-    if (totalCost > userEcoPointBalance) {
+    if (totalCost > userWastePointBalance) {
       return {
         'isValid': false,
-        'errorMessage': 'Insufficient EcoPoints balance to redeem the product',
+        'errorMessage':
+            'Insufficient WastePoints balance to redeem the product',
       };
     }
 
@@ -98,7 +85,7 @@ class RedeemItemController extends GetxController {
       'productId': productId,
       'quantity': quantity,
       'totalCost': totalCost,
-      'userEcoPointBalance': userEcoPointBalance,
+      'userWastePointBalance': userWastePointBalance,
       'productName': productName,
       'productPrice': productPrice,
       "userId": userId,

@@ -127,15 +127,15 @@ class UserRepository extends GetxController {
   }
 
   // Getting the user's current Waste point from database
-  Future<int> fetchUserEcoPoints(String userid) async {
+  Future<int> fetchUserWastePoints(String userid) async {
     try {
       final documentSnapshot = await _db.collection("Users").doc(userid).get();
       if (documentSnapshot.exists) {
         final userData = documentSnapshot.data();
-        if (userData != null && userData.containsKey('EcoPoint')) {
-          final ecoPoints = userData['EcoPoint'] as int?;
-          if (ecoPoints != null) {
-            return ecoPoints;
+        if (userData != null && userData.containsKey('WastePoint')) {
+          final wastePoints = userData['WastePoint'] as int?;
+          if (wastePoints != null) {
+            return wastePoints;
           }
         }
       }
@@ -147,19 +147,15 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw WastePlatformException(e.code).message;
     } catch (e) {
-      throw "Error fetching user EcoPoint: $e";
+      throw "Error fetching user WastePoint: $e";
     }
   }
 
   // Updating the new Waste point after claiming point
-  Future<void> updateUserEcoPoints(String userid, int newPoints) async {
+  Future<void> updateUserWastePoints(String userid, int newPoints) async {
     try {
       final documentReference = _db.collection("Users").doc(userid);
-      // Convert newPoints to String
-      // String ecoPointsAsString = newPoints.toString();
-      // Update EcoPoint field with the converted value
-      // await documentReference.update({'EcoPoint': ecoPointsAsString});
-      await documentReference.update({'EcoPoint': newPoints});
+      await documentReference.update({'WastePoint': newPoints});
     } on FirebaseException catch (e) {
       throw WasteFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -167,7 +163,7 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw WastePlatformException(e.code).message;
     } catch (e) {
-      throw "Error updating user EcoPoint: $e";
+      throw "Error updating user WastePoint: $e";
     }
   }
 

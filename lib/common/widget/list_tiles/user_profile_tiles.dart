@@ -1,4 +1,4 @@
-import 'package:ewastecare/common/widget/images/bako_circular_image.dart';
+import 'package:ewastecare/common/widget/images/waste_circular_image.dart';
 import 'package:ewastecare/features/personalization/controllers/user_controller.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';

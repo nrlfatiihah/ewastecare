@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:ewastecare/admin_navigation_menu.dart';
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/product/product_repository.dart';
 import 'package:ewastecare/data/repositories/transaction/transaction_repository.dart';
@@ -197,6 +198,8 @@ class ProductController extends GetxController {
       );
 
       clearFormData();
+
+      Get.offAll(() => const AdminNavigationMenu(selectedIndex: 1));
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
       WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
@@ -249,6 +252,8 @@ class ProductController extends GetxController {
         title: "Success",
         message: "Your product has been successfully updated.",
       );
+
+      Get.off(() => const AdminNavigationMenu(selectedIndex: 1));
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
       WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
@@ -397,7 +402,7 @@ class ProductController extends GetxController {
         title: "Success",
         message: "The product have been deleted successfully",
       );
-      Get.off(() => const AdminStoreScreen());
+      Get.off(() => const AdminNavigationMenu(selectedIndex: 1));
     } catch (e) {
       WasteLoaders.errorSnackBar(
         title: "Opps",

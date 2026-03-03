@@ -1,6 +1,5 @@
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ewastecare/features/dashboard/screens/admin/admin_dashboard.dart';
-import 'package:ewastecare/features/waste_point/older_ecopoint_allocation.dart';
 import 'package:ewastecare/features/waste_point/waste_point_allocation.dart';
 import 'package:ewastecare/features/home/screens/admin/admin_home.dart';
 import 'package:ewastecare/features/store/screens/admin/store/admin_store.dart';
@@ -12,23 +11,31 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class AdminNavigationMenu extends StatelessWidget {
-  const AdminNavigationMenu({super.key});
+  final int selectedIndex;
+
+  const AdminNavigationMenu({
+    Key? key,
+    this.selectedIndex = 0, // default = Home
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AdminNavigationController());
+
+    // 🔥 Set initial index when widget builds
+    controller.setIndex(selectedIndex);
+
     final darkMode = WasteHelperFunctions.isDarkMode(context);
 
     return PopScope(
       canPop: false,
       onPopInvoked: ((didPop) async {
-        if (didPop) {
-          // If the user tries to navigate back from the Home screen
-          return;
-        }
+        if (didPop) return;
+
         bool shouldLogout = await DialogUtils.showLogoutConfirmationDialog(
           context,
         );
+
         if (shouldLogout) {
           AdminAuthenticationRepository.instance.logout();
         }
@@ -45,7 +52,6 @@ class AdminNavigationMenu extends StatelessWidget {
             indicatorColor: darkMode
                 ? WasteColors.white.withOpacity(0.1)
                 : WasteColors.black.withOpacity(0.1),
-
             destinations: const [
               NavigationDestination(icon: Icon(Iconsax.home), label: "Home"),
               NavigationDestination(icon: Icon(Iconsax.shop), label: "Store"),
@@ -54,13 +60,12 @@ class AdminNavigationMenu extends StatelessWidget {
                 label: "Analytics",
               ),
               NavigationDestination(
-                icon: Icon(Iconsax.receipt_add),
+                icon: Icon(Iconsax.wallet_add_1),
                 label: "Allocate",
               ),
             ],
           ),
         ),
-
         body: Obx(() => controller.screens[controller.selectedIndex.value]),
       ),
     );
@@ -70,16 +75,14 @@ class AdminNavigationMenu extends StatelessWidget {
 class AdminNavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
-  /* final screens = [
-    const AdminHomeScreen(),
-    const AdminStoreScreen(),
-    AdminDashboardScreen(),
-    const OlderAdminPointAllocationScreen(),
-  ]; */
+  void setIndex(int index) {
+    selectedIndex.value = index;
+  }
+
   final screens = [
-    const AdminHomeScreen(),
-    const AdminStoreScreen(),
-    const AdminDashboardScreen(),
-    const PointAllocationScreen(),
+    const AdminHomeScreen(), // index 0
+    const AdminStoreScreen(), // index 1
+    const AdminDashboardScreen(), // index 2
+    const PointAllocationScreen(), // index 3
   ];
 }

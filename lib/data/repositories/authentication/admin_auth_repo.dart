@@ -167,7 +167,7 @@ class AdminAuthenticationRepository extends GetxController {
     try {
       // await GoogleSignIn().signOut();
       await FirebaseAuth.instance.signOut();
-      Get.offAll(() => const AdminLoginScreen());
+      Get.offAll(() => const Welcome());
     } on FirebaseAuthException catch (e) {
       throw WasteFirebaseAuthException(e.code);
     } on FirebaseException catch (e) {

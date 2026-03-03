@@ -205,7 +205,7 @@ class ProductRepository extends GetxController {
         return; // User not authenticated
       }
       await _db.collection('Users').doc(user.uid).update({
-        'EcoPoint': newUserBalance,
+        'WastePoint': newUserBalance,
       });
     } on FirebaseException catch (e) {
       throw WasteFirebaseException(e.code).message;

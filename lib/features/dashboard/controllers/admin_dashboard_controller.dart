@@ -43,29 +43,6 @@ class AdminDashboardController extends GetxController {
     fetchUserStatistics();
   }
 
-  // Future<void> fetchAdminDashboardData() async {
-  //   try {
-  //     isLoading.value = true;
-  //     adminDashboardData2.value =
-  //         await adminDashboardRepository.getAdminDashboardData();
-  //     calculateTotalDashboard();
-  //   } catch (e) {
-  //     adminDashboardData2.value = [];
-  //     totalTypePPSum.value = 0.0;
-  //     totalTypePETSum.value = 0.0;
-  //     totalTypeHDPESum.value = 0.0;
-  //     totalAllPlasticSum.value = 0.0;
-  //     totalAllPlasticOverallSum.value = 0.0;
-  //     totalGeneratedPoint.value = 0;
-  //     totalActiveUser.value = 0;
-  //     topUser.value = '';
-  //     mostPerformantUser.value = '';
-  //     mostPerformantUsername.value = '';
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
-
   Future<void> fetchAdminDashboardData() async {
     try {
       isLoading.value = true;
@@ -137,68 +114,6 @@ class AdminDashboardController extends GetxController {
     }
   }
 
-  // Future<void> calculateTotalDashboard() async {
-  //   double sumPP = 0.0;
-  //   double sumPET = 0.0;
-  //   double sumHDPE = 0.0;
-  //   double sumAllPlastic = 0.0;
-  //   double sumAllPlasticOverall = 0.0;
-  //   double totalPoint = 0.0;
-  //   final activeUser = <String>{};
-  //   final userTotals = <String, double>{};
-
-  //   for (var data in adminDashboardData2) {
-  //     if (data.containsKey('TypePP')) {
-  //       sumPP += data['TypePP'];
-  //     }
-
-  //     if (data.containsKey('TypePET')) {
-  //       sumPET += data['TypePET'];
-  //       // sumPET += (data['TypePET'] as num).toDouble();
-  //     }
-
-  //     if (data.containsKey('TypeHDPE')) {
-  //       sumHDPE += data['TypeHDPE'];
-  //     }
-
-  //     if (data.containsKey('TotalAllPlastic')) {
-  //       sumAllPlastic += data['TotalAllPlastic'];
-  //       final userId = data['UserID'] as String;
-  //       userTotals.update(userId, (value) => value + data['TotalAllPlastic'],
-  //           ifAbsent: () => data['TotalAllPlastic']);
-  //     }
-
-  //     if (data.containsKey('TotalAllPlastic')) {
-  //       sumAllPlasticOverall += data['TotalAllPlastic'];
-  //     }
-
-  //     if (data.containsKey('TotalEcoPoints')) {
-  //       totalPoint += data['TotalEcoPoints'];
-  //     }
-
-  //        if (data.containsKey('UserID')) {
-  //       activeUser.add(data['UserID']);
-  //     }
-  //   }
-  //   totalTypePPSum.value = double.parse(sumPP.toStringAsFixed(2));
-  //   totalTypePETSum.value = double.parse(sumPET.toStringAsFixed(2));
-  //   totalTypeHDPESum.value = double.parse(sumHDPE.toStringAsFixed(2));
-  //   totalAllPlasticSum.value = double.parse(sumAllPlastic.toStringAsFixed(2));
-  //   totalAllPlasticOverallSum.value = double.parse(sumAllPlasticOverall.toStringAsFixed(2));
-  //   totalGeneratedPoint.value = totalPoint.toInt();
-  //   totalActiveUser.value = activeUser.length;
-
-  //    if (userTotals.isNotEmpty) {
-  //     final mostPerformantUserEntry =
-  //         userTotals.entries.reduce((a, b) => a.value > b.value ? a : b);
-  //     mostPerformantUser.value = mostPerformantUserEntry.key;
-  //     await fetchUsernameByUserId(mostPerformantUser.value);
-  //   } else {
-  //     mostPerformantUser.value = '';
-  //     mostPerformantUsername.value = '';
-  //   }
-  // }
-
   Future<void> calculateTotalDashboard() async {
     double sumPP = 0.0;
     double sumPET = 0.0;
@@ -237,8 +152,8 @@ class AdminDashboardController extends GetxController {
         sumAllPlasticOverall += data['TotalAllPlastic'];
       }
 
-      if (data.containsKey('TotalEcoPoints')) {
-        totalPoint += data['TotalEcoPoints'];
+      if (data.containsKey('TotalWastePoints')) {
+        totalPoint += data['TotalWastePoints'];
       }
 
       if (data.containsKey('UserID')) {

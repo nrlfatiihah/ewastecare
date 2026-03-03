@@ -1,5 +1,5 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
-import 'package:ewastecare/common/widget/images/bako_circular_image.dart';
+import 'package:ewastecare/common/widget/images/waste_circular_image.dart';
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/common/widget/texts/section_heading.dart';
 import 'package:ewastecare/features/personalization/controllers/user_controller.dart';

@@ -23,174 +23,179 @@ class BarGraphUserInformation extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24),
       width: WasteDeviceUtils.getScreenWidth(context),
-      decoration: ShapeDecoration(
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+      decoration: BoxDecoration(
         color: showBackground
             ? dark
-                  ? WasteColors.dark
-                  : WasteColors.light
+                  ? const Color(0xFF1E1E1E)
+                  : Colors.white
             : Colors.transparent,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            width: 1,
-            color: dark
-                ? Colors.white.withOpacity(0.25)
-                : Colors.black.withOpacity(0.25),
-          ),
-          borderRadius: BorderRadius.circular(30),
-        ),
-        shadows: [
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
           BoxShadow(
             color: dark
-                ? Colors.white.withOpacity(0.25)
-                : Colors.black.withOpacity(0.25),
-            blurRadius: 4,
-            offset: const Offset(0, 4),
-            spreadRadius: 0,
+                ? Colors.black.withOpacity(0.4)
+                : Colors.grey.withOpacity(0.15),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
           ),
         ],
       ),
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'User Infromation',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-            ),
-            Flexible(
-              fit: FlexFit.loose,
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  final double size =
-                      constraints.maxWidth < constraints.maxHeight
-                      ? constraints.maxWidth
-                      : constraints.maxHeight;
-                  return SizedBox(
-                    width: size,
-                    height: size,
-                    child: Obx(() {
-                      if (controller.isLoading.value) {
-                        return const WasteShimmerEffect(width: 10, height: 10);
-                      } else {
-                        // final adminDashboard =
-                        //     controller.adminDashboardData.value;
-                        // final adminDashboardData = controller.adminDashboardData2.value;
-                        // final male =
-                        //     controller.maleUsers.value;
-                        // final female = controller.femaleUsers.value;
-                        final male = controller2.maleUsers.value;
-                        final female = controller2.femaleUsers.value;
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // TITLE
+          Text(
+            'User Information',
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(height: 20),
 
-                        // Calculate the maximum value
-                        final maxY = [
-                          male,
-                          female,
-                        ].reduce((a, b) => a > b ? a : b);
+          // CHART
+          SizedBox(
+            height: 280,
+            child: Obx(() {
+              if (controller.isLoading.value) {
+                return const Center(
+                  child: WasteShimmerEffect(width: 100, height: 100),
+                );
+              }
 
-                        return BarChart(
-                          BarChartData(
-                            barTouchData: BarTouchData(enabled: false),
-                            titlesData: FlTitlesData(
-                              show: true,
-                              bottomTitles: AxisTitles(
-                                sideTitles: SideTitles(
-                                  showTitles: true,
-                                  reservedSize: 30,
-                                  getTitlesWidget:
-                                      (double value, TitleMeta meta) {
-                                        const style = TextStyle(
-                                          color: WasteColors.primary,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        );
-                                        String text;
-                                        switch (value.toInt()) {
-                                          case 0:
-                                            text = 'Male';
-                                            break;
-                                          case 1:
-                                            text = 'Female';
-                                            break;
-                                          default:
-                                            text = '';
-                                            break;
-                                        }
-                                        return SideTitleWidget(
-                                          meta: meta,
-                                          space: 4,
-                                          child: Text(text, style: style),
-                                        );
-                                      },
-                                ),
-                              ),
-                              leftTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false),
-                              ),
-                              topTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false),
-                              ),
-                              rightTitles: const AxisTitles(
-                                sideTitles: SideTitles(showTitles: false),
+              final male = controller2.maleUsers.value;
+              final female = controller2.femaleUsers.value;
+
+              final maxY = [
+                male,
+                female,
+              ].reduce((a, b) => a > b ? a : b).toDouble();
+
+              return BarChart(
+                BarChartData(
+                  alignment: BarChartAlignment.spaceEvenly,
+                  maxY: maxY == 0 ? 10 : maxY * 1.2,
+
+                  // GRID
+                  gridData: FlGridData(
+                    show: true,
+                    drawVerticalLine: false,
+                    horizontalInterval: maxY == 0 ? 2 : maxY / 4,
+                    getDrawingHorizontalLine: (value) {
+                      return FlLine(
+                        color: dark
+                            ? Colors.white.withOpacity(0.08)
+                            : Colors.black.withOpacity(0.08),
+                        strokeWidth: 1,
+                      );
+                    },
+                  ),
+
+                  borderData: FlBorderData(show: false),
+
+                  // TITLES
+                  titlesData: FlTitlesData(
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 35,
+                        interval: maxY == 0 ? 2 : maxY / 4,
+                        getTitlesWidget: (value, meta) {
+                          return Text(
+                            value.toInt().toString(),
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: dark ? Colors.white70 : Colors.black54,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 40,
+                        getTitlesWidget: (value, meta) {
+                          String text = value.toInt() == 0 ? 'Male' : 'Female';
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Text(
+                              text,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 13,
+                                color: WasteColors.primary,
                               ),
                             ),
-                            borderData: FlBorderData(show: false),
-                            barGroups: [
-                              BarChartGroupData(
-                                x: 0,
-                                barRods: [
-                                  BarChartRodData(
-                                    toY: male.toDouble(),
-                                    // toY: adminDashboard.pp,
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        WasteColors.secondary,
-                                        WasteColors.primary,
-                                      ],
-                                      begin: Alignment.bottomCenter,
-                                      end: Alignment.topCenter,
-                                    ),
-                                  ),
-                                ],
-                                showingTooltipIndicators: [0],
-                              ),
-                              BarChartGroupData(
-                                x: 1,
-                                barRods: [
-                                  BarChartRodData(
-                                    toY: female.toDouble(),
-                                    // toY: adminDashboard.pet,
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        WasteColors.secondary,
-                                        WasteColors.primary,
-                                      ],
-                                      begin: Alignment.bottomCenter,
-                                      end: Alignment.topCenter,
-                                    ),
-                                  ),
-                                ],
-                                showingTooltipIndicators: [0],
-                              ),
-                            ],
-                            gridData: const FlGridData(show: false),
-                            alignment: BarChartAlignment.spaceAround,
-                            maxY: maxY * 2,
+                          );
+                        },
+                      ),
+                    ),
+                    topTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    rightTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                  ),
+
+                  // BARS
+                  barGroups: [
+                    _buildBar(0, male.toDouble(), dark),
+                    _buildBar(1, female.toDouble(), dark),
+                  ],
+
+                  // TOOLTIP
+                  barTouchData: BarTouchData(
+                    enabled: true,
+                    touchTooltipData: BarTouchTooltipData(
+                      tooltipBorderRadius: BorderRadius.circular(12),
+                      tooltipPadding: const EdgeInsets.all(8),
+                      getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                        return BarTooltipItem(
+                          rod.toY.toInt().toString(),
+                          const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
                         );
-                      }
-                    }),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: WasteSizes.defaultSpace),
-          ],
-        ),
+                      },
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ),
+
+          const SizedBox(height: WasteSizes.defaultSpace),
+        ],
       ),
+    );
+  }
+
+  /// BAR BUILDER
+  BarChartGroupData _buildBar(int x, double value, bool dark) {
+    return BarChartGroupData(
+      x: x,
+      barRods: [
+        BarChartRodData(
+          toY: value,
+          width: 28,
+          borderRadius: BorderRadius.circular(12),
+          gradient: const LinearGradient(
+            colors: [WasteColors.secondary, WasteColors.primary],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+          ),
+          backDrawRodData: BackgroundBarChartRodData(
+            show: true,
+            toY: value * 1.2,
+            color: dark
+                ? Colors.white.withOpacity(0.05)
+                : Colors.black.withOpacity(0.05),
+          ),
+        ),
+      ],
     );
   }
 }

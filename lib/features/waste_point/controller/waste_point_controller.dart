@@ -273,7 +273,7 @@ class AllocateWastePointController extends GetxController {
       );
 
       // Fetch existing points
-      final existingPoints = await userRepository.fetchUserEcoPoints(
+      final existingPoints = await userRepository.fetchUserWastePoints(
         userID.text,
       );
 
@@ -281,7 +281,7 @@ class AllocateWastePointController extends GetxController {
       final newTotalPoints = existingPoints + result.finalPoints;
 
       // Update user points with new total points
-      await userRepository.updateUserEcoPoints(userID.text, newTotalPoints);
+      await userRepository.updateUserWastePoints(userID.text, newTotalPoints);
 
       // Save the transaction using the repository
       await _materialRepository.saveUserPoints(transaction);

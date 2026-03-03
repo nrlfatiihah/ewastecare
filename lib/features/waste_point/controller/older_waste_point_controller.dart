@@ -122,13 +122,13 @@ class OlderAdminPointController extends GetxController {
           .toInt(); // Multiply by 100
 
       // Fetch existing points
-      final existingPoints = await userRepository.fetchUserEcoPoints(userid);
+      final existingPoints = await userRepository.fetchUserWastePoints(userid);
 
       // Adding new point with existing points
       final newTotalPoints = existingPoints + finalTotalPoints;
 
       // Update user points with new total points
-      await userRepository.updateUserEcoPoints(userid, newTotalPoints);
+      await userRepository.updateUserWastePoints(userid, newTotalPoints);
 
       // log for transaction data
 

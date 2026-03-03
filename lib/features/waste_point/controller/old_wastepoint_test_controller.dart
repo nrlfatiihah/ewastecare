@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // Adjust import as needed
 
-class AllocateEcoPointController extends GetxController {
+class AllocateWastePointController extends GetxController {
   final OlderMaterialRepository repository = OlderMaterialRepository();
 
   var isPlasticExpanded = false.obs;

@@ -1,5 +1,5 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
-import 'package:ewastecare/common/widget/images/bako_circular_image.dart';
+import 'package:ewastecare/common/widget/images/waste_circular_image.dart';
 import 'package:ewastecare/common/widget/texts/section_heading.dart';
 import 'package:ewastecare/features/store/controllers/product_controller.dart';
 import 'package:ewastecare/features/store/screens/user/widget/confirm_transaction.dart';
@@ -16,7 +16,7 @@ class SummaryPage extends StatelessWidget {
     required this.productId,
     required this.quantity,
     required this.totalCost,
-    required this.userEcoPointBalance,
+    required this.userWastePointBalance,
     required this.productName,
     required this.productPrice,
     required this.userId,
@@ -25,7 +25,7 @@ class SummaryPage extends StatelessWidget {
   final String productId;
   final int quantity;
   final int totalCost;
-  final int userEcoPointBalance;
+  final int userWastePointBalance;
   final String productName;
   final int productPrice;
   final String userId;
@@ -36,7 +36,7 @@ class SummaryPage extends StatelessWidget {
     final displayProductName = productName;
     final displayProductPrice = productPrice;
     final totalCost = displayProductPrice * quantity;
-    final userBalance = userEcoPointBalance;
+    final userBalance = userWastePointBalance;
     final newBalance = userBalance - totalCost;
     final displayQuantity = quantity;
 
@@ -81,7 +81,7 @@ class SummaryPage extends StatelessWidget {
             ),
             const SizedBox(height: WasteSizes.spaceBtwItems),
             WasteConfirmRedeemMenu(
-              title: "EcoPoint Balance",
+              title: "WastePoint Balance",
               value: userBalance.toString(),
             ),
             WasteConfirmRedeemMenu(
@@ -89,7 +89,7 @@ class SummaryPage extends StatelessWidget {
               value: totalCost.toString(),
             ),
             WasteConfirmRedeemMenu(
-              title: "New EcoPoint Balance",
+              title: "New WastePoint Balance",
               value: newBalance.toString(),
             ),
             const SizedBox(height: WasteSizes.spaceBtwItems),

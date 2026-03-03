@@ -1,6 +1,6 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
 import 'package:ewastecare/common/widget/custom_shape/curved_edges/curved_edges_widget.dart';
-import 'package:ewastecare/common/widget/images/bako_roundimage.dart';
+import 'package:ewastecare/common/widget/images/waste_roundimage.dart';
 import 'package:ewastecare/features/store/models/product_model.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';

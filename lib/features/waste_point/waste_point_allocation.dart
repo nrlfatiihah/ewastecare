@@ -28,6 +28,7 @@ class PointAllocationScreen extends StatelessWidget {
           physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
+              // Header with gradient and title
               WastePrimaryHeaderContainer(
                 child: Column(
                   children: [
@@ -42,164 +43,153 @@ class PointAllocationScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              // Main content padding
               Padding(
-                padding: const EdgeInsets.all(WasteSizes.defaultSpace),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: WasteSizes.defaultSpace,
+                  vertical: WasteSizes.defaultSpace,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       WasteTexts.pointTitle,
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      style: Theme.of(context).textTheme.headlineSmall!
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
+                    const SizedBox(height: 15),
                     Form(
                       key: controller.addPointFormKey,
                       child: Column(
                         children: [
-                          Container(
-                            margin: EdgeInsets.all(WasteSizes.defaultSpace),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    controller: controller.userID,
-                                    validator: (value) =>
-                                        WasteValidator.validateEmptyText(
-                                          "User ID",
-                                          value,
-                                        ),
-                                    decoration: const InputDecoration(
-                                      labelText: WasteTexts.userID,
-                                      prefixIcon: Icon(Iconsax.user_edit),
+                          // User ID + QR Scanner
+                          Card(
+                            elevation: 3,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 8,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: controller.userID,
+                                      validator: (value) =>
+                                          WasteValidator.validateEmptyText(
+                                            "User ID",
+                                            value,
+                                          ),
+                                      decoration: const InputDecoration(
+                                        labelText: WasteTexts.userID,
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(Iconsax.user_edit),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: WasteSizes.spaceBtwInputFields,
-                                ),
-                                GestureDetector(
-                                  onTap: () async {
-                                    final scannedData = await Get.to(
-                                      () => const QRScannerScreen(),
-                                    );
-                                    if (scannedData != null) {
-                                      controller.userID.text = scannedData;
-                                    }
-                                  },
-                                  child: const Icon(
-                                    Iconsax.scan_barcode,
-                                    size: 35,
+                                  const SizedBox(width: 16),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      final scannedData = await Get.to(
+                                        () => const QRScannerScreen(),
+                                      );
+                                      if (scannedData != null) {
+                                        controller.userID.text = scannedData;
+                                      }
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: WasteColors.buttonPrimary,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      padding: const EdgeInsets.all(8),
+                                      child: const Icon(
+                                        Iconsax.scan_barcode,
+                                        size: 28,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
+                          const SizedBox(height: 20),
+                          // Materials Panel
                           Obx(() {
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Container(
-                                margin: EdgeInsets.all(WasteSizes.defaultSpace),
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(
-                                    context,
-                                  ).cardColor, // Background color of the panel
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(20),
-                                  ), // Match border radius
-                                  border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .outline, // Change this to your desired border color
-                                    width:
-                                        2, // Adjust the border width as needed
-                                  ),
+                            return Column(
+                              children: [
+                                _buildMaterialCard(
+                                  context,
+                                  'Plastic Materials',
+                                  Icons.recycling,
+                                  controller.plasticMaterials,
+                                  controller.isPlasticExpanded,
                                 ),
-                                child: ExpansionPanelList(
-                                  elevation: 0,
-                                  expandedHeaderPadding: EdgeInsets.zero,
-                                  expansionCallback: (index, isExpanded) {
-                                    switch (index) {
-                                      case 0:
-                                        controller.isPlasticExpanded.value =
-                                            !controller.isPlasticExpanded.value;
-                                        break;
-                                      case 1:
-                                        controller.isPaperExpanded.value =
-                                            !controller.isPaperExpanded.value;
-                                        break;
-                                      case 2:
-                                        controller.isCanExpanded.value =
-                                            !controller.isCanExpanded.value;
-                                        break;
-                                      case 3:
-                                        controller.isCookingOilExpanded.value =
-                                            !controller
-                                                .isCookingOilExpanded
-                                                .value;
-                                        break;
-                                      case 4:
-                                        controller.isOthersExpanded.value =
-                                            !controller.isOthersExpanded.value;
-                                        break;
-                                    }
-                                  },
-                                  children: [
-                                    _buildMaterialPanel(
-                                      context,
-                                      'Plastic Materials',
-                                      Icons.recycling,
-                                      controller.plasticMaterials,
-                                      controller.isPlasticExpanded.value,
-                                    ),
-                                    _buildMaterialPanel(
-                                      context,
-                                      'Paper Materials',
-                                      Icons.article,
-                                      controller.paperMaterials,
-                                      controller.isPaperExpanded.value,
-                                    ),
-                                    _buildMaterialPanel(
-                                      context,
-                                      'Can Materials',
-                                      Icons.coffee,
-                                      controller.canMaterials,
-                                      controller.isCanExpanded.value,
-                                    ),
-                                    _buildMaterialPanel(
-                                      context,
-                                      'Used Oil Materials',
-                                      Icons.oil_barrel,
-                                      controller.oilMaterials,
-                                      controller.isCookingOilExpanded.value,
-                                    ),
-                                    _buildMaterialPanel(
-                                      context,
-                                      'Others Materials',
-                                      Icons.other_houses,
-                                      controller.othersMaterials,
-                                      controller.isOthersExpanded.value,
-                                    ),
-                                  ],
+                                _buildMaterialCard(
+                                  context,
+                                  'Paper Materials',
+                                  Icons.article,
+                                  controller.paperMaterials,
+                                  controller.isPaperExpanded,
                                 ),
-                              ),
+                                _buildMaterialCard(
+                                  context,
+                                  'Can Materials',
+                                  Icons.coffee,
+                                  controller.canMaterials,
+                                  controller.isCanExpanded,
+                                ),
+                                _buildMaterialCard(
+                                  context,
+                                  'Used Oil Materials',
+                                  Icons.oil_barrel,
+                                  controller.oilMaterials,
+                                  controller.isCookingOilExpanded,
+                                ),
+                                _buildMaterialCard(
+                                  context,
+                                  'Others Materials',
+                                  Icons.other_houses,
+                                  controller.othersMaterials,
+                                  controller.isOthersExpanded,
+                                ),
+                              ],
                             );
                           }),
-                          Container(
-                            margin: EdgeInsets.all(WasteSizes.defaultSpace),
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  await controller.addUserPoints();
-                                  // controller.clearFields();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: WasteColors.buttonPrimary,
-                                  side: const BorderSide(
-                                    color: WasteColors.buttonPrimary,
+                          const SizedBox(height: 25),
+
+                          // Add Point Button
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                await controller.addUserPoints();
+                              },
+                              style:
+                                  ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 16,
+                                    ),
+                                    backgroundColor: WasteColors.buttonPrimary,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    side: BorderSide.none,
+                                  ).copyWith(
+                                    overlayColor: MaterialStateProperty.all(
+                                      Colors.transparent,
+                                    ),
                                   ),
+                              child: const Text(
+                                WasteTexts.addPoint,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                child: const Text(WasteTexts.addPoint),
                               ),
                             ),
                           ),
@@ -216,60 +206,59 @@ class PointAllocationScreen extends StatelessWidget {
     );
   }
 
-  ExpansionPanel _buildMaterialPanel(
+  Widget _buildMaterialCard(
     BuildContext context,
     String title,
     IconData icon,
     List<MaterialModel> materials,
-    bool isExpanded,
+    RxBool isExpanded,
   ) {
-    return ExpansionPanel(
-      headerBuilder: (context, isExpanded) {
-        return ListTile(
-          title: Text(title, style: Theme.of(context).textTheme.titleLarge),
-          leading: Icon(icon, color: Theme.of(context).iconTheme.color),
-        );
-      },
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: materials.map((material) {
-            final weightController =
-                Get.find<AllocateWastePointController>()
-                    .weightControllers[material.name] ??
-                TextEditingController();
-
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: TextFormField(
-                controller: weightController,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
-                decoration: InputDecoration(
-                  labelText: '${material.name} weight (Kg)',
-                  border: const OutlineInputBorder(),
-                ),
-                // validator: (value) {
-                //   final weight = double.tryParse(value ?? '');
-                //   if (weight == null || weight < 0) {
-                //     return 'Please enter a valid weight';
-                //   }
-                //   return null;
-                // },
-                // validator: WasteValidator.validateDoubleWithTwoDecimalPlaces,
-                validator: (value) =>
-                    WasteValidator.validateDoubleWithTwoDecimalPlaces(
-                      "Weight",
-                      value,
-                    ),
-              ),
-            );
-          }).toList(),
+    final controller = Get.find<AllocateWastePointController>();
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ExpansionTile(
+        initiallyExpanded: isExpanded.value,
+        onExpansionChanged: (val) => isExpanded.value = val,
+        leading: Icon(icon, color: Theme.of(context).iconTheme.color),
+        title: Text(
+          title,
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
         ),
+        // ignore: sort_child_properties_last
+        children: materials.map((material) {
+          final weightController =
+              controller.weightControllers[material.name] ??
+              TextEditingController();
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: TextFormField(
+              controller: weightController,
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
+              decoration: InputDecoration(
+                labelText: '${material.name} weight (Kg)',
+                border: const OutlineInputBorder(),
+              ),
+              validator: (value) =>
+                  WasteValidator.validateDoubleWithTwoDecimalPlaces(
+                    "Weight",
+                    value,
+                  ),
+            ),
+          );
+        }).toList(),
+        tilePadding: const EdgeInsets.symmetric(horizontal: 16),
+        backgroundColor: Colors.white,
+        collapsedBackgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        childrenPadding: EdgeInsets.zero,
+        clipBehavior: Clip.antiAlias,
       ),
-      isExpanded: isExpanded,
-      canTapOnHeader: true,
     );
   }
 }

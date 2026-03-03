@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ewastecare/admin_navigation_menu.dart';
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/module/module_repository.dart';
 import 'package:ewastecare/features/module/models/learning_module_model.dart';
@@ -208,6 +209,8 @@ class ModuleController extends GetxController {
       );
 
       clearFormData();
+
+      Get.offAll(() => const AdminNavigationMenu());
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
       WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
@@ -326,6 +329,8 @@ class ModuleController extends GetxController {
         title: "Success",
         message: "Your module has been successfully updated.",
       );
+
+      Get.offAll(() => const AdminNavigationMenu());
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
       WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
@@ -416,7 +421,7 @@ class ModuleController extends GetxController {
         title: "Success",
         message: "The module have been deleted successfully",
       );
-      Get.off(() => const AdminModule());
+      Get.offAll(() => const AdminNavigationMenu());
     } catch (e) {
       WasteLoaders.errorSnackBar(
         title: "Opps",

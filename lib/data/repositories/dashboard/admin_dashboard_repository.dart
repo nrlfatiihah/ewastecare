@@ -15,7 +15,7 @@ class AdminDashboardRepository extends GetxController {
     double pp,
     double pet,
     double hdpe,
-    int totalEcoPoints,
+    int totalWastePoints,
   ) async {
     final userDashboardRef = _db.collection('AdminDashboard');
     final String totalPlastic = (pp + pet + hdpe).toStringAsFixed(2);
@@ -28,7 +28,7 @@ class AdminDashboardRepository extends GetxController {
         'TypePP': double.parse(typePP),
         'TypePET': double.parse(typePET),
         'TypeHDPE': double.parse(typeHDPE),
-        'TotalEcoPoints': totalEcoPoints,
+        'TotalWastePoints': totalWastePoints,
         'TotalAllPlastic': double.parse(totalPlastic),
         'UserID': userId,
         "date": Timestamp.now(),
@@ -111,35 +111,6 @@ class AdminDashboardRepository extends GetxController {
       throw "Something went wrong, Please try again";
     }
   }
-
-  // Future<Map<String, int>> fetchGenderStatistics() async {
-  //   try {
-  //     final querySnapshot = await _db.collection('Users').get();
-
-  //     int maleCount = 0;
-  //     int femaleCount = 0;
-
-  //     // Iterate over each document in the query snapshot
-  //     for (var doc in querySnapshot.docs) {
-  //       final gender = doc['Gender'] ?? '';
-  //       if (gender.toLowerCase() == 'male') {
-  //         maleCount++;
-  //       } else if (gender.toLowerCase() == 'female') {
-  //         femaleCount++;
-  //       }
-  //     }
-
-  //     return {
-  //       'maleUsers': maleCount,
-  //       'femaleUsers': femaleCount,
-  //     };
-  //   } catch (e) {
-  //     return {
-  //       'maleUsers': 0,
-  //       'femaleUsers': 0,
-  //     };
-  //   }
-  // }
 
   Future<Map<String, int>> fetchGenderStatistics() async {
     try {

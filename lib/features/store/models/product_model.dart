@@ -23,23 +23,23 @@ class ProductModel {
 
   // Empty funct for clean code
   static ProductModel empty() => ProductModel(
-        id: "",
-        productName: "",
-        productImage: "",
-        // point: 0,
-        point: 0,
-        productDescription: "",
-        // stock: 0,
-        stock: 0,
-        productQR: "",
-      );
+    id: "",
+    productName: "",
+    productImage: "",
+    // point: 0,
+    point: 0,
+    productDescription: "",
+    // stock: 0,
+    stock: 0,
+    productQR: "",
+  );
 
   // Json Format
   toJson() {
-    return { 
+    return {
       "productName": productName,
       "Image": productImage,
-      "EcoPoint": point,
+      "WastePoint": point,
       "Description": productDescription,
       "Stock": stock,
       "Qr": productQR,
@@ -48,17 +48,16 @@ class ProductModel {
 
   // Map Json oriented document snapshot from Firebase to Model
   factory ProductModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> document) {
+    DocumentSnapshot<Map<String, dynamic>> document,
+  ) {
     if (document.data() == null) return ProductModel.empty();
     final data = document.data()!;
     return ProductModel(
       id: document.id,
-      productName: data["productName"]??"",
-      productImage: data["Image"] ??"",
-      point: data["EcoPoint"] ?? "",
-      // point: data["EcoPoint"] ?? 0,
-      productDescription: data["Description"]?? "",
-      // stock: data["Stock"] ?? 0,
+      productName: data["productName"] ?? "",
+      productImage: data["Image"] ?? "",
+      point: data["WastePoint"] ?? "",
+      productDescription: data["Description"] ?? "",
       stock: data["Stock"] ?? "",
       productQR: data["Qr"] ?? "",
     );

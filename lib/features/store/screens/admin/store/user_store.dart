@@ -8,7 +8,7 @@ import 'package:ewastecare/features/store/controllers/product_controller.dart';
 import 'package:ewastecare/user_navigation_menu.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
-import 'package:ewastecare/utils/popups/exit_ecobako_store.dart';
+import 'package:ewastecare/utils/popups/exit_waste_store.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
