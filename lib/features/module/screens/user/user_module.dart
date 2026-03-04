@@ -10,14 +10,12 @@ import 'package:ewastecare/utils/constants/sizes.dart';
 class UserModuleScreen extends StatelessWidget {
   UserModuleScreen({super.key});
 
-  final controller = ModuleController.instance;
+  final ModuleController controller = ModuleController.instance;
 
+  // Pull-to-refresh
   Future<void> _refresh() async {
-    // Reset module list
     controller.resetModuleDataFetched();
     await controller.fetchLearningModule();
-
-    // Fetch updated badges for the user
     await controller.fetchUserCompletedModules();
   }
 
@@ -27,9 +25,10 @@ class UserModuleScreen extends StatelessWidget {
       body: RefreshIndicator(
         onRefresh: _refresh,
         child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(), // enable pull
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
+              // Header
               WastePrimaryHeaderContainer(
                 child: Column(
                   children: [
@@ -44,6 +43,8 @@ class UserModuleScreen extends StatelessWidget {
                   ],
                 ),
               ),
+
+              // Module List
               Padding(
                 padding: const EdgeInsets.all(WasteSizes.defaultSpace),
                 child: Obx(() {
@@ -61,6 +62,8 @@ class UserModuleScreen extends StatelessWidget {
                     itemCount: controller.learningModule.length,
                     itemBuilder: (context, index) {
                       final module = controller.learningModule[index];
+
+                      // Reactive badge check
                       final hasBadge = controller.completedModules.contains(
                         module.id,
                       );
@@ -74,12 +77,13 @@ class UserModuleScreen extends StatelessWidget {
                                   LearningModuleContentUser(module: module),
                             ),
                           ).then((_) {
-                            // Refresh badges when returning from module
+                            // Fetch badges when returning from module
                             controller.fetchUserCompletedModules();
                           });
                         },
                         child: Stack(
                           children: [
+                            // Module card
                             Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),

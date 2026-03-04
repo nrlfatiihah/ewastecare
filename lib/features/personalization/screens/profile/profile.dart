@@ -31,10 +31,23 @@ class ProfileScreen extends StatelessWidget {
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.all(WasteSizes.defaultSpace),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Profile Picture
-              SizedBox(
+              // Profile Header Card
+              Container(
                 width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  color: Theme.of(context).cardColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 15,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
+                ),
                 child: Column(
                   children: [
                     Obx(() {
@@ -42,19 +55,45 @@ class ProfileScreen extends StatelessWidget {
                       final image = networkImage.isNotEmpty
                           ? networkImage
                           : WasteImages.userImage;
+
                       return controller.imageUploading.value
                           ? const WasteShimmerEffect(
-                              width: 80,
-                              height: 80,
-                              radius: 80,
+                              width: 90,
+                              height: 90,
+                              radius: 90,
                             )
                           : WasteCircularImage(
                               image: image,
-                              width: 80,
-                              height: 80,
+                              width: 90,
+                              height: 90,
                               isNetworkImage: networkImage.isNotEmpty,
                             );
                     }),
+
+                    const SizedBox(height: 12),
+
+                    Obx(
+                      () => Text(
+                        controller.user.value.fullName,
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 6),
+
+                    Obx(
+                      () => Text(
+                        controller.user.value.email,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium!.copyWith(color: Colors.grey),
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
                     TextButton(
                       onPressed: () => controller.uploadUserProfilePicture(),
                       child: const Text("Change Profile Picture"),
@@ -63,32 +102,31 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
 
-              //Details
-              const SizedBox(height: WasteSizes.spaceBtwItems / 2),
-              const Divider(),
-              const SizedBox(height: WasteSizes.spaceBtwItems),
+              const SizedBox(height: 32),
+
+              // Profile Info Section
               const WasteSectionHeading(
                 title: "Profile Information",
                 showActionButton: false,
               ),
-              const SizedBox(height: WasteSizes.spaceBtwItems),
+              const SizedBox(height: 16),
 
-              Obx(() {
-                return WasteProfileMenu(
+              Obx(
+                () => WasteProfileMenu(
                   title: 'Name',
                   value: controller.user.value.fullName,
                   onPressed: () => Get.to(() => const ChangeName()),
                   icon: Iconsax.edit,
-                );
-              }),
-              Obx(() {
-                return WasteProfileMenu(
+                ),
+              ),
+              Obx(
+                () => WasteProfileMenu(
                   title: 'Username',
                   value: controller.user.value.username,
                   onPressed: () => Get.to(() => const ChangeUserName()),
                   icon: Iconsax.edit,
-                );
-              }),
+                ),
+              ),
               WasteProfileMenu(
                 title: 'UserID',
                 value: controller.user.value.id,
@@ -96,24 +134,23 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () {},
               ),
 
-              const SizedBox(height: WasteSizes.spaceBtwItems),
-              const Divider(),
-              const SizedBox(height: WasteSizes.spaceBtwItems),
+              const SizedBox(height: 32),
 
+              // Personal Info Section
               const WasteSectionHeading(
                 title: "Personal Information",
                 showActionButton: false,
               ),
-              const SizedBox(height: WasteSizes.spaceBtwItems),
+              const SizedBox(height: 16),
 
-              Obx(() {
-                return WasteProfileMenu(
+              Obx(
+                () => WasteProfileMenu(
                   title: 'Address',
                   value: controller.user.value.homeAddress,
                   onPressed: () => Get.to(() => const ChangeHomeAddress()),
                   icon: Iconsax.edit,
-                );
-              }),
+                ),
+              ),
               WasteProfileMenu(
                 title: 'Gender',
                 value: controller.user.value.gender,
@@ -159,18 +196,30 @@ class ProfileScreen extends StatelessWidget {
                 icon: Iconsax.lock,
               ),
 
-              const Divider(),
-              const SizedBox(height: WasteSizes.spaceBtwItems),
+              const SizedBox(height: 40),
 
+              // Delete Button (More Premium)
               Center(
-                child: TextButton(
+                child: TextButton.icon(
                   onPressed: () => controller.deleteAccountWarningPopup(),
-                  child: const Text(
+                  icon: const Icon(Iconsax.trash, color: Colors.red),
+                  label: const Text(
                     "Delete Account",
                     style: TextStyle(color: Colors.red),
                   ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
                 ),
               ),
+
+              const SizedBox(height: 40),
             ],
           ),
         ),

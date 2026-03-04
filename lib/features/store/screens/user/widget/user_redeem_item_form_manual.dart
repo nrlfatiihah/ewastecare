@@ -77,16 +77,31 @@ class RedeemItemFormManual extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: WasteSizes.spaceBtwItems),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await controller.validateAndProceed();
-                      controller.clearFields();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: WasteColors.buttonPrimary,
-                      side: const BorderSide(color: WasteColors.buttonPrimary),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if (controller.redeemItemFormKey.currentState
+                                ?.validate() ??
+                            false) {
+                          await controller.validateAndProceed();
+                          controller.clearFields();
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: WasteColors.buttonPrimary,
+                        side: const BorderSide(
+                          color: WasteColors.buttonPrimary,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                        ), // adjust height
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: const Text('Next'),
                     ),
-                    child: const Text('Next'),
                   ),
                 ],
               ),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-
 class UserProductQRScanner extends StatefulWidget {
   const UserProductQRScanner({Key? key}) : super(key: key);
 
@@ -18,42 +17,26 @@ class UserProductQRScannerState extends State<UserProductQRScanner> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('QR Scanner')),
-      body: Stack(
-        children: [
-          // MobileScanner widget
-          MobileScanner(
-            onDetect: (capture) {
-              final barcodes = capture.barcodes;
-              if (barcodes.isEmpty) return;
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 5,
+            child: MobileScanner(
+              onDetect: (capture) {
+                final barcodes = capture.barcodes;
+                if (barcodes.isEmpty) return;
 
-              final qrCode = barcodes.first.rawValue;
-              if (!_isScanned && qrCode != null && qrCode.isNotEmpty) {
-                _isScanned = true; // stop multiple triggers
-                // Navigate to RedeemItemForm safely
-                Get.to(() => const RedeemItemForm(), arguments: qrCode);
-              }
-            },
-          ),
-
-          // Overlay square
-          Center(
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.red, width: 4),
-                borderRadius: BorderRadius.circular(10),
-              ),
+                final qrCode = barcodes.first.rawValue;
+                if (!_isScanned && qrCode != null && qrCode.isNotEmpty) {
+                  _isScanned = true; // stop multiple triggers
+                  // Navigate to RedeemItemForm safely
+                  Get.to(() => const RedeemItemForm(), arguments: qrCode);
+                }
+              },
             ),
           ),
-
           // Instruction text
-          const Positioned(
-            bottom: 50,
-            left: 0,
-            right: 0,
-            child: Center(child: Text('Scan a code')),
-          ),
+          const Expanded(flex: 1, child: Center(child: Text('Scan a code'))),
         ],
       ),
     );

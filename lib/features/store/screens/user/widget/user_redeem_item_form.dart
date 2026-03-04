@@ -53,19 +53,28 @@ class RedeemItemForm extends StatelessWidget {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  if (controller.redeemItemFormKey.currentState?.validate() ??
-                      false) {
-                    await controller.validateAndProceed();
-                    controller.clearFields();
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: WasteColors.buttonPrimary,
-                  side: const BorderSide(color: WasteColors.buttonPrimary),
+              SizedBox(
+                width: double.infinity, // makes the button take the full width
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (controller.redeemItemFormKey.currentState?.validate() ??
+                        false) {
+                      await controller.validateAndProceed();
+                      controller.clearFields();
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: WasteColors.buttonPrimary,
+                    side: const BorderSide(color: WasteColors.buttonPrimary),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 16,
+                    ), // adjust height
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text('Next'),
                 ),
-                child: const Text('Next'),
               ),
             ],
           ),

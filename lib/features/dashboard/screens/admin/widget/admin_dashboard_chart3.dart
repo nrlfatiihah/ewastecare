@@ -16,6 +16,7 @@ class PieChartMaterialInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = WasteHelperFunctions.isDarkMode(context);
     final adminDashboardService = AdminDashboardService.instance;
+
     return Obx(() {
       return FutureBuilder<void>(
         future:
@@ -25,203 +26,185 @@ class PieChartMaterialInformation extends StatelessWidget {
             : adminDashboardService.calculateMaterialWeights(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator(); // Show a loader while data is being fetched
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}'); // Handle error
+            return Center(child: Text('Error: ${snapshot.error}'));
           } else {
             return Obx(() {
-              // Access percentages from AdminDashboardService
-              final plasticPercentage =
-                  adminDashboardService.materialGroupPercentages['Plastic'] ??
-                  0.0;
-              final paperPercentage =
-                  adminDashboardService.materialGroupPercentages['Paper'] ??
-                  0.0;
-              final canPercentage =
-                  adminDashboardService.materialGroupPercentages['Can'] ?? 0.0;
-              final oilPercentage =
-                  adminDashboardService.materialGroupPercentages['Used Oil'] ??
-                  0.0;
-              final otherPercentage =
-                  adminDashboardService.materialGroupPercentages['Others'] ??
-                  0.0;
-
-              final plasticWeight =
-                  adminDashboardService.materialGroupWeights['Plastic'] ?? 0.0;
-              final paperWeight =
-                  adminDashboardService.materialGroupWeights['Paper'] ?? 0.0;
-              final canWeight =
-                  adminDashboardService.materialGroupWeights['Can'] ?? 0.0;
-              final oilWeight =
-                  adminDashboardService.materialGroupWeights['Used Oil'] ?? 0.0;
-              final otherWeight =
-                  adminDashboardService.materialGroupWeights['Others'] ?? 0.0;
-
-              // Legend items
+              // Prepare legend items
               final List<Map<String, dynamic>> legendItems = [
                 {
                   'color': WasteColors.primary,
-                  'text': 'Plastic Material',
-                  'percentage': plasticPercentage,
-                  'weight': plasticWeight,
+                  'text': 'Plastic',
+                  'percentage':
+                      adminDashboardService
+                          .materialGroupPercentages['Plastic'] ??
+                      0.0,
+                  'weight':
+                      adminDashboardService.materialGroupWeights['Plastic'] ??
+                      0.0,
                 },
                 {
                   'color': Colors.cyan,
-                  'text': 'Paper Material',
-                  'percentage': paperPercentage,
-                  'weight': paperWeight,
+                  'text': 'Paper',
+                  'percentage':
+                      adminDashboardService.materialGroupPercentages['Paper'] ??
+                      0.0,
+                  'weight':
+                      adminDashboardService.materialGroupWeights['Paper'] ??
+                      0.0,
                 },
                 {
                   'color': Colors.orange,
-                  'text': 'Can Material',
-                  'percentage': canPercentage,
-                  'weight': canWeight,
+                  'text': 'Can',
+                  'percentage':
+                      adminDashboardService.materialGroupPercentages['Can'] ??
+                      0.0,
+                  'weight':
+                      adminDashboardService.materialGroupWeights['Can'] ?? 0.0,
                 },
                 {
                   'color': Colors.purple,
-                  'text': 'Used Oil Material',
-                  'percentage': oilPercentage,
-                  'weight': oilWeight,
+                  'text': 'Used Oil',
+                  'percentage':
+                      adminDashboardService
+                          .materialGroupPercentages['Used Oil'] ??
+                      0.0,
+                  'weight':
+                      adminDashboardService.materialGroupWeights['Used Oil'] ??
+                      0.0,
                 },
                 {
                   'color': WasteColors.error,
-                  'text': 'Others Material',
-                  'percentage': otherPercentage,
-                  'weight': otherWeight,
+                  'text': 'Others',
+                  'percentage':
+                      adminDashboardService
+                          .materialGroupPercentages['Others'] ??
+                      0.0,
+                  'weight':
+                      adminDashboardService.materialGroupWeights['Others'] ??
+                      0.0,
                 },
               ];
 
               return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 40),
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
+                ),
+                padding: const EdgeInsets.all(16),
                 width: WasteDeviceUtils.getScreenWidth(context),
-                decoration: ShapeDecoration(
+                decoration: BoxDecoration(
                   color: showBackground
                       ? dark
                             ? WasteColors.dark
                             : WasteColors.light
                       : Colors.transparent,
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 1,
-                      color: dark
-                          ? Colors.white.withOpacity(0.25)
-                          : Colors.black.withOpacity(0.25),
-                    ),
-                    borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(
+                    color: dark
+                        ? Colors.white.withOpacity(0.25)
+                        : Colors.black.withOpacity(0.15),
                   ),
-                  shadows: [
+                  boxShadow: [
                     BoxShadow(
                       color: dark
-                          ? Colors.white.withOpacity(0.25)
-                          : Colors.black.withOpacity(0.25),
-                      blurRadius: 4,
+                          ? Colors.white.withOpacity(0.1)
+                          : Colors.black.withOpacity(0.1),
+                      blurRadius: 10,
                       offset: const Offset(0, 4),
-                      spreadRadius: 0,
                     ),
                   ],
                 ),
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          'Material Distribution',
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    /// Title
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        'Material Distribution',
+                        style: Theme.of(context).textTheme.headlineSmall!
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
-                      Flexible(
-                        fit: FlexFit.loose,
-                        child: LayoutBuilder(
-                          builder: (context, constraints) {
-                            final double size =
-                                constraints.maxWidth < constraints.maxHeight
-                                ? constraints.maxWidth
-                                : constraints.maxHeight;
-                            return SizedBox(
-                              width: size,
-                              height: size,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  PieChart(
-                                    PieChartData(
-                                      sections: legendItems.map((item) {
-                                        return PieChartSectionData(
-                                          color: item['color'] as Color,
-                                          value: item['percentage'] as double,
-                                          title:
-                                              '${(item['percentage'] as double).toStringAsFixed(2)}%',
-                                          radius: 50,
-                                          titleStyle: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color:
-                                                WasteColors.primaryBackground,
-                                          ),
-                                        );
-                                      }).toList(),
-                                      borderData: FlBorderData(show: false),
-                                      sectionsSpace: 3,
-                                      centerSpaceRadius: size / 4,
-                                      startDegreeOffset: 270,
-                                    ),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Pie chart
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final double size =
+                            constraints.maxWidth < constraints.maxHeight
+                            ? constraints.maxWidth
+                            : constraints.maxHeight;
+                        return SizedBox(
+                          width: size,
+                          height: size,
+                          child: PieChart(
+                            PieChartData(
+                              sections: legendItems.map((item) {
+                                return PieChartSectionData(
+                                  color: item['color'] as Color,
+                                  value: item['percentage'] as double,
+                                  title:
+                                      '${(item['percentage'] as double).toStringAsFixed(1)}%',
+                                  radius: 60,
+                                  titleStyle: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: WasteColors.primaryBackground,
                                   ),
-                                ],
+                                );
+                              }).toList(),
+                              borderData: FlBorderData(show: false),
+                              sectionsSpace: 4,
+                              centerSpaceRadius: size / 4,
+                              startDegreeOffset: 270,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Legend
+                    Column(
+                      children: legendItems.map((item) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 16,
+                                height: 16,
+                                decoration: BoxDecoration(
+                                  color: item['color'] as Color,
+                                  shape: BoxShape.circle,
+                                ),
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: WasteSizes.defaultSpace),
-                      // Legend Column
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: legendItems.map((item) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
-                                    width: 16,
-                                    height: 16,
-                                    decoration: BoxDecoration(
-                                      color: item['color'] as Color,
-                                      shape: BoxShape.circle,
-                                    ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  '${item['text']}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: dark ? Colors.white : Colors.black87,
                                   ),
-                                  const SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(
-                                      '${item['text']}', // Text aligned to the left
-                                      style: TextStyle(
-                                        color: dark
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    '${(item['weight'] as double).toStringAsFixed(2)} Kg', // Percentage aligned to the right
-                                    style: TextStyle(
-                                      color: dark ? Colors.white : Colors.black,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                      const SizedBox(height: WasteSizes.defaultSpace),
-                    ],
-                  ),
+                              Text(
+                                '${(item['weight'] as double).toStringAsFixed(2)} Kg',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: dark ? Colors.white : Colors.black87,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
                 ),
               );
             });

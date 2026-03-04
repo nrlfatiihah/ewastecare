@@ -7,6 +7,7 @@ import 'package:ewastecare/features/module/models/learning_module_model.dart';
 import 'package:ewastecare/features/module/models/section_form_model.dart';
 import 'package:ewastecare/features/module/models/section_model.dart';
 import 'package:ewastecare/features/module/screens/admin/admin_module.dart';
+import 'package:ewastecare/features/personalization/controllers/user_controller.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
 import 'package:ewastecare/utils/helpers/network_manager.dart';
 import 'package:ewastecare/utils/popups/full_screen_loader.dart';
@@ -38,6 +39,10 @@ class ModuleController extends GetxController {
   void onInit() {
     fetchLearningModule();
     super.onInit();
+
+    ever(UserController.instance.user, (user) {
+      fetchUserCompletedModules();
+    });
   }
 
   @override
