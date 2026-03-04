@@ -60,51 +60,99 @@ class DownloadData extends StatelessWidget {
                   controller2.selectedEndDate.value = picked.end;
                 }
               },
-              borderRadius: BorderRadius.circular(18),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 18,
-                ),
+              borderRadius: BorderRadius.circular(20),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                padding: const EdgeInsets.all(18),
                 decoration: BoxDecoration(
-                  color: theme.cardColor,
-                  borderRadius: BorderRadius.circular(18),
+                  gradient: hasDateSelected
+                      ? LinearGradient(
+                          colors: [
+                            theme.colorScheme.primary.withOpacity(0.08),
+                            theme.colorScheme.primary.withOpacity(0.02),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        )
+                      : null,
+                  color: hasDateSelected ? null : theme.cardColor,
+                  borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: hasDateSelected
                         ? theme.colorScheme.primary
-                        : theme.dividerColor.withOpacity(0.4),
+                        : theme.dividerColor.withOpacity(0.3),
+                    width: 1.2,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
+                      color: Colors.black.withOpacity(0.04),
+                      blurRadius: 10,
+                      offset: const Offset(0, 6),
                     ),
                   ],
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.calendar_month,
-                      color: hasDateSelected
-                          ? theme.colorScheme.primary
-                          : Colors.grey,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        hasDateSelected
-                            ? "${dateFormat.format(start!)} - ${dateFormat.format(end!)}"
-                            : "No date range selected",
-                        style: theme.textTheme.bodyMedium,
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: hasDateSelected
+                            ? theme.colorScheme.primary.withOpacity(0.12)
+                            : Colors.grey.withOpacity(0.08),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.calendar_month,
+                        color: hasDateSelected
+                            ? theme.colorScheme.primary
+                            : Colors.grey,
                       ),
                     ),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16,
-                      color: hasDateSelected
-                          ? theme.colorScheme.primary
-                          : Colors.grey,
+                    const SizedBox(width: 14),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Date Range",
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 250),
+                            child: Text(
+                              hasDateSelected
+                                  ? "${dateFormat.format(start!)} - ${dateFormat.format(end!)}"
+                                  : "Tap to select date range",
+                              key: ValueKey(hasDateSelected),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: hasDateSelected
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: hasDateSelected
+                                    ? theme.colorScheme.onSurface
+                                    : Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    AnimatedRotation(
+                      turns: hasDateSelected ? 0.5 : 0,
+                      duration: const Duration(milliseconds: 300),
+                      child: Icon(
+                        Icons.expand_more,
+                        color: hasDateSelected
+                            ? theme.colorScheme.primary
+                            : Colors.grey,
+                      ),
                     ),
                   ],
                 ),

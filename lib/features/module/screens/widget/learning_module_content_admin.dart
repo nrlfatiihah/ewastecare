@@ -26,7 +26,7 @@ class LearningModuleContentAdmin extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(module.moduleImage, fit: BoxFit.cover),
               ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 30),
 
             // Section Display
             ...module.contentSections.map((section) => section.toWidget()),

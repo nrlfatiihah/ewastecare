@@ -36,11 +36,14 @@ class SectionModel {
             borderRadius: BorderRadius.circular(12),
             child: Image.network(sectionImage!, fit: BoxFit.cover),
           ),
+          const SizedBox(height: 10),
         ],
         if (sectionContent1AddPoint1 != null)
           Text(sectionContent1AddPoint1!, style: const TextStyle(fontSize: 16)),
+        const SizedBox(height: 10),
         if (sectionContent1AddPoint2 != null)
           Text(sectionContent1AddPoint2!, style: const TextStyle(fontSize: 16)),
+        const SizedBox(height: 10),
         if (sectionContent1AddPoint3 != null)
           Text(sectionContent1AddPoint3!, style: const TextStyle(fontSize: 16)),
         const SizedBox(height: WasteSizes.spaceBtwItems),

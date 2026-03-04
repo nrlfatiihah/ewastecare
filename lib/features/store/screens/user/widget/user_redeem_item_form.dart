@@ -1,9 +1,5 @@
-import 'package:ewastecare/common/widget/appbar/appbar.dart';
 import 'package:ewastecare/features/store/controllers/redeem_item_controller.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
-import 'package:ewastecare/utils/constants/sizes.dart';
-import 'package:ewastecare/utils/popups/cancel_redeem_popup.dart';
-import 'package:ewastecare/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -14,81 +10,64 @@ class RedeemItemForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(RedeemItemController());
-    // Create a new instance of GlobalKey<FormState> each time the widget is built
+
+    // Create a new form key
     controller.redeemItemFormKey = GlobalKey<FormState>();
 
-    //ensures the text is set after the initial build
+    // Safely set scanned code after the first frame
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final String scannedCode = Get.arguments as String;
-      controller.productIdController.text = scannedCode;
+      final scannedCode = Get.arguments as String?; // safe cast
+      if (scannedCode != null && scannedCode.isNotEmpty) {
+        controller.productIdController.text = scannedCode;
+      }
     });
 
-    return PopScope(
-      canPop: false,
-      onPopInvoked: ((didPop) async {
-        if (didPop) {
-          // If the user tries to navigate back from the Redeem Item screen
-          return;
-        }
-        bool shouldCancel = await DialogUtils.showCancelConfirmationDialog(
-          context,
-        );
-        if (shouldCancel) {
-          // You can perform any additional actions if needed
-          // Get.off(UserStoreScreen());
-          Get.back();
-        }
-      }),
-      child: Scaffold(
-        appBar: const WasteAppBar(
-          showBackArrow: true,
-
-          title: Text("Redeem Item"),
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(WasteSizes.defaultSpace),
-            child: Form(
-              key: controller.redeemItemFormKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextFormField(
-                    controller: controller.productIdController,
-                    validator: (value) =>
-                        WasteValidator.validateEmptyText("Item ID", value),
-                    decoration: const InputDecoration(
-                      labelText: "Item ID",
-                      prefixIcon: Icon(Iconsax.box_search),
-                    ),
-                  ),
-                  const SizedBox(height: WasteSizes.spaceBtwItems),
-                  TextFormField(
-                    controller: controller.quantityController,
-                    validator: (value) => WasteValidator.validateEmptyText(
-                      "Item Quantity",
-                      value,
-                    ),
-                    decoration: const InputDecoration(
-                      labelText: "Item Quantity",
-                      prefixIcon: Icon(Iconsax.shopping_cart),
-                    ),
-                  ),
-                  const SizedBox(height: WasteSizes.spaceBtwItems),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await controller.validateAndProceed();
-                      controller.clearFields();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: WasteColors.buttonPrimary,
-                      side: const BorderSide(color: WasteColors.buttonPrimary),
-                    ),
-                    child: const Text('Next'),
-                  ),
-                ],
+    return Scaffold(
+      appBar: AppBar(title: const Text("Redeem Item")),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: controller.redeemItemFormKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: controller.productIdController,
+                decoration: const InputDecoration(
+                  labelText: "Item ID",
+                  prefixIcon: Icon(Iconsax.box_search),
+                ),
+                validator: (value) => value == null || value.isEmpty
+                    ? "Please enter Item ID"
+                    : null,
               ),
-            ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: controller.quantityController,
+                decoration: const InputDecoration(
+                  labelText: "Quantity",
+                  prefixIcon: Icon(Iconsax.shopping_cart),
+                ),
+                validator: (value) => value == null || value.isEmpty
+                    ? "Please enter quantity"
+                    : null,
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () async {
+                  if (controller.redeemItemFormKey.currentState?.validate() ??
+                      false) {
+                    await controller.validateAndProceed();
+                    controller.clearFields();
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: WasteColors.buttonPrimary,
+                  side: const BorderSide(color: WasteColors.buttonPrimary),
+                ),
+                child: const Text('Next'),
+              ),
+            ],
           ),
         ),
       ),

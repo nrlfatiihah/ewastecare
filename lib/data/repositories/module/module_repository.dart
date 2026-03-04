@@ -18,7 +18,7 @@ class ModuleRepository extends GetxController {
   // Get all module
   Future<List<ModuleModel>> getAllMaterials() async {
     try {
-      final snapshot = await _db.collection("Materials").get();
+      final snapshot = await _db.collection("Modules").get();
       return snapshot.docs.map((e) => ModuleModel.fromSnapshot(e)).toList();
     } on FirebaseException catch (e) {
       throw WasteFirebaseException(e.code).message;
@@ -35,7 +35,7 @@ class ModuleRepository extends GetxController {
 
   Future<void> saveModuleRecord(ModuleModel module) async {
     try {
-      await _db.collection("Materials").doc(module.id).set(module.toJson());
+      await _db.collection("Modules").doc(module.id).set(module.toJson());
     } on FirebaseException catch (e) {
       throw WasteFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -52,7 +52,7 @@ class ModuleRepository extends GetxController {
   Future<bool> isIdUnique(String id) async {
     try {
       final DocumentSnapshot<Map<String, dynamic>> docSnapshot = await _db
-          .collection('Materials')
+          .collection('Modules')
           .doc(id)
           .get();
       return !docSnapshot.exists;
@@ -63,7 +63,7 @@ class ModuleRepository extends GetxController {
 
   Future<void> updateModuleRecord(ModuleModel module) async {
     try {
-      final docRef = _db.collection("Materials").doc(module.id);
+      final docRef = _db.collection("Modules").doc(module.id);
 
       // Prepare sections as List<Map<String, dynamic>>
       final sectionsData = module.contentSections
@@ -89,7 +89,7 @@ class ModuleRepository extends GetxController {
   Future<Map<String, dynamic>> getModuleData(String id) async {
     try {
       final DocumentSnapshot moduleDoc = await _db
-          .collection('Materials')
+          .collection('Modules')
           .doc(id)
           .get();
       if (!moduleDoc.exists) {
@@ -103,7 +103,7 @@ class ModuleRepository extends GetxController {
 
   Future<void> deleteModule(String id) async {
     try {
-      await FirebaseFirestore.instance.collection('Materials').doc(id).delete();
+      await FirebaseFirestore.instance.collection('Modules').doc(id).delete();
       return;
     } on FirebaseException catch (e) {
       throw WasteFirebaseException(e.code).message;

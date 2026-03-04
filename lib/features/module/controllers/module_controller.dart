@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ewastecare/admin_navigation_menu.dart';
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/module/module_repository.dart';
@@ -9,6 +10,7 @@ import 'package:ewastecare/features/module/screens/admin/admin_module.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
 import 'package:ewastecare/utils/helpers/network_manager.dart';
 import 'package:ewastecare/utils/popups/full_screen_loader.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,6 +32,7 @@ class ModuleController extends GetxController {
   RxList<ModuleModel> learningModule = <ModuleModel>[].obs;
   bool moduleDataFetched = false;
   final isEditing = false.obs;
+  RxList<String> completedModules = <String>[].obs;
 
   @override
   void onInit() {
@@ -384,6 +387,37 @@ class ModuleController extends GetxController {
       }
     }
     sections.clear();
+  }
+
+  Future<void> fetchUserCompletedModules() async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final doc = await FirebaseFirestore.instance
+        .collection('CompletedModules')
+        .doc(userId)
+        .get();
+
+    final modules = doc.data()?['completedModules'] as List<dynamic>? ?? [];
+    completedModules.assignAll(modules.cast<String>());
+  }
+
+  Future<void> markModuleCompleted(String moduleId) async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+
+    // Update local controller
+    if (!completedModules.contains(moduleId)) {
+      completedModules.add(moduleId);
+    }
+
+    // Update Firestore
+    await FirebaseFirestore.instance
+        .collection('CompletedModules')
+        .doc(userId)
+        .set(
+          {
+            'completedModules': FieldValue.arrayUnion([moduleId]),
+          },
+          SetOptions(merge: true), // Merge with existing data
+        );
   }
 
   void showDeleteConfirmationDialog(BuildContext context) {

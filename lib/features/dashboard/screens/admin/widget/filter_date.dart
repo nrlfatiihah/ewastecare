@@ -92,53 +92,117 @@ class BottomSheetContent extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Obx(() {
-              final start = controller.selectedStartDate.value;
-              final end = controller.selectedEndDate.value;
+              final start = controller2.selectedStartDate.value;
+              final end = controller2.selectedEndDate.value;
               final dateFormat = DateFormat('dd MMM yyyy');
+              final hasDateSelected = start != null && end != null;
 
               return InkWell(
                 onTap: () async {
                   DateTimeRange? picked = await showDateRangePicker(
-                    context: scaffoldContext,
+                    context: context,
                     firstDate: DateTime(2024),
                     lastDate: DateTime.now(),
                   );
                   if (picked != null) {
-                    controller.selectedStartDate.value = picked.start;
-                    controller.selectedEndDate.value = picked.end;
                     controller2.selectedStartDate.value = picked.start;
                     controller2.selectedEndDate.value = picked.end;
                   }
                 },
-                borderRadius: BorderRadius.circular(18),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 18,
-                  ),
+                borderRadius: BorderRadius.circular(20),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
-                    color: theme.cardColor,
-                    borderRadius: BorderRadius.circular(18),
+                    gradient: hasDateSelected
+                        ? LinearGradient(
+                            colors: [
+                              theme.colorScheme.primary.withOpacity(0.08),
+                              theme.colorScheme.primary.withOpacity(0.02),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          )
+                        : null,
+                    color: hasDateSelected ? null : theme.cardColor,
+                    borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: theme.dividerColor.withOpacity(0.4),
+                      color: hasDateSelected
+                          ? theme.colorScheme.primary
+                          : theme.dividerColor.withOpacity(0.3),
+                      width: 1.2,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.04),
+                        blurRadius: 10,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
                   ),
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.calendar_month,
-                        color: theme.colorScheme.primary,
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          start == null || end == null
-                              ? "No date range selected"
-                              : "${dateFormat.format(start)} - ${dateFormat.format(end)}",
-                          style: theme.textTheme.bodyMedium,
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: hasDateSelected
+                              ? theme.colorScheme.primary.withOpacity(0.12)
+                              : Colors.grey.withOpacity(0.08),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.calendar_month,
+                          color: hasDateSelected
+                              ? theme.colorScheme.primary
+                              : Colors.grey,
                         ),
                       ),
-                      const Icon(Icons.arrow_forward_ios, size: 16),
+                      const SizedBox(width: 14),
+
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Date Range",
+                              style: theme.textTheme.labelMedium?.copyWith(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 250),
+                              child: Text(
+                                hasDateSelected
+                                    ? "${dateFormat.format(start!)} - ${dateFormat.format(end!)}"
+                                    : "Tap to select date range",
+                                key: ValueKey(hasDateSelected),
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  fontWeight: hasDateSelected
+                                      ? FontWeight.w600
+                                      : FontWeight.w400,
+                                  color: hasDateSelected
+                                      ? theme.colorScheme.onSurface
+                                      : Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      AnimatedRotation(
+                        turns: hasDateSelected ? 0.5 : 0,
+                        duration: const Duration(milliseconds: 300),
+                        child: Icon(
+                          Icons.expand_more,
+                          color: hasDateSelected
+                              ? theme.colorScheme.primary
+                              : Colors.grey,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -181,14 +245,20 @@ class BottomSheetContent extends StatelessWidget {
                         Navigator.pop(currentContext);
                       }
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: WasteColors.buttonPrimary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      elevation: 4,
-                    ),
+                    style:
+                        ElevatedButton.styleFrom(
+                          backgroundColor: WasteColors.buttonPrimary,
+                          elevation: 4,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                        ).copyWith(
+                          side: MaterialStateProperty.all(BorderSide.none),
+                          overlayColor: MaterialStateProperty.all(
+                            Colors.transparent,
+                          ),
+                        ),
                     child: const Text("Confirm"),
                   ),
                 ),

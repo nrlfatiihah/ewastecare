@@ -7,6 +7,7 @@ import 'package:ewastecare/data/repositories/transaction/transaction_repository.
 import 'package:ewastecare/features/store/models/product_model.dart';
 import 'package:ewastecare/features/store/screens/admin/store/admin_store.dart';
 import 'package:ewastecare/features/store/screens/admin/store/user_store.dart';
+import 'package:ewastecare/user_navigation_menu.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
 import 'package:ewastecare/utils/helpers/network_manager.dart';
 import 'package:ewastecare/utils/popups/full_screen_loader.dart';
@@ -357,7 +358,7 @@ class ProductController extends GetxController {
         title: "Success",
         message: "You have successfully redeem the product.",
       );
-      Get.off(() => const UserStoreScreen());
+      Get.off(() => const UserNavigationMenu());
     } catch (e) {
       // Show error message
       WasteLoaders.errorSnackBar(

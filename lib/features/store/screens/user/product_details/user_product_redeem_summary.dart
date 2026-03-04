@@ -89,7 +89,7 @@ class SummaryPage extends StatelessWidget {
               value: totalCost.toString(),
             ),
             WasteConfirmRedeemMenu(
-              title: "New WastePoint Balance",
+              title: "New Balance",
               value: newBalance.toString(),
             ),
             const SizedBox(height: WasteSizes.spaceBtwItems),

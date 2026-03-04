@@ -176,7 +176,7 @@ class ProductRepository extends GetxController {
         return 0; // User data not found
       }
       final userData = userDoc.data() as Map<String, dynamic>;
-      return userData['Waste'] as int;
+      return userData['WastePoint'] as int;
     } catch (e) {
       return 0;
     }

@@ -94,9 +94,9 @@ class UserController extends GetxController {
     }
   }
 
-  void setDateRange(DateTime start, DateTime end) {
-    startDate.value = start;
-    endDate.value = end;
+  void setDateRange(DateTime? start, DateTime? end) {
+    this.startDate.value = start;
+    this.endDate.value = end;
   }
 
   Future<String> getCurrentUserId() async {

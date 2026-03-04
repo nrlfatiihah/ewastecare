@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+
 class UserProductQRScanner extends StatefulWidget {
   const UserProductQRScanner({Key? key}) : super(key: key);
 
@@ -19,21 +20,22 @@ class UserProductQRScannerState extends State<UserProductQRScanner> {
       appBar: AppBar(title: const Text('QR Scanner')),
       body: Stack(
         children: [
-          // Scanner
+          // MobileScanner widget
           MobileScanner(
             onDetect: (capture) {
               final barcodes = capture.barcodes;
               if (barcodes.isEmpty) return;
 
               final qrCode = barcodes.first.rawValue;
-              if (!_isScanned && qrCode != null) {
+              if (!_isScanned && qrCode != null && qrCode.isNotEmpty) {
                 _isScanned = true; // stop multiple triggers
-                _navigateToRedeemItemForm(qrCode);
+                // Navigate to RedeemItemForm safely
+                Get.to(() => const RedeemItemForm(), arguments: qrCode);
               }
             },
           ),
 
-          // Overlay (like old red border)
+          // Overlay square
           Center(
             child: Container(
               width: 300,
@@ -55,9 +57,5 @@ class UserProductQRScannerState extends State<UserProductQRScanner> {
         ],
       ),
     );
-  }
-
-  void _navigateToRedeemItemForm(String qrCode) {
-    Get.off(() => RedeemItemForm(), arguments: qrCode);
   }
 }
