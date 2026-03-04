@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ewastecare/features/module/controllers/module_controller.dart';
-import 'package:ewastecare/features/module/screens/widget/learning_module_content.dart';
+import 'package:ewastecare/features/module/screens/widget/learning_module_content_user.dart';
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
 import 'package:ewastecare/common/widget/custom_shape/containers/primary_header_container.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
@@ -62,7 +62,7 @@ class UserModuleScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (_) =>
-                                  LearningModuleContent(module: module),
+                                  LearningModuleContentUser(module: module),
                             ),
                           );
                         },

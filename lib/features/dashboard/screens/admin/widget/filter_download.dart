@@ -14,109 +14,156 @@ class DownloadData extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = DownloadWasteDataController.instance;
     final controller2 = TestDownloadWasteDataController.instance;
-    final scaffoldContext = context;
+
+    final theme = Theme.of(context);
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(
-        MediaQuery.of(context).size.width * 0.05,
-      ), // Padding relative to screen width
+      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          /// Title
+          Text(
             "Download Waste Data to Excel",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          const SizedBox(height: 20),
-          const Text(
+          const SizedBox(height: 25),
+
+          /// Date Range Section
+          Text(
             "Select Date Range",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          ListTile(
-            title: Obx(() {
-              final start = controller2.selectedStartDate.value;
-              final end = controller2.selectedEndDate.value;
-              final dateFormat = DateFormat('dd-MM-yyyy');
-              return Text(
-                start == null || end == null
-                    ? "No date range selected"
-                    : "${dateFormat.format(start)} - ${dateFormat.format(end)}",
-              );
-            }),
-            trailing: const Icon(Icons.calendar_today),
-            onTap: () async {
-              DateTimeRange? picked = await showDateRangePicker(
-                context: scaffoldContext,
-                firstDate: DateTime(2024),
-                lastDate: DateTime.now(),
-              );
-              if (picked != null) {
-                controller2.selectedStartDate.value = picked.start;
-                controller2.selectedEndDate.value = picked.end;
-              }
-            },
-          ),
-          const SizedBox(height: WasteSizes.spaceBtwSections * 2),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  side: const BorderSide(color: Colors.red),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      18.0,
-                    ), // Rounded corners
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal:
-                        MediaQuery.of(context).size.width *
-                        0.05, // Relative padding
-                    vertical: 15,
-                  ),
+          const SizedBox(height: 12),
+
+          /// Date Picker Card
+          Obx(() {
+            final start = controller2.selectedStartDate.value;
+            final end = controller2.selectedEndDate.value;
+            final dateFormat = DateFormat('dd MMM yyyy');
+            final hasDateSelected = start != null && end != null;
+
+            return InkWell(
+              onTap: () async {
+                DateTimeRange? picked = await showDateRangePicker(
+                  context: context,
+                  firstDate: DateTime(2024),
+                  lastDate: DateTime.now(),
+                );
+                if (picked != null) {
+                  controller2.selectedStartDate.value = picked.start;
+                  controller2.selectedEndDate.value = picked.end;
+                }
+              },
+              borderRadius: BorderRadius.circular(18),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 18,
                 ),
-                onPressed: () {
-                  controller.resetFilters();
-                },
-                child: const Text("Reset"),
+                decoration: BoxDecoration(
+                  color: theme.cardColor,
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(
+                    color: hasDateSelected
+                        ? theme.colorScheme.primary
+                        : theme.dividerColor.withOpacity(0.4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.calendar_month,
+                      color: hasDateSelected
+                          ? theme.colorScheme.primary
+                          : Colors.grey,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        hasDateSelected
+                            ? "${dateFormat.format(start!)} - ${dateFormat.format(end!)}"
+                            : "No date range selected",
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                      color: hasDateSelected
+                          ? theme.colorScheme.primary
+                          : Colors.grey,
+                    ),
+                  ],
+                ),
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: WasteColors.buttonPrimary,
-                  side: const BorderSide(color: WasteColors.buttonPrimary),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      18.0,
-                    ), // Rounded corners
+            );
+          }),
+          const SizedBox(height: 30),
+
+          /// Buttons Row
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: controller2.resetFilters,
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Colors.red.shade400),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal:
-                        MediaQuery.of(context).size.width *
-                        0.05, // Relative padding
-                    vertical: 15,
+                  child: const Text(
+                    "Reset",
+                    style: TextStyle(color: Colors.red),
                   ),
                 ),
-                onPressed: () async {
-                  if (controller2.selectedStartDate.value != null &&
-                      controller2.selectedEndDate.value != null) {
-                    await controller2.generateAndShareExcel(
-                      controller2.selectedStartDate.value!,
-                      controller2.selectedEndDate.value!,
-                    );
-                  } else {
-                    WasteLoaders.errorSnackBar(
-                      title: "Oops!",
-                      message:
-                          "Please select the desired start and end date to download the data",
-                    );
-                  }
-                },
-                child: const Text("Download"),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (controller2.selectedStartDate.value != null &&
+                        controller2.selectedEndDate.value != null) {
+                      await controller2.generateAndShareExcel(
+                        controller2.selectedStartDate.value!,
+                        controller2.selectedEndDate.value!,
+                      );
+                    } else {
+                      WasteLoaders.errorSnackBar(
+                        title: "Oops!",
+                        message:
+                            "Please select the desired start and end date to download the data",
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: WasteColors.buttonPrimary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    elevation: 4,
+                  ),
+                  child: const Text("Download"),
+                ),
               ),
             ],
           ),
+          const SizedBox(height: 16),
         ],
       ),
     );

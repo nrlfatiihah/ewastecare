@@ -2,6 +2,7 @@ import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/material/material_repository.dart';
 import 'package:ewastecare/features/dashboard/models/material_distribution_model.dart';
 import 'package:ewastecare/features/waste_point/model/material_model.dart';
+import 'package:ewastecare/features/waste_point/screen/recycle_rate.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
 import 'package:ewastecare/utils/helpers/network_manager.dart';
 import 'package:ewastecare/utils/popups/full_screen_loader.dart';
@@ -94,6 +95,7 @@ class MaterialController extends GetxController {
         message: "Your product has been successfully added to the store.",
       );
 
+      Get.offAll(() => const RecycleRate());
       clearFormData();
     } catch (e) {
       WasteFullScreenLoader.stopLoading();

@@ -22,8 +22,8 @@ class RecycleRate extends StatelessWidget {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          controller.resetDataFetched(); // Reset dataFetched flag
-          await controller.fetchRateMaterials(); // Fetch user record again
+          controller.resetDataFetched();
+          await controller.fetchRateMaterials();
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -43,10 +43,8 @@ class RecycleRate extends StatelessWidget {
                       Radius.circular(20),
                     ), // Match border radius
                     border: Border.all(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .outline, // Change this to your desired border color
-                      width: 2, // Adjust the border width as needed
+                      color: Theme.of(context).colorScheme.outline,
+                      width: 2,
                     ),
                   ),
                   child: Column(
@@ -103,7 +101,7 @@ class RecycleRate extends StatelessWidget {
                       _buildExpansionPanel(
                         context: context,
                         title: "Others",
-                        icon: Icons.local_gas_station,
+                        icon: Icons.more,
                         isExpanded: controller.isOthersExpanded.value,
                         onExpansionChanged: (isExpanded) =>
                             controller.isOthersExpanded.value = isExpanded,
@@ -132,95 +130,188 @@ class RecycleRate extends StatelessWidget {
     required List<MaterialModel> materials,
     required MaterialController controller,
   }) {
-    return ExpansionPanelList(
-      elevation: 0,
-      expandedHeaderPadding: EdgeInsets.all(0),
-      dividerColor: Theme.of(context).dividerColor.withOpacity(0.6),
-      expansionCallback: (index, isExpanded) {
-        print("Panel $index: $isExpanded");
-        onExpansionChanged(isExpanded);
-      },
-      children: [
-        ExpansionPanel(
-          headerBuilder: (context, isExpanded) {
-            return Container(
-              padding: EdgeInsets.all(10),
-              child: ListTile(
-                title: Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleLarge,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: ExpansionPanelList(
+        elevation: 0,
+        expandedHeaderPadding: EdgeInsets.zero,
+        dividerColor: Colors.transparent,
+        expansionCallback: (index, isExpanded) {
+          onExpansionChanged(isExpanded);
+        },
+        children: [
+          ExpansionPanel(
+            backgroundColor: Theme.of(context).cardColor,
+            headerBuilder: (context, isExpanded) {
+              return Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
                 ),
-                leading: Icon(icon, color: Theme.of(context).iconTheme.color),
-              ),
-            );
-          },
-          body: Container(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              children: materials.map((material) {
-                final TextEditingController textController =
-                    TextEditingController(
-                      text: material.value.toStringAsFixed(2),
-                    );
-
-                return Row(
+                decoration: BoxDecoration(
+                  color: isExpanded
+                      ? Theme.of(context).colorScheme.primary.withOpacity(0.08)
+                      : Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
                   children: [
-                    Expanded(
-                      child: ListTile(
-                        title: Text(material.name),
-                        subtitle: Text('Value: RM ${textController.text}'),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.primary.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(
+                        icon,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text('Edit Value for ${material.name}'),
-                              content: TextField(
-                                controller: textController,
-                                keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true,
-                                ),
-                                decoration: InputDecoration(
-                                  labelText: 'Enter new value',
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    // Update the material value
-                                    final newValue =
-                                        double.tryParse(textController.text) ??
-                                        material.value;
-                                    material.value = newValue;
-                                    controller.updateMaterial(material);
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text('Save'),
-                                ),
-                                TextButton(
-                                  onPressed: () => Navigator.of(context).pop(),
-                                  child: Text('Cancel'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ],
-                );
-              }).toList(),
+                ),
+              );
+            },
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: Column(
+                children: materials.map((material) {
+                  final TextEditingController textController =
+                      TextEditingController(
+                        text: material.value.toStringAsFixed(2),
+                      );
+
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(14),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.04),
+                          blurRadius: 6,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                material.name,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                "RM ${textController.text}",
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.primary.withOpacity(0.12),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.edit,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    title: Text(
+                                      'Edit ${material.name}',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    content: TextField(
+                                      controller: textController,
+                                      keyboardType:
+                                          const TextInputType.numberWithOptions(
+                                            decimal: true,
+                                          ),
+                                      decoration: const InputDecoration(
+                                        labelText: 'Enter new value',
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                    actionsPadding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 8,
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          final newValue =
+                                              double.tryParse(
+                                                textController.text,
+                                              ) ??
+                                              material.value;
+                                          material.value = newValue;
+                                          controller.updateMaterial(material);
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('Save'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
+            isExpanded: isExpanded,
+            canTapOnHeader: true,
           ),
-          isExpanded: isExpanded,
-          canTapOnHeader: true,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

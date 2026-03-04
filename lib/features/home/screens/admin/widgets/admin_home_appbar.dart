@@ -25,7 +25,7 @@ class WasteAdminHomeAppBar extends StatelessWidget {
                 WasteTexts.userHomeAppbarTitle,
                 style: Theme.of(
                   context,
-                ).textTheme.labelMedium!.apply(color: WasteColors.grey),
+                ).textTheme.headlineSmall!.apply(color: WasteColors.grey),
               ),
               Obx(() {
                 if (controller.profileLoading.value) {
@@ -41,39 +41,6 @@ class WasteAdminHomeAppBar extends StatelessWidget {
               }),
             ],
           ),
-          // Obx(() {
-          //           final networkImage = controller.user.value.profilePicture;
-          //           final image = networkImage.isNotEmpty
-          //               ? networkImage
-          //               : WasteImages.userImage;
-          //           return controller.imageUploading.value
-          //               ? const WasteShimmerEffect(
-          //                   width: 80,
-          //                   height: 80,
-          //                   radius: 80,
-          //                 )
-          //               : WasteCircularImage(
-          //                   image: image,
-          //                   width: 50,
-          //                   height: 50,
-          //                   isNetworkImage: networkImage.isNotEmpty,
-          //                 );
-          //         }),
-          // const WasteCircularImage(
-          //   image: WasteImages.userImage,
-          //   width: 50,
-          //   height: 50,
-          //   padding: 0,
-          // ),
-
-          // Obx(() {
-          //   return IconButton(
-          //     icon: Icon(Icons.menu, color: WasteColors.white),
-          //     onPressed: () {
-          //       Scaffold.of(context).openEndDrawer();
-          //     },
-          //   );
-          // }),
         ],
       ),
     );

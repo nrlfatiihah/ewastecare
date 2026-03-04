@@ -115,19 +115,28 @@ class UserSettingScreen extends StatelessWidget {
                     onTap: () => Get.to(() => const AppInformationScreen()),
                   ),
 
-                  //Logout Button
                   const SizedBox(height: WasteSizes.spaceBtwSections),
                   SizedBox(
                     width: double.infinity,
-                    child: OutlinedButton(
+                    child: OutlinedButton.icon(
                       onPressed: () =>
                           AuthenticationRepository.instance.logout(),
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(
-                          color: WasteColors.buttonPrimary,
+                      icon: const Icon(Iconsax.logout, color: Colors.white),
+                      label: const Text(
+                        "Logout",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      child: const Text("Logout"),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Colors.red),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        backgroundColor: Colors.red,
+                      ), // subtle red background
                     ),
                   ),
                 ],

@@ -253,8 +253,6 @@ class PointAllocationScreen extends StatelessWidget {
           );
         }).toList(),
         tilePadding: const EdgeInsets.symmetric(horizontal: 16),
-        backgroundColor: Colors.white,
-        collapsedBackgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         childrenPadding: EdgeInsets.zero,
         clipBehavior: Clip.antiAlias,

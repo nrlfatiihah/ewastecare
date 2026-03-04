@@ -21,10 +21,8 @@ class UserNavigationMenu extends StatelessWidget {
     return PopScope(
       canPop: false,
       onPopInvoked: ((didPop) async {
-        if (didPop) {
-          // If the user tries to navigate back from the Home screen
-          return;
-        }
+        if (didPop) return;
+
         bool shouldLogout = await DialogUtils.showLogoutConfirmationDialog(
           context,
         );
@@ -35,23 +33,54 @@ class UserNavigationMenu extends StatelessWidget {
       child: Scaffold(
         bottomNavigationBar: Obx(
           () => NavigationBar(
-            height: 80,
-            elevation: 0,
+            height: 85, // taller for better touch targets
+            elevation: 5,
+            backgroundColor: darkMode ? WasteColors.black : Colors.white,
             selectedIndex: controller.selectedIndex.value,
             onDestinationSelected: (index) =>
                 controller.selectedIndex.value = index,
-            backgroundColor: darkMode ? WasteColors.black : Colors.white,
             indicatorColor: darkMode
-                ? WasteColors.white.withOpacity(0.1)
-                : WasteColors.black.withOpacity(0.1),
-            destinations: const [
-              NavigationDestination(icon: Icon(Iconsax.home), label: "Home"),
+                ? WasteColors.primary.withOpacity(0.15)
+                : WasteColors.buttonPrimary.withOpacity(0.15),
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+            surfaceTintColor: Colors.transparent,
+            destinations: [
               NavigationDestination(
-                icon: Icon(Iconsax.teacher),
+                icon: Icon(Iconsax.home, size: 26),
+                selectedIcon: Icon(
+                  Iconsax.home,
+                  color: WasteColors.buttonPrimary,
+                  size: 28,
+                ),
+                label: "Home",
+              ),
+              NavigationDestination(
+                icon: Icon(Iconsax.teacher, size: 26),
+                selectedIcon: Icon(
+                  Iconsax.teacher,
+                  color: WasteColors.buttonPrimary,
+                  size: 28,
+                ),
                 label: "Module",
               ),
-              NavigationDestination(icon: Icon(Iconsax.shop), label: "Store"),
-              NavigationDestination(icon: Icon(Iconsax.user), label: "Profile"),
+              NavigationDestination(
+                icon: Icon(Iconsax.shop, size: 26),
+                selectedIcon: Icon(
+                  Iconsax.shop,
+                  color: WasteColors.buttonPrimary,
+                  size: 28,
+                ),
+                label: "Store",
+              ),
+              NavigationDestination(
+                icon: Icon(Iconsax.user, size: 26),
+                selectedIcon: Icon(
+                  Iconsax.user,
+                  color: WasteColors.buttonPrimary,
+                  size: 28,
+                ),
+                label: "Profile",
+              ),
             ],
           ),
         ),

@@ -40,17 +40,32 @@ class AdminDashboardScreen extends StatelessWidget {
                     WasteAppBar(
                       title: Row(
                         children: [
+                          // Text section
                           Expanded(
-                            child: Text(
-                              "Performance Analytics",
-                              style: Theme.of(context).textTheme.headlineMedium!
-                                  .copyWith(
-                                    color: WasteColors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                              overflow: TextOverflow.ellipsis,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Performance Analytics",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium!
+                                      .copyWith(
+                                        color: WasteColors.white,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                  softWrap: true, // Allows wrapping
+                                  maxLines:
+                                      2, // Prevents it from overflowing too much
+                                ),
+                              ],
                             ),
                           ),
+
+                          const SizedBox(
+                            width: 8,
+                          ), // spacing between text and icons
+                          // Filter icon
                           IconButton(
                             icon: const Icon(
                               Iconsax.filter,
@@ -62,6 +77,8 @@ class AdminDashboardScreen extends StatelessWidget {
                               builder: (_) => const BottomSheetContent(),
                             ),
                           ),
+
+                          // Download icon
                           IconButton(
                             icon: const Icon(
                               Iconsax.document_download,

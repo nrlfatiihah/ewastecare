@@ -4,7 +4,7 @@ import 'package:ewastecare/features/home/screens/admin/widgets/admin_home_appbar
 import 'package:ewastecare/features/home/screens/admin/widgets/drawer_admin.dart';
 import 'package:ewastecare/features/module/models/learning_module_model.dart';
 import 'package:ewastecare/features/module/controllers/module_controller.dart';
-import 'package:ewastecare/features/module/screens/widget/learning_module_content.dart';
+import 'package:ewastecare/features/module/screens/widget/learning_module_content_admin.dart';
 import 'package:ewastecare/features/module/screens/widget/module_action_button.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/helpers/helper_functions.dart';
@@ -61,7 +61,9 @@ class AdminModule extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          LearningModuleContent(module: module),
+                                          LearningModuleContentAdmin(
+                                            module: module,
+                                          ),
                                     ),
                                   );
                                 },

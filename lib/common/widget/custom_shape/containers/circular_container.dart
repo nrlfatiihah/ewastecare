@@ -1,4 +1,3 @@
-// use and checked
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -23,12 +22,24 @@ class WasteCircularContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400,
-      height: 400,
-      padding: const EdgeInsets.all(0),
+      width: width,
+      height: height,
+      padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(400),
-        color: WasteColors.textWhite.withOpacity(0.1),
+        color: backgroundColor.withOpacity(0.1), // subtle background
+        borderRadius: BorderRadius.circular(radius),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05), // subtle shadow
+            spreadRadius: 2,
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+        border: Border.all(
+          color: backgroundColor.withOpacity(0.2), // soft border
+          width: 1.5,
+        ),
       ),
       child: child,
     );

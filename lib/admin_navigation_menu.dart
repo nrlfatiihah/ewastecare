@@ -22,7 +22,7 @@ class AdminNavigationMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(AdminNavigationController());
 
-    // 🔥 Set initial index when widget builds
+    // Set initial index when widget builds
     controller.setIndex(selectedIndex);
 
     final darkMode = WasteHelperFunctions.isDarkMode(context);
@@ -43,24 +43,52 @@ class AdminNavigationMenu extends StatelessWidget {
       child: Scaffold(
         bottomNavigationBar: Obx(
           () => NavigationBar(
-            height: 80,
-            elevation: 0,
+            height: 85, // slightly taller
+            elevation: 5,
+            backgroundColor: darkMode ? WasteColors.black : Colors.white,
             selectedIndex: controller.selectedIndex.value,
             onDestinationSelected: (index) =>
                 controller.selectedIndex.value = index,
-            backgroundColor: darkMode ? WasteColors.black : Colors.white,
             indicatorColor: darkMode
-                ? WasteColors.white.withOpacity(0.1)
-                : WasteColors.black.withOpacity(0.1),
-            destinations: const [
-              NavigationDestination(icon: Icon(Iconsax.home), label: "Home"),
-              NavigationDestination(icon: Icon(Iconsax.shop), label: "Store"),
+                ? WasteColors.primary.withOpacity(0.15)
+                : WasteColors.buttonPrimary.withOpacity(0.15),
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+            surfaceTintColor: Colors.transparent,
+            destinations: [
               NavigationDestination(
-                icon: Icon(Iconsax.status_up),
+                icon: Icon(Iconsax.home, size: 26),
+                selectedIcon: Icon(
+                  Iconsax.home,
+                  color: WasteColors.buttonPrimary,
+                  size: 28,
+                ),
+                label: "Home",
+              ),
+              NavigationDestination(
+                icon: Icon(Iconsax.shop, size: 26),
+                selectedIcon: Icon(
+                  Iconsax.shop,
+                  color: WasteColors.buttonPrimary,
+                  size: 28,
+                ),
+                label: "Store",
+              ),
+              NavigationDestination(
+                icon: Icon(Iconsax.status_up, size: 26),
+                selectedIcon: Icon(
+                  Iconsax.status_up,
+                  color: WasteColors.buttonPrimary,
+                  size: 28,
+                ),
                 label: "Analytics",
               ),
               NavigationDestination(
-                icon: Icon(Iconsax.wallet_add_1),
+                icon: Icon(Iconsax.wallet_add_1, size: 26),
+                selectedIcon: Icon(
+                  Iconsax.wallet_add_1,
+                  color: WasteColors.buttonPrimary,
+                  size: 28,
+                ),
                 label: "Allocate",
               ),
             ],

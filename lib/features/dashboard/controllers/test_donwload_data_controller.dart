@@ -212,4 +212,9 @@ class TestDownloadWasteDataController extends GetxController {
   String getCurrentDateTimeString() {
     return DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
   }
+
+  void resetFilters() {
+    selectedStartDate.value = null;
+    selectedEndDate.value = null;
+  }
 }

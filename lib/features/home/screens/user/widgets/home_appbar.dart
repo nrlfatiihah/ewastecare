@@ -26,7 +26,7 @@ class WasteHomeAppBar extends StatelessWidget {
                 WasteTexts.userHomeAppbarTitle,
                 style: Theme.of(
                   context,
-                ).textTheme.labelMedium!.apply(color: WasteColors.grey),
+                ).textTheme.headlineSmall!.apply(color: WasteColors.grey),
               ),
               Obx(() {
                 if (controller.profileLoading.value) {

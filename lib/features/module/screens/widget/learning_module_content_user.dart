@@ -1,10 +1,9 @@
 import 'package:ewastecare/features/module/models/learning_module_model.dart';
 import 'package:flutter/material.dart';
-import 'package:ewastecare/features/module/screens/widget/module_button_action.dart';
 
-class LearningModuleContent extends StatelessWidget {
+class LearningModuleContentUser extends StatelessWidget {
   final ModuleModel module;
-  const LearningModuleContent({super.key, required this.module});
+  const LearningModuleContentUser({super.key, required this.module});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +32,6 @@ class LearningModuleContent extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: ModuleDetailsActionButton(module: module),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
