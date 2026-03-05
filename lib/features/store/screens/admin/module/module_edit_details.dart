@@ -88,7 +88,7 @@ class AdminEditModuleScreen extends StatelessWidget {
                               ),
                               padding: const EdgeInsets.symmetric(vertical: 12),
                             ).copyWith(
-                              overlayColor: MaterialStateProperty.all(
+                              overlayColor: WidgetStateProperty.all(
                                 Colors.transparent,
                               ),
                             ),
@@ -224,7 +224,7 @@ class AdminEditModuleScreen extends StatelessWidget {
                           backgroundColor: WasteColors.primary,
                           side: BorderSide.none,
                         ).copyWith(
-                          overlayColor: MaterialStateProperty.all(
+                          overlayColor: WidgetStateProperty.all(
                             Colors.transparent,
                           ),
                         ),

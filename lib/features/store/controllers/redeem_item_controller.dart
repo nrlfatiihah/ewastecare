@@ -31,6 +31,7 @@ class RedeemItemController extends GetxController {
 
         Get.to(
           () => SummaryPage(
+            productImage: validationResult["productImage"],
             productId: validationResult["productId"],
             quantity: validationResult["quantity"],
             totalCost: validationResult["totalCost"],
@@ -63,6 +64,7 @@ class RedeemItemController extends GetxController {
     final productStock = productData['Stock'] as int;
     final productPrice = productData['WastePoint'] as int;
     final productName = productData['productName'] as String;
+    final productImage = productData['Image'] ?? "";
     final userWastePointBalance = await productRepository.getUserWasteBalance();
     final userId = await userController.getCurrentUserId();
     final totalCost = productPrice * quantity;
@@ -88,6 +90,7 @@ class RedeemItemController extends GetxController {
       'userWastePointBalance': userWastePointBalance,
       'productName': productName,
       'productPrice': productPrice,
+      'productImage': productImage,
       "userId": userId,
     };
   }

@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 class SummaryPage extends StatelessWidget {
   const SummaryPage({
     super.key,
+    required this.productImage,
     required this.productId,
     required this.quantity,
     required this.totalCost,
@@ -22,6 +23,7 @@ class SummaryPage extends StatelessWidget {
     required this.userId,
   });
 
+  final String productImage;
   final String productId;
   final int quantity;
   final int totalCost;
@@ -48,55 +50,107 @@ class SummaryPage extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(WasteSizes.defaultSpace),
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const WasteCircularImage(
-              image: WasteImages.productRedeemImage,
-              width: 100,
-              height: 100,
+            // Product Image
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: WasteColors.lightGrey,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  productImage,
+                  width: 110,
+                  height: 110,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.image_not_supported, size: 60),
+                ),
+              ),
             ),
-            const SizedBox(height: WasteSizes.spaceBtwItems),
-            const Divider(),
-            const SizedBox(height: WasteSizes.spaceBtwItems),
-            const WasteSectionHeading(
-              title: "Product Details",
-              showActionButton: false,
-            ),
-            const SizedBox(height: WasteSizes.spaceBtwItems),
-            WasteConfirmRedeemMenu(title: "Product ID", value: productId),
-            WasteConfirmRedeemMenu(
-              title: "Product Name",
-              value: displayProductName,
-            ),
-            WasteConfirmRedeemMenu(
-              title: "Quantity",
-              value: displayQuantity.toString(),
-            ),
-            const SizedBox(height: WasteSizes.spaceBtwItems),
-            const Divider(),
-            const SizedBox(height: WasteSizes.spaceBtwItems),
-            const WasteSectionHeading(
-              title: "Payment Details",
-              showActionButton: false,
-            ),
-            const SizedBox(height: WasteSizes.spaceBtwItems),
-            WasteConfirmRedeemMenu(
-              title: "WastePoint Balance",
-              value: userBalance.toString(),
-            ),
-            WasteConfirmRedeemMenu(
-              title: "Total Price",
-              value: totalCost.toString(),
-            ),
-            WasteConfirmRedeemMenu(
-              title: "New Balance",
-              value: newBalance.toString(),
-            ),
-            const SizedBox(height: WasteSizes.spaceBtwItems),
-            const Divider(),
+
             const SizedBox(height: WasteSizes.spaceBtwSections),
+
+            // Product Details Card
+            Card(
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(WasteSizes.defaultSpace),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const WasteSectionHeading(
+                      title: "Product Details",
+                      showActionButton: false,
+                    ),
+                    const SizedBox(height: WasteSizes.spaceBtwItems),
+
+                    WasteConfirmRedeemMenu(
+                      title: "Product ID",
+                      value: productId,
+                    ),
+                    WasteConfirmRedeemMenu(
+                      title: "Product Name",
+                      value: displayProductName,
+                    ),
+                    WasteConfirmRedeemMenu(
+                      title: "Quantity",
+                      value: displayQuantity.toString(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: WasteSizes.spaceBtwSections),
+
+            // Payment Details Card
+            Card(
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(WasteSizes.defaultSpace),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const WasteSectionHeading(
+                      title: "Payment Details",
+                      showActionButton: false,
+                    ),
+                    const SizedBox(height: WasteSizes.spaceBtwItems),
+
+                    WasteConfirmRedeemMenu(
+                      title: "WastePoint Balance",
+                      value: userBalance.toString(),
+                    ),
+
+                    WasteConfirmRedeemMenu(
+                      title: "Total Price",
+                      value: totalCost.toString(),
+                    ),
+
+                    WasteConfirmRedeemMenu(
+                      title: "New Balance",
+                      value: newBalance.toString(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: WasteSizes.spaceBtwSections),
+
+            // Confirm Button
             SizedBox(
               width: double.infinity,
+              height: 55,
               child: ElevatedButton(
                 onPressed: () => controller.updateDatabaseAfterRedeemProduct(
                   productId: productId,
@@ -106,11 +160,21 @@ class SummaryPage extends StatelessWidget {
                   userid: userId,
                   product: productName,
                 ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: WasteColors.buttonPrimary,
-                  side: const BorderSide(color: WasteColors.buttonPrimary),
+                style:
+                    ElevatedButton.styleFrom(
+                      backgroundColor: WasteColors.buttonPrimary,
+                      elevation: 4,
+                      side: BorderSide.none,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ).copyWith(
+                      overlayColor: WidgetStateProperty.all(Colors.transparent),
+                    ),
+                child: const Text(
+                  WasteTexts.confirmRedeem,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
-                child: const Text(WasteTexts.confirmRedeem),
               ),
             ),
           ],

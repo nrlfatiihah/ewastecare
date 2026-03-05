@@ -21,39 +21,57 @@ class WasteAnimationLoaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Lottie.asset(
-            animation,
-            width: MediaQuery.of(context).size.width * 0.8,
-          ),
-          const SizedBox(height: WasteSizes.defaultSpace),
-          Text(
-            text,
-            style: Theme.of(context).textTheme.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: WasteSizes.defaultSpace),
-          showAction
-              ? SizedBox(
-                  width: 250,
-                  child: OutlinedButton(
-                    onPressed: onActionPressed,
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: WasteColors.dark,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Animation
+            Lottie.asset(animation, width: size.width * 0.65, repeat: true),
+
+            const SizedBox(height: WasteSizes.spaceBtwSections),
+
+            // Message
+            Text(
+              text,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w500,
+                height: 1.4,
+              ),
+              textAlign: TextAlign.center,
+            ),
+
+            const SizedBox(height: WasteSizes.spaceBtwSections),
+
+            // Optional Action Button
+            if (showAction)
+              SizedBox(
+                width: 220,
+                height: 45,
+                child: OutlinedButton(
+                  onPressed: onActionPressed,
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: WasteColors.dark,
+                    side: BorderSide.none,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Text(
-                      actionText!,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium!.apply(color: WasteColors.light),
+                    elevation: 2,
+                  ),
+                  child: Text(
+                    actionText!,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: WasteColors.light,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                )
-              : const SizedBox(),
-        ],
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

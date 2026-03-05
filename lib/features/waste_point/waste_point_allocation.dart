@@ -180,7 +180,7 @@ class PointAllocationScreen extends StatelessWidget {
                                     ),
                                     side: BorderSide.none,
                                   ).copyWith(
-                                    overlayColor: MaterialStateProperty.all(
+                                    overlayColor: WidgetStateProperty.all(
                                       Colors.transparent,
                                     ),
                                   ),

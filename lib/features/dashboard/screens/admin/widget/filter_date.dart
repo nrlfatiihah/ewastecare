@@ -254,8 +254,8 @@ class BottomSheetContent extends StatelessWidget {
                             borderRadius: BorderRadius.circular(18),
                           ),
                         ).copyWith(
-                          side: MaterialStateProperty.all(BorderSide.none),
-                          overlayColor: MaterialStateProperty.all(
+                          side: WidgetStateProperty.all(BorderSide.none),
+                          overlayColor: WidgetStateProperty.all(
                             Colors.transparent,
                           ),
                         ),

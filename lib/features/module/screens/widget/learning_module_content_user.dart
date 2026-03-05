@@ -102,7 +102,7 @@ class _LearningModuleContentUserState extends State<LearningModuleContentUser> {
                           vertical: 16,
                         ),
                       ).copyWith(
-                        overlayColor: MaterialStateProperty.all(
+                        overlayColor: WidgetStateProperty.all(
                           WasteColors.primary.withOpacity(0.2),
                         ),
                       ),
