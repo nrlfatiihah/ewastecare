@@ -1,4 +1,5 @@
 // use and checked
+import 'package:ewastecare/admin_navigation_menu.dart';
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
@@ -55,9 +56,6 @@ class AdminLoginController extends GetxController {
         adminCredentials.user?.uid ?? "",
       );
 
-      final box = GetStorage();
-      box.write('admin_logged_in', true);
-
       redirectToHomePage(role);
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
@@ -67,27 +65,21 @@ class AdminLoginController extends GetxController {
 
   // Chechk role for admin and user then redirect to dedicated home page
   void redirectToHomePage(String? role) async {
+    final box = GetStorage();
+
     if (role == "user" || role == null || role.isEmpty) {
-      // Handle the case when the role is not found
       WasteFullScreenLoader.stopLoading();
-      // Get.offAll(() => const ChooseRole());
       WasteLoaders.errorSnackBar(
         title: "Invalid role",
-        message:
-            "This account/credential does not have access to this account.",
+        message: "This account does not have access to this page.",
       );
       return;
     } else if (role == "admin") {
+      box.remove('user_logged_in');
+      box.write('admin_logged_in', true);
+
       WasteFullScreenLoader.stopLoading();
-      await AdminAuthenticationRepository.instance.adminScreenRedirect();
-    } else {
-      WasteFullScreenLoader.stopLoading();
-      WasteLoaders.errorSnackBar(
-        title: "Invalid role",
-        message:
-            "This account/credential does not have access to this account.",
-      );
-      return;
+      Get.offAll(() => const AdminNavigationMenu());
     }
   }
 }
