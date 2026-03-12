@@ -60,6 +60,9 @@ dependencies:
   readmore: ^3.0.0
   logger: ^2.6.2
   path_provider: ^2.1.5
+  tflite_flutter: ^0.12.1
+  camera: ^0.12.0
+  image: ^4.0.17
 
 dev_dependencies:
   flutter_test:
@@ -129,6 +132,8 @@ flutter:
     - assets/images/animations/
     - assets/images/content/
     - assets/images/waste_module/
+    - assets/model/model_unquant.tflite
+    - assets/model/labels.txt
 
   #-------------------------------Fonts------------------------------
   fonts:
