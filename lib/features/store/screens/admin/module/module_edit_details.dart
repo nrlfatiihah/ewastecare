@@ -17,10 +17,9 @@ class AdminEditModuleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(ModuleController());
 
-    // Load existing module data
-    if (controller.isEditing.value == false) {
-      controller.loadModuleForEditing(module);
-    }
+    controller.clearFormData();
+    controller.isEditing.value = false;
+    controller.loadModuleForEditing(module);
 
     return Scaffold(
       appBar: const WasteAppBar(
