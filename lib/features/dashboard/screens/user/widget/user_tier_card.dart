@@ -4,6 +4,7 @@ import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/device/device_utility.dart';
 import 'package:ewastecare/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -88,7 +89,7 @@ class TierCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Your Current Tier',
+                  WasteTexts.yourCurrentTier.tr,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: dark
                         ? Colors.white70

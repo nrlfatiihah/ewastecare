@@ -1,4 +1,5 @@
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/features/dashboard/controllers/download_data_controller.dart';
 import 'package:ewastecare/features/dashboard/controllers/test_donwload_data_controller.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
@@ -174,7 +175,7 @@ class DownloadData extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
-                  child: const Text(
+                  child: Text(
                     "Reset",
                     style: TextStyle(color: Colors.red),
                   ),
@@ -206,7 +207,7 @@ class DownloadData extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     elevation: 4,
                   ),
-                  child: const Text("Download"),
+                  child: Text(WasteTexts.download.tr),
                 ),
               ),
             ],

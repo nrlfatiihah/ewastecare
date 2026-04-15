@@ -27,7 +27,7 @@
 //               controller: controller.username,
 //               expands: false,
 //               decoration: const InputDecoration(
-//                   labelText: WasteTexts.username,
+//                   labelText: WasteTexts.username.tr,
 //                   prefixIcon: Icon(Iconsax.user_edit)),
 //             ),
 //             const SizedBox(height: WasteSizes.spaceBtwInputFields),
@@ -37,7 +37,7 @@
 //               validator: (value) => WasteValidator.validateEmail(value),
 //               expands: false,
 //               decoration: const InputDecoration(
-//                   labelText: WasteTexts.email, prefixIcon: Icon(Iconsax.direct)),
+//                   labelText: WasteTexts.email.tr, prefixIcon: Icon(Iconsax.direct)),
 //             ),
 //             const SizedBox(height: WasteSizes.spaceBtwInputFields),
 //             //Password
@@ -47,7 +47,7 @@
 //                 validator: (value) => WasteValidator.validatePassword(value),
 //                 obscureText: controller.hidePassword.value,
 //                 decoration: InputDecoration(
-//                   labelText: WasteTexts.password,
+//                   labelText: WasteTexts.password.tr,
 //                   prefixIcon: const Icon(Iconsax.password_check),
 //                   suffixIcon: IconButton(
 //                       onPressed: () => controller.hidePassword.value =
@@ -70,7 +70,7 @@
 //                 style: ElevatedButton.styleFrom(
 //                     backgroundColor: WasteColors.buttonPrimary,
 //                     side: const BorderSide(color: WasteColors.buttonPrimary)),
-//                 child: const Text(WasteTexts.createAccount),
+//                 child: Text(WasteTexts.createAccount.tr),
 //               ),
 //             ),
 //             const SizedBox(height: WasteSizes.spaceBtwSections),

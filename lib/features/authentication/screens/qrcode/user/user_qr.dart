@@ -1,5 +1,6 @@
 // use and checked
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/features/personalization/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,9 +14,9 @@ class UserQrCode extends StatelessWidget {
     return Theme(
       data: ThemeData(brightness: Brightness.light),
       child: Scaffold(
-        appBar: const WasteAppBar(
+        appBar: WasteAppBar(
           showBackArrow: true,
-          title: Text("User QR Code"),
+          title: Text(WasteTexts.userQrCode.tr),
         ),
         body: Center(
           child: Obx(() {

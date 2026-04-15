@@ -1,4 +1,5 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/features/module/controllers/module_controller.dart';
 import 'package:ewastecare/features/module/models/learning_module_model.dart';
 import 'package:ewastecare/features/module/screens/admin/widget/add_module_image.dart';
@@ -22,9 +23,9 @@ class AdminEditModuleScreen extends StatelessWidget {
     controller.loadModuleForEditing(module);
 
     return Scaffold(
-      appBar: const WasteAppBar(
+      appBar: WasteAppBar(
         showBackArrow: true,
-        title: Text("Edit Module"),
+        title: Text(WasteTexts.editModule.tr),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -38,22 +39,26 @@ class AdminEditModuleScreen extends StatelessWidget {
                 TextFormField(
                   controller: controller.moduleID,
                   readOnly: true,
-                  decoration: const InputDecoration(labelText: "Module ID"),
+                  decoration: InputDecoration(
+                    labelText: WasteTexts.moduleId.tr,
+                  ),
                 ),
                 const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
                 // Module Title
                 TextFormField(
                   controller: controller.moduleTitle,
-                  decoration: const InputDecoration(labelText: "Module Title"),
+                  decoration: InputDecoration(
+                    labelText: WasteTexts.moduleTitle.tr,
+                  ),
                 ),
                 const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
                 // Module Subtitle
                 TextFormField(
                   controller: controller.moduleSubtitle,
-                  decoration: const InputDecoration(
-                    labelText: "Module Subtitle",
+                  decoration: InputDecoration(
+                    labelText: WasteTexts.moduleSubtitle.tr,
                   ),
                 ),
                 const SizedBox(height: WasteSizes.spaceBtwSections),
@@ -67,8 +72,8 @@ class AdminEditModuleScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "Module Sections",
+                    Text(
+                      WasteTexts.moduleSections.tr,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -92,8 +97,8 @@ class AdminEditModuleScreen extends StatelessWidget {
                               ),
                             ),
                         icon: const Icon(Icons.add),
-                        label: const Text(
-                          "Add Section",
+                        label: Text(
+                          WasteTexts.addSection.tr,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -127,7 +132,7 @@ class AdminEditModuleScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Section ${index + 1}",
+                                    "${WasteTexts.section.tr} ${index + 1}",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -148,8 +153,8 @@ class AdminEditModuleScreen extends StatelessWidget {
                               // Section Title
                               TextFormField(
                                 controller: section.sectionTitle,
-                                decoration: const InputDecoration(
-                                  labelText: "Section Title",
+                                decoration: InputDecoration(
+                                  labelText: WasteTexts.sectionTitle.tr,
                                 ),
                               ),
 
@@ -159,8 +164,8 @@ class AdminEditModuleScreen extends StatelessWidget {
                               TextFormField(
                                 controller: section.sectionContent,
                                 maxLines: 3,
-                                decoration: const InputDecoration(
-                                  labelText: "Section Description",
+                                decoration: InputDecoration(
+                                  labelText: WasteTexts.sectionDescription.tr,
                                 ),
                               ),
 
@@ -183,7 +188,7 @@ class AdminEditModuleScreen extends StatelessWidget {
                                       controller.sections.refresh();
                                     },
                                     icon: const Icon(Icons.add),
-                                    label: const Text("Add Point"),
+                                    label: Text(WasteTexts.addPoint.tr),
                                   ),
                                 ),
 
@@ -197,7 +202,8 @@ class AdminEditModuleScreen extends StatelessWidget {
                                     child: TextFormField(
                                       controller: section.points[pointIndex],
                                       decoration: InputDecoration(
-                                        labelText: "Point ${pointIndex + 1}",
+                                        labelText:
+                                            "${WasteTexts.point.tr} ${pointIndex + 1}",
                                       ),
                                     ),
                                   );
@@ -227,8 +233,8 @@ class AdminEditModuleScreen extends StatelessWidget {
                             Colors.transparent,
                           ),
                         ),
-                    child: const Text(
-                      "Update Module",
+                    child: Text(
+                      WasteTexts.updateModule.tr,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -247,7 +253,7 @@ class AdminEditModuleScreen extends StatelessWidget {
                       backgroundColor: Colors.red,
                       side: const BorderSide(color: Colors.red),
                     ),
-                    child: const Text("Delete Module"),
+                    child: Text(WasteTexts.deleteModule.tr),
                   ),
                 ),
                 const SizedBox(height: WasteSizes.spaceBtwSections),

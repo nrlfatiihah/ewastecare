@@ -4,6 +4,7 @@ import 'package:ewastecare/data/repositories/dashboard/user_dashboard_repository
 import 'package:ewastecare/data/repositories/transaction/transaction_repository.dart';
 import 'package:ewastecare/data/repositories/user/user_repository.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/helpers/network_manager.dart';
 import 'package:ewastecare/utils/popups/full_screen_loader.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class OlderAdminPointController extends GetxController {
     try {
       // Start loading
       WasteFullScreenLoader.openLoadingDialog(
-        "We are processing your information...",
+        WasteTexts.processingInformation.tr,
         WasteImages.docerAnimation,
       );
 
@@ -47,8 +48,8 @@ class OlderAdminPointController extends GetxController {
         WasteFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "No internet connection.");
         WasteLoaders.errorSnackBar(
-          title: "Oops!",
-          message: "No internet connection.",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.noInternetConnection.tr,
         );
         return;
       }
@@ -57,8 +58,8 @@ class OlderAdminPointController extends GetxController {
         WasteFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "Form validation failed.");
         WasteLoaders.errorSnackBar(
-          title: "Oops!",
-          message: "Form validation failed.",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.formValidationFailed.tr,
         );
         return;
       }
@@ -76,8 +77,8 @@ class OlderAdminPointController extends GetxController {
         WasteFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "Invalid PET Weight value.");
         WasteLoaders.errorSnackBar(
-          title: "Oops!",
-          message: "Invalid PET Weight value.",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.invalidPETWeight.tr,
         );
         return;
       }
@@ -88,8 +89,8 @@ class OlderAdminPointController extends GetxController {
         WasteFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "Invalid HDPE Weight value.");
         WasteLoaders.errorSnackBar(
-          title: "Oops!",
-          message: "Invalid HDPE Weight value.",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.invalidHDPEWeight.tr,
         );
         return;
       }
@@ -100,8 +101,8 @@ class OlderAdminPointController extends GetxController {
         WasteFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "Invalid PP Weight value.");
         WasteLoaders.errorSnackBar(
-          title: "Oops!",
-          message: "Invalid PP Weight value.",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.invalidPPWeight.tr,
         );
         return;
       }
@@ -135,9 +136,8 @@ class OlderAdminPointController extends GetxController {
       await transactionCollection.logTransaction(
         userId: userid,
         type: 'Add',
-        // amount: roundedTotalPoints,
         amount: finalTotalPoints,
-        description: 'Waste Points Added',
+        description: WasteTexts.wastePointsAdded.tr,
       );
 
       // Update user dashboard data
@@ -161,13 +161,16 @@ class OlderAdminPointController extends GetxController {
       // Stop loading and show success message
       WasteFullScreenLoader.stopLoading();
       WasteLoaders.successSnackBar(
-        title: "Success",
+        title: WasteTexts.success.tr,
         message:
-            "$finalTotalPoints Point successfully added to the user account.",
+            "${WasteTexts.wastePoints.tr} $finalTotalPoints ${WasteTexts.successfullyAdded.tr}",
       );
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
-      WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
+      WasteLoaders.errorSnackBar(
+        title: WasteTexts.oops.tr,
+        message: e.toString(),
+      );
     }
   }
 

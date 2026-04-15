@@ -41,8 +41,8 @@ class ChangeHomeAddress extends StatelessWidget {
                     validator: (value) =>
                         WasteValidator.validateEmptyText("homeAddress", value),
                     expands: false,
-                    decoration: const InputDecoration(
-                      labelText: WasteTexts.homeAddress,
+                    decoration: InputDecoration(
+                      labelText: WasteTexts.homeAddress.tr,
                       prefixIcon: Icon(Iconsax.location),
                     ),
                   ),
@@ -59,7 +59,7 @@ class ChangeHomeAddress extends StatelessWidget {
                   backgroundColor: WasteColors.buttonPrimary,
                   side: const BorderSide(color: WasteColors.buttonPrimary),
                 ),
-                child: const Text("Save"),
+                child: Text(WasteTexts.save.tr),
               ),
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:get/get.dart';
 import 'package:ewastecare/features/module/controllers/module_controller.dart';
 import 'package:ewastecare/features/module/screens/widget/learning_module_content_user.dart';
@@ -34,7 +35,7 @@ class UserModuleScreen extends StatelessWidget {
                   children: [
                     WasteAppBar(
                       title: Text(
-                        "Learning Module",
+                        WasteTexts.learningModule.tr,
                         style: Theme.of(context).textTheme.headlineMedium!
                             .apply(color: WasteColors.white),
                       ),
@@ -53,7 +54,7 @@ class UserModuleScreen extends StatelessWidget {
                   }
 
                   if (controller.learningModule.isEmpty) {
-                    return const Center(child: Text("No modules found."));
+                    return Center(child: Text(WasteTexts.noModulesFound.tr));
                   }
 
                   return ListView.builder(

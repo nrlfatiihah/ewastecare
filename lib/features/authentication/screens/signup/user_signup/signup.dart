@@ -3,6 +3,7 @@ import 'package:ewastecare/features/authentication/screens/signup/user_signup/wi
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
@@ -19,7 +20,7 @@ class SignupScreen extends StatelessWidget {
             children: [
               // Title
               Text(
-                WasteTexts.signupTitle,
+                WasteTexts.signupTitle.tr,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: WasteSizes.spaceBtwSections),

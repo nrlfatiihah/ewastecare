@@ -33,11 +33,11 @@ class WasteTermsAndConditionCheckbox extends StatelessWidget {
           TextSpan(
             children: [
               TextSpan(
-                text: '${WasteTexts.iAgreeTo} ',
+                text: '${WasteTexts.iAgreeTo.tr} ',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               TextSpan(
-                text: '${WasteTexts.privacyPolicy} ',
+                text: '${WasteTexts.privacyPolicy.tr} ',
                 style: Theme.of(context).textTheme.bodyMedium!.apply(
                   color: dark ? WasteColors.white : WasteColors.primary,
                   fontWeightDelta: 700,
@@ -50,7 +50,7 @@ class WasteTermsAndConditionCheckbox extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: const Text("Privacy Policy"),
+                        title: Text(WasteTexts.privacyPolicy.tr),
                         content: const SingleChildScrollView(
                           child: Text(
                             "Your privacy is important to us. We collect personal data only to improve your eWasteCare experience. Your data will not be shared with third parties without your consent. You can request to delete your account and data anytime",
@@ -59,7 +59,7 @@ class WasteTermsAndConditionCheckbox extends StatelessWidget {
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context),
-                            child: const Text("Close"),
+                            child: Text(WasteTexts.close.tr),
                           ),
                         ],
                       ),
@@ -67,11 +67,11 @@ class WasteTermsAndConditionCheckbox extends StatelessWidget {
                   },
               ),
               TextSpan(
-                text: '${WasteTexts.and} ',
+                text: '${WasteTexts.and.tr} ',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               TextSpan(
-                text: '${WasteTexts.termsOfUse} ',
+                text: '${WasteTexts.termsOfUse.tr} ',
                 style: Theme.of(context).textTheme.bodyMedium!.apply(
                   color: dark ? WasteColors.white : WasteColors.primary,
                   fontWeightDelta: 700,
@@ -84,7 +84,7 @@ class WasteTermsAndConditionCheckbox extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: const Text("Terms of Use"),
+                        title: Text(WasteTexts.termsOfUse.tr),
                         content: const SingleChildScrollView(
                           child: Text(
                             "By using eWasteCare, you agree to follow all local e-waste recycling rules and use the app responsibly. You must provide accurate information when creating an account. Your account may be suspended if any misuse or false reporting is detected. eWasteCare reserves the right to update these terms at any time.",
@@ -93,7 +93,7 @@ class WasteTermsAndConditionCheckbox extends StatelessWidget {
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context),
-                            child: const Text("Close"),
+                            child: Text(WasteTexts.close.tr),
                           ),
                         ],
                       ),

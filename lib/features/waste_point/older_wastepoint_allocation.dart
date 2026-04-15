@@ -28,7 +28,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                 children: [
                   WasteAppBar(
                     title: Text(
-                      WasteTexts.allocationPage,
+                      WasteTexts.allocationPage.tr,
                       style: Theme.of(context).textTheme.headlineMedium!.apply(
                         color: WasteColors.white,
                       ),
@@ -44,7 +44,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    WasteTexts.pointTitle,
+                    WasteTexts.pointTitle.tr,
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const SizedBox(height: WasteSizes.spaceBtwSections),
@@ -62,8 +62,8 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                       "User ID",
                                       value,
                                     ),
-                                decoration: const InputDecoration(
-                                  labelText: WasteTexts.userID,
+                                decoration: InputDecoration(
+                                  labelText: WasteTexts.userID.tr,
                                   prefixIcon: Icon(Iconsax.user_edit),
                                 ),
                               ),
@@ -129,7 +129,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                         padding: EdgeInsets.all(10),
                                         child: ListTile(
                                           title: Text(
-                                            WasteTexts.plasticLabel,
+                                            WasteTexts.plasticLabel.tr,
                                             style: Theme.of(
                                               context,
                                             ).textTheme.titleLarge,
@@ -155,7 +155,8 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                                   value,
                                                 ),
                                             decoration: InputDecoration(
-                                              labelText: WasteTexts.weightPET,
+                                              labelText:
+                                                  WasteTexts.weightPET.tr,
                                               labelStyle: TextStyle(
                                                 color: Theme.of(
                                                   context,
@@ -177,7 +178,8 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                                   value,
                                                 ),
                                             decoration: InputDecoration(
-                                              labelText: WasteTexts.weightHDPE,
+                                              labelText:
+                                                  WasteTexts.weightHDPE.tr,
                                               labelStyle: TextStyle(
                                                 color: Theme.of(
                                                   context,
@@ -199,7 +201,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                                   value,
                                                 ),
                                             decoration: InputDecoration(
-                                              labelText: WasteTexts.weightPP,
+                                              labelText: WasteTexts.weightPP.tr,
                                               labelStyle: TextStyle(
                                                 color: Theme.of(
                                                   context,
@@ -223,7 +225,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                         padding: EdgeInsets.all(10),
                                         child: ListTile(
                                           title: Text(
-                                            WasteTexts.paperLabel,
+                                            WasteTexts.paperLabel.tr,
                                             style: Theme.of(
                                               context,
                                             ).textTheme.titleLarge,
@@ -249,7 +251,8 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                                   value,
                                                 ),
                                             decoration: InputDecoration(
-                                              labelText: WasteTexts.weightPaper,
+                                              labelText:
+                                                  WasteTexts.weightPaper.tr,
                                               labelStyle: TextStyle(
                                                 color: Theme.of(
                                                   context,
@@ -272,7 +275,8 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                                   value,
                                                 ),
                                             decoration: InputDecoration(
-                                              labelText: WasteTexts.weightBox,
+                                              labelText:
+                                                  WasteTexts.weightBox.tr,
                                               labelStyle: TextStyle(
                                                 color: Theme.of(
                                                   context,
@@ -299,7 +303,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                         padding: EdgeInsets.all(10),
                                         child: ListTile(
                                           title: Text(
-                                            WasteTexts.canLabel,
+                                            WasteTexts.canLabel.tr,
                                             style: Theme.of(
                                               context,
                                             ).textTheme.titleLarge,
@@ -325,8 +329,9 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                                   value,
                                                 ),
                                             decoration: InputDecoration(
-                                              labelText:
-                                                  WasteTexts.weightAluminiumCan,
+                                              labelText: WasteTexts
+                                                  .weightAluminiumCan
+                                                  .tr,
                                               labelStyle: TextStyle(
                                                 color: Theme.of(
                                                   context,
@@ -349,7 +354,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                                 ),
                                             decoration: InputDecoration(
                                               labelText:
-                                                  WasteTexts.weightSteelCan,
+                                                  WasteTexts.weightSteelCan.tr,
                                               labelStyle: TextStyle(
                                                 color: Theme.of(
                                                   context,
@@ -375,7 +380,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                         padding: EdgeInsets.all(10),
                                         child: ListTile(
                                           title: Text(
-                                            WasteTexts.oilLabel,
+                                            WasteTexts.oilLabel.tr,
                                             style: Theme.of(
                                               context,
                                             ).textTheme.titleLarge,
@@ -401,8 +406,9 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                                   value,
                                                 ),
                                             decoration: InputDecoration(
-                                              labelText:
-                                                  WasteTexts.weightCookingOil,
+                                              labelText: WasteTexts
+                                                  .weightCookingOil
+                                                  .tr,
                                               labelStyle: TextStyle(
                                                 color: Theme.of(
                                                   context,
@@ -445,7 +451,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                                 color: WasteColors.buttonPrimary,
                               ),
                             ),
-                            child: const Text(WasteTexts.addPoint),
+                            child: Text(WasteTexts.addPoint.tr),
                           ),
                         ),
                         const SizedBox(height: WasteSizes.spaceBtwSections),
@@ -463,7 +469,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
                           color: WasteColors.buttonPrimary,
                         ),
                       ),
-                      child: const Text("Logout"),
+                      child: Text(WasteTexts.logout.tr),
                     ),
                   ),
                 ],
@@ -523,7 +529,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
 //                   validator: (value) =>
 //                       WasteValidator.validateDecimalPlaces("PET Weight", value),
 //                   decoration: const InputDecoration(
-//                       labelText: WasteTexts.weightPET,
+//                       labelText: WasteTexts.weightPET.tr,
 //                       prefixIcon: Icon(Iconsax.user_edit)),
 //                 ),
 //                 const SizedBox(height: WasteSizes.spaceBtwSections),
@@ -532,7 +538,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
 //                   validator: (value) =>
 //                       WasteValidator.validateDecimalPlaces("HDPE Weight", value),
 //                   decoration: const InputDecoration(
-//                       labelText: WasteTexts.weightHDPE,
+//                       labelText: WasteTexts.weightHDPE.tr,
 //                       prefixIcon: Icon(Iconsax.user_edit)),
 //                 ),
 //                 const SizedBox(height: WasteSizes.spaceBtwSections),
@@ -541,7 +547,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
 //                   validator: (value) =>
 //                       WasteValidator.validateDecimalPlaces("PP Weight", value),
 //                   decoration: const InputDecoration(
-//                       labelText: WasteTexts.weightPP,
+//                       labelText: WasteTexts.weightPP.tr,
 //                       prefixIcon: Icon(Iconsax.user_edit)),
 //                 ),
 //               ],
@@ -660,7 +666,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
 //                     validator: (value) =>
 //                         WasteValidator.validateDecimalPlaces("PET Weight", value),
 //                     decoration: const InputDecoration(
-//                         labelText: WasteTexts.weightPET,
+//                         labelText: WasteTexts.weightPET.tr,
 //                         prefixIcon: Icon(Iconsax.user_edit)),
 //                   ),
 //                   const SizedBox(height: WasteSizes.spaceBtwSections),
@@ -669,7 +675,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
 //                     validator: (value) =>
 //                         WasteValidator.validateDecimalPlaces("HDPE Weight", value),
 //                     decoration: const InputDecoration(
-//                         labelText: WasteTexts.weightHDPE,
+//                         labelText: WasteTexts.weightHDPE.tr,
 //                         prefixIcon: Icon(Iconsax.user_edit)),
 //                   ),
 //                   const SizedBox(height: WasteSizes.spaceBtwSections),
@@ -678,7 +684,7 @@ class OlderAdminPointAllocationScreen extends StatelessWidget {
 //                     validator: (value) =>
 //                         WasteValidator.validateDecimalPlaces("PP Weight", value),
 //                     decoration: const InputDecoration(
-//                         labelText: WasteTexts.weightPP,
+//                         labelText: WasteTexts.weightPP.tr,
 //                         prefixIcon: Icon(Iconsax.user_edit)),
 //                   ),
                   

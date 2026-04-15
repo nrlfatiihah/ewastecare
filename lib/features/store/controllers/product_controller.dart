@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'dart:ui';
 import 'package:ewastecare/admin_navigation_menu.dart';
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
@@ -373,21 +374,21 @@ class ProductController extends GetxController {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Confirm Deletion"),
-          content: const Text("Are you sure you want to delete this product?"),
+          title: Text(WasteTexts.confirmDeletion.tr),
+          content: Text(WasteTexts.confirmDeleteProduct.tr),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: const Text("Cancel"),
+              child: Text("Cancel"),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
                 _deleteProduct(); // Perform the deletion
               },
-              child: const Text("Confirm"),
+              child: Text(WasteTexts.confirm.tr),
             ),
           ],
         );

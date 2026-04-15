@@ -1,6 +1,7 @@
 // use and checked
 import 'package:ewastecare/features/personalization/controllers/user_controller.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/common/widget/shimmers/shimmer.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/device/device_utility.dart';
@@ -47,7 +48,7 @@ class WastePointContainer extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                "Waste Points",
+                WasteTexts.wastePoints.tr,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: WasteSizes.spaceBtwItems),

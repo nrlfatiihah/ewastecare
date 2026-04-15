@@ -15,9 +15,9 @@ class TestAdminAddMaterialScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(MaterialController());
     return Scaffold(
-      appBar: const WasteAppBar(
+      appBar: WasteAppBar(
         showBackArrow: true,
-        title: Text("Add New Material"),
+        title: Text(WasteTexts.addNewMaterial.tr),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -36,8 +36,8 @@ class TestAdminAddMaterialScreen extends StatelessWidget {
                         "Material Name",
                         value,
                       ),
-                      decoration: const InputDecoration(
-                        labelText: WasteTexts.materialName,
+                      decoration: InputDecoration(
+                        labelText: WasteTexts.materialName.tr,
                         prefixIcon: Icon(Iconsax.firstline),
                       ),
                     ),
@@ -67,8 +67,8 @@ class TestAdminAddMaterialScreen extends StatelessWidget {
                                 child: Text(value),
                               );
                             }).toList(),
-                        decoration: const InputDecoration(
-                          labelText: WasteTexts.materialType,
+                        decoration: InputDecoration(
+                          labelText: WasteTexts.materialType.tr,
                           prefixIcon: Icon(Iconsax.clipboard),
                         ),
                       );
@@ -80,8 +80,8 @@ class TestAdminAddMaterialScreen extends StatelessWidget {
                       controller: controller.materialValue,
                       validator: (value) =>
                           WasteValidator.validateDecimalPlaces("Value", value),
-                      decoration: const InputDecoration(
-                        labelText: WasteTexts.materialValue,
+                      decoration: InputDecoration(
+                        labelText: WasteTexts.materialValue.tr,
                         prefixIcon: Icon(Iconsax.coin),
                       ),
                     ),
@@ -98,7 +98,7 @@ class TestAdminAddMaterialScreen extends StatelessWidget {
                             color: WasteColors.buttonPrimary,
                           ),
                         ),
-                        child: const Text(WasteTexts.materialAddButton),
+                        child: Text(WasteTexts.materialAddButton.tr),
                       ),
                     ),
                     const SizedBox(height: WasteSizes.spaceBtwSections),

@@ -1,7 +1,10 @@
+import 'package:ewastecare/utils/constants/texts.dart';
+import 'package:get/get.dart';
+
 class WasteValidator {
   static String? validateEmptyText(String? fieldName, String? value) {
     if (value == null || value.isEmpty) {
-      return "$fieldName is required.";
+      return "$fieldName ${WasteTexts.isRequired.tr}";
     }
 
     return null;
@@ -9,13 +12,13 @@ class WasteValidator {
 
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return "Email is required";
+      return WasteTexts.emailRequired.tr;
     }
 
     final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
     if (!emailRegExp.hasMatch(value)) {
-      return "Invalid email address";
+      return WasteTexts.invalidEmail.tr;
     }
 
     return null;
@@ -23,24 +26,24 @@ class WasteValidator {
 
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return "Password is required";
+      return WasteTexts.passwordRequired.tr;
     }
 
     //Check for minimum password length
     if (value.length < 6) {
-      return "Password must be at least 6 characters long";
+      return WasteTexts.passwordMinLength.tr;
     }
 
     if (!value.contains(RegExp(r'[A-Z]'))) {
-      return "Password must contain at least one uppercase letter.";
+      return WasteTexts.passwordUppercase.tr;
     }
 
     if (!value.contains(RegExp(r'[0-9]'))) {
-      return "Password must contain at least one number.";
+      return WasteTexts.passwordNumber.tr;
     }
 
     if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return "Password must contain at least one special character.";
+      return WasteTexts.passwordSpecialChar.tr;
     }
 
     return null;
@@ -48,13 +51,13 @@ class WasteValidator {
 
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
-      return "Phone number is required";
+      return WasteTexts.phoneRequired.tr;
     }
 
     final phoneRegExp = RegExp(r'^\d{10,}$');
 
     if (!phoneRegExp.hasMatch(value)) {
-      return "Invalid phone number format (10 digits or more required)";
+      return WasteTexts.invalidPhoneFormat.tr;
     }
 
     return null;
@@ -62,13 +65,13 @@ class WasteValidator {
 
   static String? validateInteger(String? value) {
     if (value == null || value.isEmpty) {
-      return "Value is required";
+      return WasteTexts.valueRequired.tr;
     }
 
     final intRegExp = RegExp(r'^[0-9]+$');
 
     if (!intRegExp.hasMatch(value)) {
-      return "Invalid integer format";
+      return WasteTexts.invalidIntegerFormat.tr;
     }
 
     return null;
@@ -76,13 +79,13 @@ class WasteValidator {
 
   static String? validateStringAlphabetic(String? fieldName, String? value) {
     if (value == null || value.isEmpty) {
-      return "$fieldName is required.";
+      return "$fieldName ${WasteTexts.isRequired.tr}";
     }
 
     final nameRegExp = RegExp(r'^[a-zA-Z ]+$');
 
     if (!nameRegExp.hasMatch(value)) {
-      return "$fieldName must contain only alphabetic characters.";
+      return "$fieldName ${WasteTexts.onlyAlphabetic.tr}";
     }
 
     return null;
@@ -90,7 +93,7 @@ class WasteValidator {
 
   static String? validateAddress(String? fieldName, String? value) {
     if (value == null || value.isEmpty) {
-      return "$fieldName is required.";
+      return "$fieldName ${WasteTexts.isRequired.tr}";
     }
 
     final alphanumericSpecialCharRegExp = RegExp(
@@ -98,7 +101,7 @@ class WasteValidator {
     );
 
     if (!alphanumericSpecialCharRegExp.hasMatch(value)) {
-      return "$fieldName must contain only alphanumeric and special characters.";
+      return "$fieldName ${WasteTexts.alphanumericSpecialChars.tr}";
     }
 
     return null;
@@ -106,13 +109,13 @@ class WasteValidator {
 
   static String? validateAlphanumeric(String? fieldName, String? value) {
     if (value == null || value.isEmpty) {
-      return "$fieldName is required.";
+      return "$fieldName ${WasteTexts.isRequired.tr}";
     }
 
     final alphanumericRegExp = RegExp(r'^[a-zA-Z0-9 ]+$');
 
     if (!alphanumericRegExp.hasMatch(value)) {
-      return "$fieldName must contain only alphanumeric characters.";
+      return "$fieldName ${WasteTexts.onlyAlphanumeric.tr}";
     }
 
     return null;
@@ -120,19 +123,19 @@ class WasteValidator {
 
   static String? validateAge(String? fieldname, String? value) {
     if (value == null || value.isEmpty) {
-      return "Age is required.";
+      return WasteTexts.ageRequired.tr;
     }
 
     final ageRegExp = RegExp(r'^[0-9]+$');
 
     if (!ageRegExp.hasMatch(value)) {
-      return "Age must be a numeric value.";
+      return WasteTexts.ageMustBeNumeric.tr;
     }
 
     int age = int.parse(value);
 
     if (age < 7 || age > 100) {
-      return "Age must be between 7 years old and 100 years old.";
+      return WasteTexts.ageRangeError.tr;
     }
 
     return null;
@@ -145,14 +148,14 @@ class WasteValidator {
     // Regular expression to match values with exactly two decimal places
     RegExp regex = RegExp(r'^\d+\.\d{2}$');
     if (!regex.hasMatch(value)) {
-      return 'Please enter a valid $fieldName (e.g. 12.34)';
+      return '$fieldName ${WasteTexts.invalidDecimalFormat.tr}';
     }
     return null;
   }
 
   static String? validateGender(String fieldname, String? value) {
     if (value == null || value.isEmpty) {
-      return 'Gender is required';
+      return WasteTexts.genderRequired.tr;
     }
     // Additional validation logic can be added if needed
     return null;
@@ -160,7 +163,7 @@ class WasteValidator {
 
   static String? validateDropdown(String fieldname, String? value) {
     if (value == null || value.isEmpty) {
-      return 'Material type is required';
+      return WasteTexts.materialTypeRequired.tr;
     }
     // Additional validation logic can be added if needed
     return null;
@@ -177,17 +180,17 @@ class WasteValidator {
     // Try to parse the value as a double
     final doubleValue = double.tryParse(value);
     if (doubleValue == null) {
-      return 'Please enter a valid number'; // Not a valid number
+      return WasteTexts.validNumberRequired.tr; // Not a valid number
     }
 
     if (doubleValue < 0) {
-      return 'The number cannot be a negative number'; // Negative number detected
+      return WasteTexts.noNegativeNumber.tr; // Negative number detected
     }
 
     // Check if the number has more than 2 decimal places
     final formattedValue = doubleValue.toStringAsFixed(2);
     if (value != formattedValue) {
-      return 'Number must be in two decimal places'; // Not in the correct format
+      return '$fieldname ${WasteTexts.twoDecimalPlacesMax.tr}'; // Not in the correct format
     }
 
     return null; // Valid value

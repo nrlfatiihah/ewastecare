@@ -1,4 +1,6 @@
+import 'package:get/get.dart';
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -7,8 +9,11 @@ class PolicyNPrivacyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: WasteAppBar(showBackArrow: true, title: Text("Policy & Privacy")),
+    return Scaffold(
+      appBar: WasteAppBar(
+        showBackArrow: true,
+        title: Text(WasteTexts.policyPrivacy.tr),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

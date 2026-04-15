@@ -9,6 +9,7 @@ import 'package:ewastecare/features/personalization/screens/app_information/app_
 import 'package:ewastecare/features/personalization/screens/policy_n_privacy/policy_n_privacy.dart';
 import 'package:ewastecare/features/personalization/screens/profile/profile.dart';
 import 'package:ewastecare/features/personalization/screens/terms_n_condition/terms_n_condition.dart';
+import 'package:ewastecare/translations/app_translations.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class UserSettingScreen extends StatelessWidget {
                   // appBar
                   WasteAppBar(
                     title: Text(
-                      "Account",
+                      "account".tr,
                       style: Theme.of(context).textTheme.headlineMedium!.apply(
                         color: WasteColors.white,
                       ),
@@ -53,8 +54,8 @@ class UserSettingScreen extends StatelessWidget {
               child: Column(
                 children: [
                   // Account Setting
-                  const WasteSectionHeading(
-                    title: "Account Settings",
+                  WasteSectionHeading(
+                    title: "account_settings".tr,
                     showActionButton: false,
                   ),
                   const SizedBox(height: WasteSizes.spaceBtwItems),
@@ -62,30 +63,93 @@ class UserSettingScreen extends StatelessWidget {
                   // User Profile Options
                   WasteSettingMenuTile(
                     icon: Iconsax.user,
-                    title: "User Profile",
-                    subTitle: "Set your profile details",
+                    title: "user_profile".tr,
+                    subTitle: "set_your_profile_details".tr,
                     onTap: () => Get.to(() => const ProfileScreen()),
                   ),
 
                   // Redeem Point Options
                   WasteSettingMenuTile(
                     icon: Iconsax.graph,
-                    title: "Performance Analytics",
-                    subTitle: "View your performance",
+                    title: "performance_analytics".tr,
+                    subTitle: "view_your_performance".tr,
                     onTap: () => Get.to(() => const UserDashboardScreen()),
                   ),
 
                   // Language Options
                   WasteSettingMenuTile(
                     icon: Iconsax.language_square,
-                    title: "Language",
-                    subTitle: "Set your preferred language",
-                    onTap: () {},
+                    title: "language".tr,
+                    subTitle: "set_preferred_language".tr,
+                    onTap: () => Get.bottomSheet(
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "select_language".tr,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            const SizedBox(height: 16),
+                            ListTile(
+                              title: Text("english".tr),
+                              trailing: Get.locale?.languageCode == 'en'
+                                  ? Icon(
+                                      Icons.check,
+                                      color: Theme.of(context).primaryColor,
+                                    )
+                                  : null,
+                              onTap: () {
+                                AppTranslations.changeLocale(
+                                  const Locale('en', 'US'),
+                                );
+                                Get.back();
+                              },
+                            ),
+                            ListTile(
+                              title: Text("bahasa_malaysia".tr),
+                              trailing: Get.locale?.languageCode == 'ms'
+                                  ? Icon(
+                                      Icons.check,
+                                      color: Theme.of(context).primaryColor,
+                                    )
+                                  : null,
+                              onTap: () {
+                                AppTranslations.changeLocale(
+                                  const Locale('ms', 'MY'),
+                                );
+                                Get.back();
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: TextButton(
+                                onPressed: Get.back,
+                                child: Text(
+                                  "cancel".tr,
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      isDismissible: true,
+                    ),
                   ),
 
                   const SizedBox(height: WasteSizes.spaceBtwSections),
-                  const WasteSectionHeading(
-                    title: "About App",
+                  WasteSectionHeading(
+                    title: "about_app".tr,
                     showActionButton: false,
                   ),
                   const SizedBox(height: WasteSizes.spaceBtwItems),
@@ -93,25 +157,24 @@ class UserSettingScreen extends StatelessWidget {
                   // Terms & Conditions Options
                   WasteSettingMenuTile(
                     icon: Iconsax.document,
-                    title: "Terms & Conditions",
-                    subTitle:
-                        "Details of terms & conditions of the application",
+                    title: "terms_conditions".tr,
+                    subTitle: "details_of_terms".tr,
                     onTap: () => Get.to(() => const TermsNConditionScreen()),
                   ),
 
                   // Policy & Privacy Options
                   WasteSettingMenuTile(
                     icon: Iconsax.shield_tick,
-                    title: "Policy & Privacy",
-                    subTitle: "Details of privacy & policy of the application",
+                    title: "policy_privacy".tr,
+                    subTitle: "details_of_privacy".tr,
                     onTap: () => Get.to(() => const PolicyNPrivacyScreen()),
                   ),
 
                   //App Information Options
                   WasteSettingMenuTile(
                     icon: Iconsax.info_circle,
-                    title: "App Information",
-                    subTitle: "Details information about the application",
+                    title: "app_information".tr,
+                    subTitle: "details_of_app_information".tr,
                     onTap: () => Get.to(() => const AppInformationScreen()),
                   ),
 
@@ -122,9 +185,9 @@ class UserSettingScreen extends StatelessWidget {
                       onPressed: () =>
                           AuthenticationRepository.instance.logout(),
                       icon: const Icon(Iconsax.logout, color: Colors.white),
-                      label: const Text(
-                        "Logout",
-                        style: TextStyle(
+                      label: Text(
+                        "logout".tr,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),

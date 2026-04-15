@@ -1,9 +1,9 @@
 import 'package:ewastecare/common/widget/shimmers/shimmer.dart';
 import 'package:ewastecare/features/dashboard/controllers/user_dashboard_controller.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
-import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/device/device_utility.dart';
 import 'package:ewastecare/utils/helpers/helper_functions.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,7 +53,7 @@ class PieChartProgressIndicator extends StatelessWidget {
         children: [
           /// 🔹 Title
           Text(
-            'Progress Overview',
+            WasteTexts.progressOverview.tr,
             style: Theme.of(
               context,
             ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w600),

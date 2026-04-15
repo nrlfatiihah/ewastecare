@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:get/get.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,18 +25,19 @@ class _WasteDetectorPageState extends State<WasteDetectorPage> {
 
   Interpreter? interpreter;
   List<String> labels = [];
-  String prediction = "No result";
+  String prediction = WasteTexts.noResult.tr;
 
   // Waste disposal guide
   final Map<String, String> wasteDisposalGuide = {
-    "Plastic": "Recycle it in the plastic recycling bin.",
-    "Paper": "Place it in the paper recycling bin or compost if shredded.",
-    "Glass": "Rinse and put in glass recycling bin.",
-    "Metal": "Clean it and recycle in metal collection points.",
-    "Organic": "Compost it or dispose in organic waste bin.",
-    "E-Waste": "Take it to an e-waste collection center.",
+    "Plastic": "Kitar semula dalam tong kitar semula plastik.",
+    "Paper":
+        "Letakkan dalam tong kitar semula kertas atau kompos jika dicincang.",
+    "Glass": "Bilas dan letakkan dalam tong kitar semula kaca.",
+    "Metal": "Bersihkan dan kitar semula di pusat pengumpulan logam.",
+    "Organic": "Kompok atau buang dalam tong sisa organik.",
+    "E-Waste": "Bawa ke pusat kutipan e-waste.",
     "Hazardous":
-        "Do not throw in regular trash. Take to hazardous waste facility.",
+        "Jangan buang dalam sampah biasa. Bawa ke kemudahan sisa berbahaya.",
   };
 
   @override
@@ -128,7 +131,7 @@ class _WasteDetectorPageState extends State<WasteDetectorPage> {
                 children: [
                   WasteAppBar(
                     title: Text(
-                      "Waste Scanner",
+                      WasteTexts.wasteScanner.tr,
                       style: Theme.of(
                         context,
                       ).textTheme.headlineMedium!.apply(color: Colors.white),
@@ -171,7 +174,7 @@ class _WasteDetectorPageState extends State<WasteDetectorPage> {
               child: Column(
                 children: [
                   Text(
-                    "Detected Waste",
+                    WasteTexts.detectedWaste.tr,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: isDarkMode ? Colors.white : WasteColors.darkGrey,
                     ),
@@ -202,7 +205,7 @@ class _WasteDetectorPageState extends State<WasteDetectorPage> {
                         // Disposal suggestion
                         Text(
                           wasteDisposalGuide[prediction.split('(')[0].trim()] ??
-                              "No disposal info available.",
+                              WasteTexts.noDisposalInfoAvailable.tr,
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.bodyMedium!
                               .copyWith(
@@ -222,7 +225,7 @@ class _WasteDetectorPageState extends State<WasteDetectorPage> {
                     child: ElevatedButton.icon(
                       onPressed: captureAndDetect,
                       icon: const Icon(Icons.camera_alt),
-                      label: const Text("Scan Waste"),
+                      label: Text(WasteTexts.scanWaste.tr),
                       style:
                           ElevatedButton.styleFrom(
                             backgroundColor: WasteColors.primary,

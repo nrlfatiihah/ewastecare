@@ -1,4 +1,5 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/common/widget/images/waste_circular_image.dart';
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/common/widget/texts/section_heading.dart';
@@ -21,7 +22,10 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = UserController.instance;
     return Scaffold(
-      appBar: const WasteAppBar(showBackArrow: true, title: Text("Profile")),
+      appBar: WasteAppBar(
+        showBackArrow: true,
+        title: Text(WasteTexts.profile.tr),
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           controller.resetDataFetched();
@@ -96,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
 
                     TextButton(
                       onPressed: () => controller.uploadUserProfilePicture(),
-                      child: const Text("Change Profile Picture"),
+                      child: Text(WasteTexts.changeProfilePicture.tr),
                     ),
                   ],
                 ),
@@ -105,15 +109,15 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 32),
 
               // Profile Info Section
-              const WasteSectionHeading(
-                title: "Profile Information",
+              WasteSectionHeading(
+                title: WasteTexts.profileInformation.tr,
                 showActionButton: false,
               ),
               const SizedBox(height: 16),
 
               Obx(
                 () => WasteProfileMenu(
-                  title: 'Name',
+                  title: WasteTexts.profileName.tr,
                   value: controller.user.value.fullName,
                   onPressed: () => Get.to(() => const ChangeName()),
                   icon: Iconsax.edit,
@@ -121,14 +125,14 @@ class ProfileScreen extends StatelessWidget {
               ),
               Obx(
                 () => WasteProfileMenu(
-                  title: 'Username',
+                  title: WasteTexts.profileUsername.tr,
                   value: controller.user.value.username,
                   onPressed: () => Get.to(() => const ChangeUserName()),
                   icon: Iconsax.edit,
                 ),
               ),
               WasteProfileMenu(
-                title: 'UserID',
+                title: WasteTexts.userID.tr,
                 value: controller.user.value.id,
                 icon: Iconsax.lock,
                 onPressed: () {},
@@ -137,60 +141,60 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 32),
 
               // Personal Info Section
-              const WasteSectionHeading(
-                title: "Personal Information",
+              WasteSectionHeading(
+                title: WasteTexts.personalInformation.tr,
                 showActionButton: false,
               ),
               const SizedBox(height: 16),
 
               Obx(
                 () => WasteProfileMenu(
-                  title: 'Address',
+                  title: WasteTexts.address.tr,
                   value: controller.user.value.homeAddress,
                   onPressed: () => Get.to(() => const ChangeHomeAddress()),
                   icon: Iconsax.edit,
                 ),
               ),
               WasteProfileMenu(
-                title: 'Gender',
+                title: WasteTexts.gender.tr,
                 value: controller.user.value.gender,
                 onPressed: () {
                   WasteLoaders.cannotEdit(
-                    title: "Oops!",
-                    message: "Sorry this detail cannot be edited",
+                    title: WasteTexts.oops.tr,
+                    message: WasteTexts.cannotEditDetail.tr,
                   );
                 },
                 icon: Iconsax.lock,
               ),
               WasteProfileMenu(
-                title: 'Age',
+                title: WasteTexts.age.tr,
                 value: controller.user.value.age,
                 onPressed: () {
                   WasteLoaders.cannotEdit(
-                    title: "Oops!",
-                    message: "Sorry this detail cannot be edited",
+                    title: WasteTexts.oops.tr,
+                    message: WasteTexts.cannotEditDetail.tr,
                   );
                 },
                 icon: Iconsax.lock,
               ),
               WasteProfileMenu(
-                title: 'Email',
+                title: WasteTexts.email.tr,
                 value: controller.user.value.email,
                 onPressed: () {
                   WasteLoaders.cannotEdit(
-                    title: "Oops!",
-                    message: "Sorry this detail cannot be edited",
+                    title: WasteTexts.oops.tr,
+                    message: WasteTexts.cannotEditDetail.tr,
                   );
                 },
                 icon: Iconsax.lock,
               ),
               WasteProfileMenu(
-                title: 'Phone Number',
+                title: WasteTexts.phoneNo.tr,
                 value: controller.user.value.phoneNo,
                 onPressed: () {
                   WasteLoaders.cannotEdit(
-                    title: "Oops!",
-                    message: "Sorry this detail cannot be edited",
+                    title: WasteTexts.oops.tr,
+                    message: WasteTexts.cannotEditDetail.tr,
                   );
                 },
                 icon: Iconsax.lock,
@@ -203,8 +207,8 @@ class ProfileScreen extends StatelessWidget {
                 child: TextButton.icon(
                   onPressed: () => controller.deleteAccountWarningPopup(),
                   icon: const Icon(Iconsax.trash, color: Colors.red),
-                  label: const Text(
-                    "Delete Account",
+                  label: Text(
+                    WasteTexts.deleteAccount.tr,
                     style: TextStyle(color: Colors.red),
                   ),
                   style: TextButton.styleFrom(

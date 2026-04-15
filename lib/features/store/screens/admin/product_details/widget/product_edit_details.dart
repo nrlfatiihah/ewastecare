@@ -38,7 +38,10 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const WasteAppBar(showBackArrow: true, title: Text("Edit item")),
+      appBar: WasteAppBar(
+        showBackArrow: true,
+        title: Text(WasteTexts.editItem.tr),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -64,8 +67,8 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                                 value,
                               ),
                           expands: false,
-                          decoration: const InputDecoration(
-                            labelText: WasteTexts.productID,
+                          decoration: InputDecoration(
+                            labelText: WasteTexts.productID.tr,
                             prefixIcon: Icon(Iconsax.user_edit),
                           ),
                         ),
@@ -82,8 +85,8 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                                 value,
                               ),
                           expands: false,
-                          decoration: const InputDecoration(
-                            labelText: WasteTexts.productName,
+                          decoration: InputDecoration(
+                            labelText: WasteTexts.productName.tr,
                             prefixIcon: Icon(Iconsax.user_edit),
                           ),
                         ),
@@ -100,8 +103,8 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                                 value,
                               ),
                           expands: false,
-                          decoration: const InputDecoration(
-                            labelText: WasteTexts.productDesc,
+                          decoration: InputDecoration(
+                            labelText: WasteTexts.productDesc.tr,
                             prefixIcon: Icon(Iconsax.user_edit),
                           ),
                         ),
@@ -115,8 +118,8 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                           validator: (value) =>
                               WasteValidator.validateInteger(value),
                           expands: false,
-                          decoration: const InputDecoration(
-                            labelText: WasteTexts.productPoint,
+                          decoration: InputDecoration(
+                            labelText: WasteTexts.productPoint.tr,
                             prefixIcon: Icon(Iconsax.user_edit),
                           ),
                         ),
@@ -130,8 +133,8 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                           validator: (value) =>
                               WasteValidator.validateInteger(value),
                           expands: false,
-                          decoration: const InputDecoration(
-                            labelText: WasteTexts.productQuantity,
+                          decoration: InputDecoration(
+                            labelText: WasteTexts.productQuantity.tr,
                             prefixIcon: Icon(Iconsax.user_edit),
                           ),
                         ),
@@ -155,7 +158,7 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                                 color: WasteColors.buttonPrimary,
                               ),
                             ),
-                            child: const Text(WasteTexts.updateProduct),
+                            child: Text(WasteTexts.updateProduct.tr),
                           ),
                         ),
                         const SizedBox(height: WasteSizes.spaceBtwSections),
@@ -171,7 +174,7 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                               backgroundColor: Colors.red,
                               side: const BorderSide(color: Colors.red),
                             ),
-                            child: const Text("Delete Item"),
+                            child: Text(WasteTexts.deleteItem.tr),
                           ),
                         ),
                         const SizedBox(height: WasteSizes.spaceBtwSections),

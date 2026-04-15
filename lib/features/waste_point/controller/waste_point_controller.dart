@@ -7,6 +7,7 @@ import 'package:ewastecare/data/repositories/user/user_repository.dart';
 import 'package:ewastecare/features/waste_point/model/add_point_model.dart';
 import 'package:ewastecare/features/waste_point/model/material_model.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/helpers/network_manager.dart';
 import 'package:ewastecare/utils/popups/full_screen_loader.dart';
 import 'package:flutter/material.dart';
@@ -212,7 +213,7 @@ class AllocateWastePointController extends GetxController {
     try {
       // Start loading
       WasteFullScreenLoader.openLoadingDialog(
-        "We are processing your information...",
+        WasteTexts.processingInformation.tr,
         WasteImages.docerAnimation,
       );
 
@@ -222,8 +223,8 @@ class AllocateWastePointController extends GetxController {
         WasteFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "No internet connection.");
         WasteLoaders.errorSnackBar(
-          title: "Oops!",
-          message: "No internet connection.",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.noInternetConnection.tr,
         );
         return;
       }
@@ -232,8 +233,8 @@ class AllocateWastePointController extends GetxController {
         WasteFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "Form validation failed.");
         WasteLoaders.errorSnackBar(
-          title: "Oops!",
-          message: "Form validation failed.",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.formValidationFailed.tr,
         );
         return;
       }
@@ -249,8 +250,8 @@ class AllocateWastePointController extends GetxController {
         WasteFullScreenLoader.stopLoading();
         // Get.snackbar("Error", "Form validation failed.");
         WasteLoaders.errorSnackBar(
-          title: "Oops!",
-          message: "Error: At least one material must be filled.",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.atLeastOneMaterial.tr,
         );
         return;
       }
@@ -290,9 +291,8 @@ class AllocateWastePointController extends GetxController {
       await transactionCollection.AddPointLog(
         userId: userID.text,
         type: 'Add',
-        // amount: roundedTotalPoints,
         amount: result.finalPoints,
-        description: 'Waste Points Added',
+        description: WasteTexts.wastePointsAdded.tr,
       );
 
       // await newUserDashboardRepository.updateUserDashboardWithTransaction(transaction);
@@ -308,13 +308,16 @@ class AllocateWastePointController extends GetxController {
       clearFields();
       WasteFullScreenLoader.stopLoading();
       WasteLoaders.successSnackBar(
-        title: "Success",
+        title: WasteTexts.success.tr,
         message:
-            "${result.finalPoints} Point successfully added to the user account.",
+            "${WasteTexts.wastePoints.tr} ${result.finalPoints} ${WasteTexts.successfullyAdded.tr}",
       );
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
-      WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
+      WasteLoaders.errorSnackBar(
+        title: WasteTexts.oops.tr,
+        message: e.toString(),
+      );
     }
   }
 

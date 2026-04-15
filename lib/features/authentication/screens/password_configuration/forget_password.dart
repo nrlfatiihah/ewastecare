@@ -23,13 +23,13 @@ class ForgetPassword extends StatelessWidget {
           children: [
             // Headings
             Text(
-              WasteTexts.forgetPassword,
+              WasteTexts.forgetPassword.tr,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: WasteSizes.spaceBtwItems),
 
             Text(
-              WasteTexts.forgetPasswordSubTitle,
+              WasteTexts.forgetPasswordSubTitle.tr,
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(height: WasteSizes.spaceBtwSections * 2),
@@ -40,8 +40,8 @@ class ForgetPassword extends StatelessWidget {
               child: TextFormField(
                 controller: controller.email,
                 validator: WasteValidator.validateEmail,
-                decoration: const InputDecoration(
-                  labelText: WasteTexts.email,
+                decoration: InputDecoration(
+                  labelText: WasteTexts.email.tr,
                   prefixIcon: Icon(Iconsax.direct_right),
                 ),
               ),
@@ -57,7 +57,7 @@ class ForgetPassword extends StatelessWidget {
                   side: const BorderSide(color: WasteColors.buttonPrimary),
                 ),
                 onPressed: () => controller.sendPasswordResetEmail(),
-                child: const Text(WasteTexts.submit),
+                child: Text(WasteTexts.submit.tr),
               ),
             ),
           ],

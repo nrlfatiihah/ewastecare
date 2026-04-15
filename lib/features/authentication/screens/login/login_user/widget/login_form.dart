@@ -29,9 +29,9 @@ class WasteLoginForm extends StatelessWidget {
             TextFormField(
               controller: controller.email,
               validator: (value) => WasteValidator.validateEmail(value),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 prefixIcon: Icon(Iconsax.direct_right),
-                labelText: WasteTexts.email,
+                labelText: WasteTexts.email.tr,
               ),
             ),
             const SizedBox(height: WasteSizes.spaceBtwInputFields),
@@ -43,7 +43,7 @@ class WasteLoginForm extends StatelessWidget {
                 validator: (value) => WasteValidator.validatePassword(value),
                 obscureText: controller.hidePassword.value,
                 decoration: InputDecoration(
-                  labelText: WasteTexts.password,
+                  labelText: WasteTexts.password.tr,
                   prefixIcon: const Icon(Iconsax.password_check),
                   suffixIcon: IconButton(
                     onPressed: () => controller.hidePassword.value =
@@ -73,14 +73,14 @@ class WasteLoginForm extends StatelessWidget {
                             !controller.rememberMe.value,
                       ),
                     ),
-                    const Text(WasteTexts.rememberMe),
+                    Text(WasteTexts.rememberMe.tr),
                   ],
                 ),
 
                 // Forget password
                 TextButton(
                   onPressed: () => Get.to(() => const ForgetPassword()),
-                  child: const Text(WasteTexts.forgetPassword),
+                  child: Text(WasteTexts.forgetPassword.tr),
                 ),
               ],
             ),
@@ -95,7 +95,7 @@ class WasteLoginForm extends StatelessWidget {
                   backgroundColor: WasteColors.buttonPrimary,
                   side: const BorderSide(color: WasteColors.buttonPrimary),
                 ),
-                child: const Text(WasteTexts.signIn),
+                child: Text(WasteTexts.signIn.tr),
               ),
             ),
             const SizedBox(height: WasteSizes.spaceBtwItems),
@@ -106,12 +106,12 @@ class WasteLoginForm extends StatelessWidget {
                 text: TextSpan(
                   style: Theme.of(context).textTheme.bodyMedium,
                   children: [
-                    const TextSpan(
-                      text: "Don't have an account? ",
+                    TextSpan(
+                      text: WasteTexts.dontHaveAccount.tr,
                       style: TextStyle(color: Colors.grey),
                     ),
                     TextSpan(
-                      text: "Create Account",
+                      text: WasteTexts.createAccount.tr,
                       style: const TextStyle(
                         color: WasteColors.buttonPrimary,
                         fontWeight: FontWeight.bold,

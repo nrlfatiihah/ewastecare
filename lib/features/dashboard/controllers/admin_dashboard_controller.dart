@@ -31,7 +31,7 @@ class AdminDashboardController extends GetxController {
   var totalUsers = 0.obs;
   var maleUsers = 0.obs;
   var femaleUsers = 0.obs;
-  var selectedType = 'User Information'.obs;
+  var selectedType = 'userInformation'.obs;
   var selectedStartDate = Rxn<DateTime>();
   var selectedEndDate = Rxn<DateTime>();
 
@@ -204,7 +204,7 @@ class AdminDashboardController extends GetxController {
   }
 
   void resetFilters() {
-    selectedType.value = 'User Information';
+    selectedType.value = 'userInformation';
     selectedStartDate.value = null;
     selectedEndDate.value = null;
   }

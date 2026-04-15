@@ -16,9 +16,9 @@ class AdminAddItemScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(ProductController());
     return Scaffold(
-      appBar: const WasteAppBar(
+      appBar: WasteAppBar(
         showBackArrow: true,
-        title: Text("Add new item"),
+        title: Text(WasteTexts.addNewItem.tr),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -42,8 +42,8 @@ class AdminAddItemScreen extends StatelessWidget {
                                 value,
                               ),
                           expands: false,
-                          decoration: const InputDecoration(
-                            labelText: WasteTexts.productID,
+                          decoration: InputDecoration(
+                            labelText: WasteTexts.productID.tr,
                             prefixIcon: Icon(Iconsax.user_edit),
                           ),
                         ),
@@ -57,8 +57,8 @@ class AdminAddItemScreen extends StatelessWidget {
                                 value,
                               ),
                           expands: false,
-                          decoration: const InputDecoration(
-                            labelText: WasteTexts.productName,
+                          decoration: InputDecoration(
+                            labelText: WasteTexts.productName.tr,
                             prefixIcon: Icon(Iconsax.user_edit),
                           ),
                         ),
@@ -73,8 +73,8 @@ class AdminAddItemScreen extends StatelessWidget {
                                 value,
                               ),
                           expands: false,
-                          decoration: const InputDecoration(
-                            labelText: WasteTexts.productDesc,
+                          decoration: InputDecoration(
+                            labelText: WasteTexts.productDesc.tr,
                             prefixIcon: Icon(Iconsax.user_edit),
                           ),
                         ),
@@ -86,8 +86,8 @@ class AdminAddItemScreen extends StatelessWidget {
                           validator: (value) =>
                               WasteValidator.validateInteger(value),
                           expands: false,
-                          decoration: const InputDecoration(
-                            labelText: WasteTexts.productPoint,
+                          decoration: InputDecoration(
+                            labelText: WasteTexts.productPoint.tr,
                             prefixIcon: Icon(Iconsax.user_edit),
                           ),
                         ),
@@ -99,8 +99,8 @@ class AdminAddItemScreen extends StatelessWidget {
                           validator: (value) =>
                               WasteValidator.validateInteger(value),
                           expands: false,
-                          decoration: const InputDecoration(
-                            labelText: WasteTexts.productQuantity,
+                          decoration: InputDecoration(
+                            labelText: WasteTexts.productQuantity.tr,
                             prefixIcon: Icon(Iconsax.user_edit),
                           ),
                         ),
@@ -117,7 +117,7 @@ class AdminAddItemScreen extends StatelessWidget {
                                 color: WasteColors.buttonPrimary,
                               ),
                             ),
-                            child: const Text(WasteTexts.addProduct),
+                            child: Text(WasteTexts.addProduct.tr),
                           ),
                         ),
                         const SizedBox(height: WasteSizes.spaceBtwSections),

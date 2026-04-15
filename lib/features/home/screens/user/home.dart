@@ -6,6 +6,7 @@ import 'package:ewastecare/features/home/screens/user/widgets/home_transaction_h
 import 'package:ewastecare/features/personalization/controllers/user_controller.dart';
 import 'package:ewastecare/features/transaction/screens/transaction_history.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -57,7 +58,7 @@ class UserHomeScreen extends StatelessWidget {
 
                     // const SizedBox(height: WasteSizes.spaceBtwSections),
                     WasteSectionHeading(
-                      title: "Transaction History",
+                      title: WasteTexts.transactionHistory.tr,
                       onPressed: () {
                         Get.to(() => const TransactionHistoryScreen());
                       },
@@ -73,7 +74,7 @@ class UserHomeScreen extends StatelessWidget {
                     const Divider(),
                     Center(
                       child: Text(
-                        "Showing the 5 latest transactions. Head to full transaction history page for more details.",
+                        WasteTexts.showingLatestTransactions.tr,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),

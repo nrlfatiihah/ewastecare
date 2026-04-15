@@ -1,10 +1,8 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
-import 'package:ewastecare/common/widget/images/waste_circular_image.dart';
 import 'package:ewastecare/common/widget/texts/section_heading.dart';
 import 'package:ewastecare/features/store/controllers/product_controller.dart';
 import 'package:ewastecare/features/store/screens/user/widget/confirm_transaction.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
-import 'package:ewastecare/utils/constants/image_strings.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
@@ -43,9 +41,9 @@ class SummaryPage extends StatelessWidget {
     final displayQuantity = quantity;
 
     return Scaffold(
-      appBar: const WasteAppBar(
+      appBar: WasteAppBar(
         showBackArrow: true,
-        title: Text("Confirmation Summary"),
+        title: Text(WasteTexts.confirmationSummary.tr),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(WasteSizes.defaultSpace),
@@ -84,22 +82,22 @@ class SummaryPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const WasteSectionHeading(
-                      title: "Product Details",
+                    WasteSectionHeading(
+                      title: WasteTexts.productDetails.tr,
                       showActionButton: false,
                     ),
                     const SizedBox(height: WasteSizes.spaceBtwItems),
 
                     WasteConfirmRedeemMenu(
-                      title: "Product ID",
+                      title: WasteTexts.productID.tr,
                       value: productId,
                     ),
                     WasteConfirmRedeemMenu(
-                      title: "Product Name",
+                      title: WasteTexts.productName.tr,
                       value: displayProductName,
                     ),
                     WasteConfirmRedeemMenu(
-                      title: "Quantity",
+                      title: WasteTexts.quantity.tr,
                       value: displayQuantity.toString(),
                     ),
                   ],
@@ -120,24 +118,24 @@ class SummaryPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const WasteSectionHeading(
-                      title: "Payment Details",
+                    WasteSectionHeading(
+                      title: WasteTexts.paymentDetails.tr,
                       showActionButton: false,
                     ),
                     const SizedBox(height: WasteSizes.spaceBtwItems),
 
                     WasteConfirmRedeemMenu(
-                      title: "WastePoint Balance",
+                      title: WasteTexts.wastePointBalance.tr,
                       value: userBalance.toString(),
                     ),
 
                     WasteConfirmRedeemMenu(
-                      title: "Total Price",
+                      title: WasteTexts.totalPrice.tr,
                       value: totalCost.toString(),
                     ),
 
                     WasteConfirmRedeemMenu(
-                      title: "New Balance",
+                      title: WasteTexts.newBalance.tr,
                       value: newBalance.toString(),
                     ),
                   ],
@@ -171,8 +169,8 @@ class SummaryPage extends StatelessWidget {
                     ).copyWith(
                       overlayColor: WidgetStateProperty.all(Colors.transparent),
                     ),
-                child: const Text(
-                  WasteTexts.confirmRedeem,
+                child: Text(
+                  WasteTexts.confirmRedeem.tr,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ),

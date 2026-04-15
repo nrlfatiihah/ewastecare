@@ -22,7 +22,7 @@ class WasteAdminHomeAppBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                WasteTexts.userHomeAppbarTitle,
+                WasteTexts.userHomeAppbarTitle.tr,
                 style: Theme.of(
                   context,
                 ).textTheme.headlineSmall!.apply(color: WasteColors.grey),

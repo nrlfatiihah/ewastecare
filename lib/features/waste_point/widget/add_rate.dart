@@ -15,9 +15,9 @@ class AdminAddMaterialScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(OldMaterialController());
     return Scaffold(
-      appBar: const WasteAppBar(
+      appBar: WasteAppBar(
         showBackArrow: true,
-        title: Text("Add New Material"),
+        title: Text(WasteTexts.addNewMaterial.tr),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -34,9 +34,9 @@ class AdminAddMaterialScreen extends StatelessWidget {
                       controller: controller.rateId,
                       validator: (value) =>
                           WasteValidator.validateEmptyText("Rate ID", value),
-                      decoration: const InputDecoration(
-                        labelText: WasteTexts.materialID,
-                        prefixIcon: Icon(Iconsax.security_user),
+                      decoration: InputDecoration(
+                        labelText: WasteTexts.materialID.tr,
+                        prefixIcon: const Icon(Iconsax.security_user),
                       ),
                     ),
                     const SizedBox(height: WasteSizes.spaceBtwInputFields),
@@ -48,9 +48,9 @@ class AdminAddMaterialScreen extends StatelessWidget {
                         "Material Name",
                         value,
                       ),
-                      decoration: const InputDecoration(
-                        labelText: WasteTexts.materialName,
-                        prefixIcon: Icon(Iconsax.firstline),
+                      decoration: InputDecoration(
+                        labelText: WasteTexts.materialName.tr,
+                        prefixIcon: const Icon(Iconsax.firstline),
                       ),
                     ),
                     const SizedBox(height: WasteSizes.spaceBtwInputFields),
@@ -79,9 +79,9 @@ class AdminAddMaterialScreen extends StatelessWidget {
                                 child: Text(value),
                               );
                             }).toList(),
-                        decoration: const InputDecoration(
-                          labelText: WasteTexts.materialType,
-                          prefixIcon: Icon(Iconsax.clipboard),
+                        decoration: InputDecoration(
+                          labelText: WasteTexts.materialType.tr,
+                          prefixIcon: const Icon(Iconsax.clipboard),
                         ),
                       );
                     }),
@@ -92,9 +92,9 @@ class AdminAddMaterialScreen extends StatelessWidget {
                       controller: controller.materialValue,
                       validator: (value) =>
                           WasteValidator.validateDecimalPlaces("Value", value),
-                      decoration: const InputDecoration(
-                        labelText: WasteTexts.materialValue,
-                        prefixIcon: Icon(Iconsax.coin),
+                      decoration: InputDecoration(
+                        labelText: WasteTexts.materialValue.tr,
+                        prefixIcon: const Icon(Iconsax.coin),
                       ),
                     ),
                     const SizedBox(height: WasteSizes.spaceBtwSections),
@@ -110,7 +110,7 @@ class AdminAddMaterialScreen extends StatelessWidget {
                             color: WasteColors.buttonPrimary,
                           ),
                         ),
-                        child: const Text(WasteTexts.materialAddButton),
+                        child: Text(WasteTexts.materialAddButton.tr),
                       ),
                     ),
                     const SizedBox(height: WasteSizes.spaceBtwSections),

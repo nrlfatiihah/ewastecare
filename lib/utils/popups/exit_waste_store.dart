@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 
 class DialogUtils {
   static Future<bool> showExitStoreConfirmation(BuildContext context) async {
@@ -6,19 +8,17 @@ class DialogUtils {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text("Exit Waste Store"),
-              content: Text(
-                "Are you sure you want to exit from the Waste store?",
-              ),
+              title: Text(WasteTexts.exitWasteStore.tr),
+              content: Text(WasteTexts.exitStorePrompt.tr),
               actions: <Widget>[
                 TextButton(
-                  child: Text("No"),
+                  child: Text(WasteTexts.no.tr),
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
                 ),
                 TextButton(
-                  child: Text("Yes"),
+                  child: Text(WasteTexts.yes.tr),
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },

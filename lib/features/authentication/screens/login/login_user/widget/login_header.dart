@@ -3,6 +3,7 @@ import 'package:ewastecare/utils/constants/image_strings.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class WasteLoginHeader extends StatelessWidget {
   const WasteLoginHeader({super.key, required this.dark});
@@ -21,12 +22,12 @@ class WasteLoginHeader extends StatelessWidget {
           ),
         ),
         Text(
-          WasteTexts.loginTitle,
+          WasteTexts.loginTitle.tr,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         const SizedBox(height: WasteSizes.sm),
         Text(
-          WasteTexts.loginSubTitle,
+          WasteTexts.loginSubTitle.tr,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ],

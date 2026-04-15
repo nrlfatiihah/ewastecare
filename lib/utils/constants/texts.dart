@@ -1,138 +1,295 @@
-/// This class contains all the App Text in String formats.
+/// This class contains all the App Text keys for localization.
 class WasteTexts {
   // -- GLOBAL Texts
-  static const String and = "and";
-  static const String skip = "Skip";
-  static const String done = "Done";
-  static const String submit = "Submit";
-  static const String appName = "eWasteCare";
-  static const String tContinue = "Continue";
+  static const String and = 'and';
+  static const String skip = 'skip';
+  static const String done = 'done';
+  static const String submit = 'submit';
+  static const String appName = 'appName';
+  static const String tContinue = 'tContinue';
+  static const String confirm = 'confirm';
+  static const String cancel = 'cancel';
+  static const String yes = 'yes';
+  static const String no = 'no';
+  static const String next = 'next';
+  static const String noResult = 'noResult';
+  static const String productDetails = 'productDetails';
+  static const String paymentDetails = 'paymentDetails';
+  static const String wastePointBalance = 'wastePointBalance';
+  static const String totalPrice = 'totalPrice';
+  static const String newBalance = 'newBalance';
+  static const String quantity = 'quantity';
+  static const String processingInformation = 'processingInformation';
+  static const String noInternetConnection = 'noInternetConnection';
+  static const String formValidationFailed = 'formValidationFailed';
+  static const String invalidPETWeight = 'invalidPETWeight';
+  static const String invalidHDPEWeight = 'invalidHDPEWeight';
+  static const String invalidPPWeight = 'invalidPPWeight';
+  static const String wastePointsAdded = 'wastePointsAdded';
+  static const String success = 'success';
+  static const String successfullyAdded = 'successfullyAdded';
+  static const String atLeastOneMaterial = 'atLeastOneMaterial';
+  static const String dontHaveAccount = 'dontHaveAccount';
 
   // -- OnBoarding Texts
   // static const String onBoardingTitle1 = "Choose your product";
   // static const String onBoardingTitle2 = "Select Payment Method";
   // static const String onBoardingTitle3 = "Deliver at your door step";
-  static const String onBoardingTitle1 = "Learning Module";
-  static const String onBoardingTitle2 = "Recycle and Earn";
-  static const String onBoardingTitle3 = "Redeem Goods";
+  static const String onBoardingTitle1 = 'onBoardingTitle1';
+  static const String onBoardingTitle2 = 'onBoardingTitle2';
+  static const String onBoardingTitle3 = 'onBoardingTitle3';
 
   // static const String onBoardingSubTitle1 = "Welcome to a World of Limitless Choices - Your Perfect Product Awaits!";
   // static const String onBoardingSubTitle2 = "For Seamless Transactions, Choose Your Payment Path - Your Convenience, Our Priority!";
   // static const String onBoardingSubTitle3 = "From Our Doorstep to Yours - Swift, Secure, and Contactless Delivery!";
-  static const String onBoardingSubTitle1 =
-      "Perfect Application to Learn about Reuse, Reduce, Recycle";
-  static const String onBoardingSubTitle2 =
-      "Turn Your Waste into Points! - Earn Points by Recycling Your Waste!";
-  static const String onBoardingSubTitle3 =
-      "Exchange Your Points into Goods - Easy, Convenient, and Efficient";
+  static const String onBoardingSubTitle1 = 'onBoardingSubTitle1';
+  static const String onBoardingSubTitle2 = 'onBoardingSubTitle2';
+  static const String onBoardingSubTitle3 = 'onBoardingSubTitle3';
 
   // Sign in/Sign Up
-  static const String createAccount = "Create Account";
-  static const String loginUser = "Login as User";
-  static const String loginAdmin = "Login as Admin";
-  static const String title = "Welcome to eWasteCare";
-  static const String subTitle = "Small Actions, Big Impact";
+  static const String createAccount = 'createAccount';
+  static const String loginUser = 'loginUser';
+  static const String loginAdmin = 'loginAdmin';
+  static const String title = 'title';
+  static const String subTitle = 'subTitle';
 
   //Admin login page details
-  static const String adminLoginTitle = "Welcome back Admin";
-  static const String adminLoginSubTitle = "Small Actions, Big Impact";
-  static const String adminEmail = "Email";
+  static const String adminLoginTitle = 'adminLoginTitle';
+  static const String adminLoginSubTitle = 'adminLoginSubTitle';
+  static const String adminEmail = 'adminEmail';
 
   // -- Authentication Forms
-  static const String firstName = "First Name";
-  static const String lastName = "Last Name";
-  static const String email = "Email";
-  static const String homeAddress = "Address";
-  static const String postal = "Postal Code";
-  static const String country = "Country";
-  static const String gender = "Gender";
-  static const String age = "Age";
-  static const String password = "Password";
-  static const String newPassword = "New Password";
-  static const String username = "Username";
-  static const String phoneNo = "Phone Number";
-  static const String rememberMe = "Remember Me";
-  static const String forgetPassword = "Forget Password?";
-  static const String signIn = "Sign In";
-  static const String orSignInWith = "or sign in with";
-  static const String orSignUpWith = "or sign up with";
-  static const String iAgreeTo = "I agree to";
-  static const String privacyPolicy = "Privacy Policy";
-  static const String termsOfUse = "Terms of use";
-  static const String verificationCode = "verificationCode";
-  static const String resendEmail = "Resend Email";
-  static const String resendEmailIn = "Resend email in";
+  static const String firstName = 'firstName';
+  static const String lastName = 'lastName';
+  static const String email = 'email';
+  static const String homeAddress = 'homeAddress';
+  static const String postal = 'postal';
+  static const String country = 'country';
+  static const String gender = 'gender';
+  static const String age = 'age';
+  static const String password = 'password';
+  static const String newPassword = 'newPassword';
+  static const String username = 'username';
+  static const String phoneNo = 'phoneNo';
+  static const String rememberMe = 'rememberMe';
+  static const String forgetPassword = 'forgetPassword';
+  static const String signIn = 'signIn';
+  static const String role = 'role';
+  static const String userRole = 'userRole';
+  static const String adminRole = 'adminRole';
+  static const String selectYourRole = 'selectYourRole';
+  static const String male = 'male';
+  static const String female = 'female';
+  static const String firstNameValidation = 'firstNameValidation';
+  static const String lastNameValidation = 'lastNameValidation';
+  static const String usernameValidation = 'usernameValidation';
+  static const String homeAddressValidation = 'homeAddressValidation';
+  static const String ageValidation = 'ageValidation';
+  static const String genderValidation = 'genderValidation';
+  static const String ageRequired = 'ageRequired';
+  static const String ageMustBeNumeric = 'ageMustBeNumeric';
+  static const String ageRangeError = 'ageRangeError';
+  static const String genderRequired = 'genderRequired';
+  static const String isRequired = 'isRequired';
+  static const String emailRequired = 'emailRequired';
+  static const String passwordRequired = 'passwordRequired';
+  static const String phoneRequired = 'phoneRequired';
+  static const String valueRequired = 'valueRequired';
+  static const String invalidEmail = 'invalidEmail';
+  static const String passwordMinLength = 'passwordMinLength';
+  static const String passwordUppercase = 'passwordUppercase';
+  static const String passwordNumber = 'passwordNumber';
+  static const String passwordSpecialChar = 'passwordSpecialChar';
+  static const String onlyAlphabetic = 'onlyAlphabetic';
+  static const String onlyAlphanumeric = 'onlyAlphanumeric';
+  static const String alphanumericSpecialChars = 'alphanumericSpecialChars';
+  static const String invalidPhoneFormat = 'invalidPhoneFormat';
+  static const String invalidIntegerFormat = 'invalidIntegerFormat';
+  static const String invalidDecimalFormat = 'invalidDecimalFormat';
+  static const String materialTypeRequired = 'materialTypeRequired';
+  static const String validNumberRequired = 'validNumberRequired';
+  static const String noNegativeNumber = 'noNegativeNumber';
+  static const String twoDecimalPlacesMax = 'twoDecimalPlacesMax';
+  static const String activeUsers = 'activeUsers';
+  static const String topPerformer = 'topPerformer';
+  static const String totalWastePoints = 'totalWastePoints';
+  static const String totalRecycledItems = 'totalRecycledItems';
+  static const String userInformation = 'userInformation';
+  static const String chooseAType = 'chooseAType';
+  static const String materialsDistribution = 'materialsDistribution';
+  static const String selectDateRange = 'selectDateRange';
+  static const String dateRange = 'dateRange';
+  static const String tapToSelectDateRange = 'tapToSelectDateRange';
+  static const String reset = 'reset';
+  static const String materialDistribution = 'materialDistribution';
+  static const String orSignInWith = 'orSignInWith';
+  static const String orSignUpWith = 'orSignUpWith';
+  static const String iAgreeTo = 'iAgreeTo';
+  static const String privacyPolicy = 'privacyPolicy';
+  static const String termsOfUse = 'termsOfUse';
+  static const String verificationCode = 'verificationCode';
+  static const String resendEmail = 'resendEmail';
+  static const String resendEmailIn = 'resendEmailIn';
 
   // -- Authentication Headings
-  static const String loginTitle = "Welcome eWasteCare";
-  static const String loginSubTitle = "Small Actions, Big Impact";
-  static const String signupTitle = "Let’s create your account";
-  static const String forgetPasswordTitle = "Forget password";
-  static const String forgetPasswordSubTitle =
-      "Don’t worry sometimes people can forget too, enter your email and we will send you a password reset link.";
-  static const String changeYourPasswordTitle = "Password Reset Email Sent";
-  static const String changeYourPasswordSubTitle =
-      "Your Account Security is Our Priority! We've Sent You a Secure Link to Safely Change Your Password and Keep Your Account Protected.";
-  static const String confirmEmail = "Verify your email address!";
-  static const String confirmEmailSubTitle =
-      "Congratulations! Your Account Awaits: Verify your email to start using the application";
-  static const String emailNotReceivedMessage =
-      "Didn’t get the email? Check your junk/spam or resend it.";
-  static const String yourAccountCreatedTitle =
-      "Your account successfully created!";
-  static const String yourAccountCreatedSubTitle =
-      "Welcome to the eWasteCare App! Your account has been created. Start learning how to recycle, earn WastePoints, and redeem them for goods.";
+  static const String loginTitle = 'loginTitle';
+  static const String loginSubTitle = 'loginSubTitle';
+  static const String signupTitle = 'signupTitle';
+  static const String forgetPasswordTitle = 'forgetPasswordTitle';
+  static const String forgetPasswordSubTitle = 'forgetPasswordSubTitle';
+  static const String changeYourPasswordTitle = 'changeYourPasswordTitle';
+  static const String changeYourPasswordSubTitle = 'changeYourPasswordSubTitle';
+  static const String confirmEmail = 'confirmEmail';
+  static const String confirmEmailSubTitle = 'confirmEmailSubTitle';
+  static const String emailNotReceivedMessage = 'emailNotReceivedMessage';
+  static const String yourAccountCreatedTitle = 'yourAccountCreatedTitle';
+  static const String yourAccountCreatedSubTitle = 'yourAccountCreatedSubTitle';
 
   // -- Product
-  static const String popularProducts = "Popular Products";
-  static const String redeemItem = "Redeem Item";
+  static const String popularProducts = 'popularProducts';
+  static const String redeemItem = 'redeemItem';
 
   // -- Home
-  static const String userHomeAppbarTitle = "Hello,";
-  static const String userHomeAppbarSubTitle = "Muhammad Faris";
+  static const String userHomeAppbarTitle = 'userHomeAppbarTitle';
+  static const String userHomeAppbarSubTitle = 'userHomeAppbarSubTitle';
 
   // -- Point Allocation
-  static const String allocationPage = "Point Allocation";
-  static const String pointTitle = "Waste Point Allocation";
-  static const String userID = "User ID";
-  static const String plasticLabel = "Plastic";
-  static const String weightPET = "Weight PET";
-  static const String weightHDPE = "Weight HDPE";
-  static const String weightPP = "Weight PP";
-  static const String paperLabel = "Paper";
-  static const String weightPaper = "Weight Paper";
-  static const String weightBox = "Weight Box";
-  static const String canLabel = "Can";
-  static const String weightAluminiumCan = "Weight Aluminium Can";
-  static const String weightSteelCan = "Weight Steel Can";
-  static const String oilLabel = "Used oil";
-  static const String weightCookingOil = "Weight Cooking Oil";
-  static const String addPoint = "Add";
+  static const String allocationPage = 'allocationPage';
+  static const String pointTitle = 'pointTitle';
+  static const String userID = 'userID';
+  static const String plasticLabel = 'plasticLabel';
+  static const String weightPET = 'weightPET';
+  static const String weightHDPE = 'weightHDPE';
+  static const String weightPP = 'weightPP';
+  static const String paperLabel = 'paperLabel';
+  static const String weightPaper = 'weightPaper';
+  static const String weightBox = 'weightBox';
+  static const String canLabel = 'canLabel';
+  static const String weightAluminiumCan = 'weightAluminiumCan';
+  static const String weightSteelCan = 'weightSteelCan';
+  static const String oilLabel = 'oilLabel';
+  static const String weightCookingOil = 'weightCookingOil';
+  static const String addPoint = 'addPoint';
 
   //-- Add Item
-  static const String productID = "Item ID";
-  static const String productName = "Name of Item";
-  static const String productDesc = "Item Description";
-  static const String productPoint = "Item Points";
-  static const String productQuantity = "Item Quantity";
-  static const String addProduct = "Add Item";
-  static const String updateProduct = "Update Item";
+  static const String productID = 'productID';
+  static const String productName = 'productName';
+  static const String productDesc = 'productDesc';
+  static const String productPoint = 'productPoint';
+  static const String productQuantity = 'productQuantity';
+  static const String addProduct = 'addProduct';
+  static const String updateProduct = 'updateProduct';
 
   //--- Qr image
-  static const String qrImage = "Scan user QR code";
+  static const String qrImage = 'qrImage';
 
   //-- User Redeem Item
-  static const String redeemProductID = "Item ID";
-  static const String redeemProductQuantity = "Quantity";
-  static const String confirmRedeem = "Confirm";
+  static const String redeemProductID = 'redeemProductID';
+  static const String redeemProductQuantity = 'redeemProductQuantity';
+  static const String confirmRedeem = 'confirmRedeem';
 
   //-- filter dashboard analytics button
-  static const String fliterCancel = "Cancel";
+  static const String fliterCancel = 'fliterCancel';
 
   //-- Material rate
-  static const String materialID = "Material ID";
-  static const String materialName = "Material Name";
-  static const String materialType = "Material Type";
-  static const String materialValue = "Material Value";
-  static const String materialAddButton = "Add Material";
+  static const String materialID = 'materialID';
+  static const String materialName = 'materialName';
+  static const String materialType = 'materialType';
+  static const String materialValue = 'materialValue';
+  static const String materialAddButton = 'materialAddButton';
+
+  // -- Popups and Dialogs
+  static const String confirmLogout = 'confirmLogout';
+  static const String confirmLogoutMessage = 'confirmLogoutMessage';
+  static const String confirmCancelTransaction = 'confirmCancelTransaction';
+  static const String confirmDeleteModule = 'confirmDeleteModule';
+  static const String confirmDeleteProduct = 'confirmDeleteProduct';
+  static const String confirmDeletion = 'confirmDeletion';
+  static const String confirmationSummary = 'confirmationSummary';
+
+  // -- Buttons and Actions
+  static const String addNewItem = 'addNewItem';
+  static const String addNewMaterial = 'addNewMaterial';
+  static const String addNewModule = 'addNewModule';
+  static const String cancelTransaction = 'cancelTransaction';
+  static const String changeProfilePicture = 'changeProfilePicture';
+  static const String close = 'close';
+  static const String delete = 'delete';
+  static const String deleteItem = 'deleteItem';
+  static const String deleteModule = 'deleteModule';
+  static const String download = 'download';
+  static const String editItem = 'editItem';
+  static const String editModule = 'editModule';
+  static const String exitWasteStore = 'exitWasteStore';
+  static const String exitStorePrompt = 'exitStorePrompt';
+  static const String wasteStore = 'wasteStore';
+  static const String redeemableItems = 'redeemableItems';
+  static const String finishModuleEarnBadge = 'finishModuleEarnBadge';
+  static const String congratulations = 'congratulations';
+  static const String badgeEarnedMessage = 'badgeEarnedMessage';
+  static const String badgeEarned = 'badgeEarned';
+  static const String itemQrCode = 'itemQrCode';
+  static const String moduleId = 'moduleId';
+  static const String moduleImage = 'moduleImage';
+  static const String moduleTitle = 'moduleTitle';
+  static const String moduleSubtitle = 'moduleSubtitle';
+  static const String noDataFound = 'noDataFound';
+  static const String noImageSelected = 'noImageSelected';
+  static const String noModulesFound = 'noModulesFound';
+  static const String wastePoints = 'wastePoints';
+  static const String wasteScanner = 'wasteScanner';
+  static const String detectedWaste = 'detectedWaste';
+  static const String noDisposalInfoAvailable = 'noDisposalInfoAvailable';
+  static const String policyPrivacy = 'policyPrivacy';
+  static const String rateId = 'rateId';
+  static const String reAuthenticateUser = 'reAuthenticateUser';
+  static const String recycleRate = 'recycleRate';
+  static const String save = 'save';
+  static const String scanWaste = 'scanWaste';
+  static const String sectionImage = 'sectionImage';
+  static const String selectImage = 'selectImage';
+  static const String termsConditions = 'termsConditions';
+  static const String transactionHistory = 'transactionHistory';
+  static const String pickDateRange = 'pickDateRange';
+  static const String resetDateRange = 'resetDateRange';
+  static const String filterDateMessage = 'filterDateMessage';
+  static const String showingLatestTransactions = 'showingLatestTransactions';
+  static const String userQrCode = 'userQrCode';
+  static const String verify = 'verify';
+  static const String failedToLoadImage = 'failedToLoadImage';
+  static const String appInformation = 'appInformation';
+  static const String appVersion = 'appVersion';
+  static const String profile = 'profile';
+  static const String logout = 'logout';
+  static const String learningModule = 'learningModule';
+  static const String moduleSections = 'moduleSections';
+  static const String addSection = 'addSection';
+  static const String section = 'section';
+  static const String sectionTitle = 'sectionTitle';
+  static const String sectionDescription = 'sectionDescription';
+  static const String point = 'point';
+  static const String itemDetail = 'itemDetail';
+  static const String itemName = 'itemName';
+  static const String points = 'points';
+  static const String itemID = 'itemID';
+  static const String stock = 'stock';
+  static const String itemDescription = 'itemDescription';
+  static const String showMore = 'showMore';
+  static const String showLess = 'showLess';
+  static const String performanceAnalytics = 'performanceAnalytics';
+  static const String yourAchievement = 'yourAchievement';
+  static const String recyclingPerformance = 'recyclingPerformance';
+  static const String yourCurrentTier = 'yourCurrentTier';
+  static const String progressOverview = 'progressOverview';
+  static const String profileInformation = 'profileInformation';
+  static const String profileName = 'profileName';
+  static const String profileUsername = 'profileUsername';
+  static const String personalInformation = 'personalInformation';
+  static const String address = 'address';
+  static const String oops = 'oops';
+  static const String cannotEditDetail = 'cannotEditDetail';
+  static const String deleteAccount = 'deleteAccount';
+  static const String saveModule = 'saveModule';
+
+  static const String updateModule = 'updateModule';
 }

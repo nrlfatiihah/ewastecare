@@ -46,7 +46,7 @@ class AdminDashboardScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Performance Analytics",
+                                  "performanceAnalytics".tr,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineMedium!
@@ -103,9 +103,9 @@ class AdminDashboardScreen extends StatelessWidget {
               // ================= CHART =================
               Obx(() {
                 switch (controller.selectedType.value) {
-                  case "User Information":
+                  case 'userInformation':
                     return const BarGraphUserInformation();
-                  case "Materials Distribution":
+                  case 'materialDistribution':
                     return const PieChartMaterialInformation();
                   default:
                     return const SizedBox();
@@ -120,7 +120,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   horizontal: WasteSizes.defaultSpace,
                 ),
                 child: Obx(() {
-                  if (controller.selectedType.value != "User Information") {
+                  if (controller.selectedType.value != 'userInformation') {
                     return const SizedBox();
                   }
 
@@ -133,7 +133,7 @@ class AdminDashboardScreen extends StatelessWidget {
                     childAspectRatio: 1.4,
                     children: [
                       AdminAnalyticCardVertical(
-                        title: 'Active Users',
+                        title: 'activeUsers'.tr,
                         value: "${service.totalActiveUser.value} Users",
                         icon: Iconsax.people,
                         iconColor: Colors.black,
@@ -141,7 +141,7 @@ class AdminDashboardScreen extends StatelessWidget {
                         gradientEnd: Colors.lightBlue,
                       ),
                       AdminAnalyticCardVertical(
-                        title: 'Top Performer',
+                        title: 'topPerformer'.tr,
                         value: service.mostPerformantUsername.value,
                         icon: Iconsax.crown,
                         iconColor: Colors.black,
@@ -149,7 +149,7 @@ class AdminDashboardScreen extends StatelessWidget {
                         gradientEnd: Colors.orangeAccent,
                       ),
                       AdminAnalyticCardVertical(
-                        title: 'Total Waste Points',
+                        title: 'totalWastePoints'.tr,
                         value:
                             "${service.displaySumOfWastePoints.value} Points",
                         icon: Iconsax.star,
@@ -158,7 +158,7 @@ class AdminDashboardScreen extends StatelessWidget {
                         gradientEnd: Colors.lightGreen,
                       ),
                       AdminAnalyticCardVertical(
-                        title: 'Total Recycled Items',
+                        title: 'totalRecycledItems'.tr,
                         value: "${service.displaySumOfAllMaterials.value} Kg",
                         icon: Icons.recycling,
                         iconColor: Colors.black,

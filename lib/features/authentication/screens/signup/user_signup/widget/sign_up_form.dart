@@ -26,12 +26,12 @@ class WasteSignUpForm extends StatelessWidget {
                 child: TextFormField(
                   controller: controller.firstName,
                   validator: (value) => WasteValidator.validateStringAlphabetic(
-                    "First name",
+                    WasteTexts.firstNameValidation.tr,
                     value,
                   ),
                   expands: false,
-                  decoration: const InputDecoration(
-                    labelText: WasteTexts.firstName,
+                  decoration: InputDecoration(
+                    labelText: WasteTexts.firstName.tr,
                     prefixIcon: Icon(Iconsax.user),
                   ),
                 ),
@@ -41,12 +41,12 @@ class WasteSignUpForm extends StatelessWidget {
                 child: TextFormField(
                   controller: controller.lastName,
                   validator: (value) => WasteValidator.validateStringAlphabetic(
-                    "Last name",
+                    WasteTexts.lastNameValidation.tr,
                     value,
                   ),
                   expands: false,
-                  decoration: const InputDecoration(
-                    labelText: WasteTexts.lastName,
+                  decoration: InputDecoration(
+                    labelText: WasteTexts.lastName.tr,
                     prefixIcon: Icon(Iconsax.user),
                   ),
                 ),
@@ -57,12 +57,14 @@ class WasteSignUpForm extends StatelessWidget {
 
           // Username
           TextFormField(
-            validator: (value) =>
-                WasteValidator.validateAlphanumeric("Username", value),
+            validator: (value) => WasteValidator.validateAlphanumeric(
+              WasteTexts.usernameValidation.tr,
+              value,
+            ),
             controller: controller.username,
             expands: false,
-            decoration: const InputDecoration(
-              labelText: WasteTexts.username,
+            decoration: InputDecoration(
+              labelText: WasteTexts.username.tr,
               prefixIcon: Icon(Iconsax.user_edit),
             ),
           ),
@@ -70,12 +72,14 @@ class WasteSignUpForm extends StatelessWidget {
 
           // Address line
           TextFormField(
-            validator: (value) =>
-                WasteValidator.validateAddress("Home address", value),
+            validator: (value) => WasteValidator.validateAddress(
+              WasteTexts.homeAddressValidation.tr,
+              value,
+            ),
             controller: controller.homeAddress,
             expands: false,
-            decoration: const InputDecoration(
-              labelText: WasteTexts.homeAddress,
+            decoration: InputDecoration(
+              labelText: WasteTexts.homeAddress.tr,
               prefixIcon: Icon(Iconsax.location),
             ),
           ),
@@ -87,11 +91,13 @@ class WasteSignUpForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   controller: controller.age,
-                  validator: (value) =>
-                      WasteValidator.validateAge("Age", value),
+                  validator: (value) => WasteValidator.validateAge(
+                    WasteTexts.ageValidation.tr,
+                    value,
+                  ),
                   expands: false,
-                  decoration: const InputDecoration(
-                    labelText: WasteTexts.age,
+                  decoration: InputDecoration(
+                    labelText: WasteTexts.age.tr,
                     prefixIcon: Icon(Iconsax.calendar),
                   ),
                 ),
@@ -100,19 +106,25 @@ class WasteSignUpForm extends StatelessWidget {
               Expanded(
                 child: DropdownButtonFormField<String>(
                   value: controller.gender.value,
-                  validator: (value) =>
-                      WasteValidator.validateGender("Gender", value),
+                  validator: (value) => WasteValidator.validateGender(
+                    WasteTexts.genderValidation.tr,
+                    value,
+                  ),
                   onChanged: (String? newValue) {
                     controller.gender.value = newValue!;
                   },
                   items: <String>['Male', 'Female'].map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value),
+                      child: Text(
+                        value == 'Male'
+                            ? WasteTexts.male.tr
+                            : WasteTexts.female.tr,
+                      ),
                     );
                   }).toList(),
-                  decoration: const InputDecoration(
-                    labelText: WasteTexts.gender,
+                  decoration: InputDecoration(
+                    labelText: WasteTexts.gender.tr,
                     prefixIcon: Icon(Iconsax.link),
                   ),
                 ),
@@ -125,17 +137,24 @@ class WasteSignUpForm extends StatelessWidget {
           Obx(
             () => DropdownButtonFormField<String>(
               value: controller.role.value,
-              validator: (value) => value == null ? 'Select your role' : null,
+              validator: (value) =>
+                  value == null ? WasteTexts.selectYourRole.tr : null,
               onChanged: (String? newValue) {
                 controller.role.value = newValue;
               },
-              items: const [
-                DropdownMenuItem(value: 'user', child: Text('User')),
-                DropdownMenuItem(value: 'admin', child: Text('Admin')),
+              items: [
+                DropdownMenuItem(
+                  value: 'user',
+                  child: Text(WasteTexts.userRole.tr),
+                ),
+                DropdownMenuItem(
+                  value: 'admin',
+                  child: Text(WasteTexts.adminRole.tr),
+                ),
               ],
-              decoration: const InputDecoration(
-                labelText: 'Role',
-                prefixIcon: Icon(Iconsax.security_user),
+              decoration: InputDecoration(
+                labelText: WasteTexts.role.tr,
+                prefixIcon: const Icon(Iconsax.security_user),
               ),
             ),
           ),
@@ -147,8 +166,8 @@ class WasteSignUpForm extends StatelessWidget {
             controller: controller.phoneNo,
             validator: (value) => WasteValidator.validatePhoneNumber(value),
             expands: false,
-            decoration: const InputDecoration(
-              labelText: WasteTexts.phoneNo,
+            decoration: InputDecoration(
+              labelText: WasteTexts.phoneNo.tr,
               prefixIcon: Icon(Iconsax.call),
             ),
           ),
@@ -159,8 +178,8 @@ class WasteSignUpForm extends StatelessWidget {
             controller: controller.email,
             validator: (value) => WasteValidator.validateEmail(value),
             expands: false,
-            decoration: const InputDecoration(
-              labelText: WasteTexts.email,
+            decoration: InputDecoration(
+              labelText: WasteTexts.email.tr,
               prefixIcon: Icon(Iconsax.direct),
             ),
           ),
@@ -173,7 +192,7 @@ class WasteSignUpForm extends StatelessWidget {
               validator: (value) => WasteValidator.validatePassword(value),
               obscureText: controller.hidePassword.value,
               decoration: InputDecoration(
-                labelText: WasteTexts.password,
+                labelText: WasteTexts.password.tr,
                 prefixIcon: const Icon(Iconsax.password_check),
                 suffixIcon: IconButton(
                   onPressed: () => controller.hidePassword.value =
@@ -203,7 +222,7 @@ class WasteSignUpForm extends StatelessWidget {
                 backgroundColor: WasteColors.buttonPrimary,
                 side: const BorderSide(color: WasteColors.buttonPrimary),
               ),
-              child: const Text(WasteTexts.createAccount),
+              child: Text(WasteTexts.createAccount.tr),
             ),
           ),
           const SizedBox(height: WasteSizes.spaceBtwSections),

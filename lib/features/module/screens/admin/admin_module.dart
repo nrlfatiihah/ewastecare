@@ -1,3 +1,4 @@
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/common/widget/custom_shape/containers/primary_header_container.dart';
 import 'package:ewastecare/common/widget/texts/section_heading.dart';
 import 'package:ewastecare/features/home/screens/admin/widgets/admin_home_appbar.dart';
@@ -42,8 +43,8 @@ class AdminModule extends StatelessWidget {
                 padding: const EdgeInsets.all(WasteSizes.defaultSpace),
                 child: Column(
                   children: [
-                    const WasteSectionHeading(
-                      title: "Learning Module",
+                    WasteSectionHeading(
+                      title: WasteTexts.learningModule.tr,
                       showActionButton: false,
                     ),
                     Obx(

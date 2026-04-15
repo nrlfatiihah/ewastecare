@@ -18,9 +18,9 @@ class AdminAddModuleScreen extends StatelessWidget {
     final controller = Get.put(ModuleController());
 
     return Scaffold(
-      appBar: const WasteAppBar(
+      appBar: WasteAppBar(
         showBackArrow: true,
-        title: Text("Add New Module"),
+        title: Text(WasteTexts.addNewModule.tr),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -35,8 +35,8 @@ class AdminAddModuleScreen extends StatelessWidget {
                   controller: controller.moduleID,
                   validator: (value) =>
                       WasteValidator.validateEmptyText("Module ID", value),
-                  decoration: const InputDecoration(
-                    labelText: "Module ID",
+                  decoration: InputDecoration(
+                    labelText: WasteTexts.moduleId.tr,
                     prefixIcon: Icon(Iconsax.tag),
                   ),
                 ),
@@ -47,8 +47,8 @@ class AdminAddModuleScreen extends StatelessWidget {
                   controller: controller.moduleTitle,
                   validator: (value) =>
                       WasteValidator.validateEmptyText("Module Title", value),
-                  decoration: const InputDecoration(
-                    labelText: "Module Title",
+                  decoration: InputDecoration(
+                    labelText: WasteTexts.moduleTitle.tr,
                     prefixIcon: Icon(Iconsax.book),
                   ),
                 ),
@@ -61,8 +61,8 @@ class AdminAddModuleScreen extends StatelessWidget {
                     "Module Subtitle",
                     value,
                   ),
-                  decoration: const InputDecoration(
-                    labelText: "Module Subtitle",
+                  decoration: InputDecoration(
+                    labelText: WasteTexts.moduleSubtitle.tr,
                     prefixIcon: Icon(Iconsax.text),
                   ),
                 ),
@@ -78,8 +78,8 @@ class AdminAddModuleScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "Module Sections",
+                    Text(
+                      WasteTexts.moduleSections.tr,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -103,8 +103,8 @@ class AdminAddModuleScreen extends StatelessWidget {
                               ),
                             ),
                         icon: const Icon(Icons.add),
-                        label: const Text(
-                          "Add Section",
+                        label: Text(
+                          WasteTexts.addSection.tr,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -138,7 +138,7 @@ class AdminAddModuleScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Section ${index + 1}",
+                                    "${WasteTexts.section.tr} ${index + 1}",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -159,8 +159,8 @@ class AdminAddModuleScreen extends StatelessWidget {
                               // Section Title
                               TextFormField(
                                 controller: section.sectionTitle,
-                                decoration: const InputDecoration(
-                                  labelText: "Section Title",
+                                decoration: InputDecoration(
+                                  labelText: WasteTexts.sectionTitle.tr,
                                 ),
                               ),
 
@@ -170,8 +170,8 @@ class AdminAddModuleScreen extends StatelessWidget {
                               TextFormField(
                                 controller: section.sectionContent,
                                 maxLines: 3,
-                                decoration: const InputDecoration(
-                                  labelText: "Section Description",
+                                decoration: InputDecoration(
+                                  labelText: WasteTexts.sectionDescription.tr,
                                 ),
                               ),
 
@@ -194,7 +194,7 @@ class AdminAddModuleScreen extends StatelessWidget {
                                       controller.sections.refresh();
                                     },
                                     icon: const Icon(Icons.add),
-                                    label: const Text("Add Point"),
+                                    label: Text(WasteTexts.addPoint.tr),
                                   ),
                                 ),
 
@@ -208,7 +208,8 @@ class AdminAddModuleScreen extends StatelessWidget {
                                     child: TextFormField(
                                       controller: section.points[pointIndex],
                                       decoration: InputDecoration(
-                                        labelText: "Point ${pointIndex + 1}",
+                                        labelText:
+                                            "${WasteTexts.point.tr} ${pointIndex + 1}",
                                       ),
                                     ),
                                   );
@@ -238,8 +239,8 @@ class AdminAddModuleScreen extends StatelessWidget {
                             Colors.transparent,
                           ),
                         ),
-                    child: const Text(
-                      "Save Module",
+                    child: Text(
+                      WasteTexts.saveModule.tr,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),

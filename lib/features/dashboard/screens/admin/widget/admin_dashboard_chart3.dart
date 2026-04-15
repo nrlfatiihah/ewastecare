@@ -1,6 +1,5 @@
 import 'package:ewastecare/features/dashboard/screens/admin/admin_new_dashboard.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
-import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/device/device_utility.dart';
 import 'package:ewastecare/utils/helpers/helper_functions.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -123,7 +122,7 @@ class PieChartMaterialInformation extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
-                        'Material Distribution',
+                        'materialDistribution'.tr,
                         style: Theme.of(context).textTheme.headlineSmall!
                             .copyWith(fontWeight: FontWeight.bold),
                       ),

@@ -1,4 +1,6 @@
+import 'package:get/get.dart';
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/features/waste_point/screen/recycle_rate.dart';
 import 'package:ewastecare/features/home/controllers/admin_setting_controller.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
@@ -49,7 +51,7 @@ class AdminEndDrawer extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
+                  Text(
                     "Manage system settings",
                     style: TextStyle(color: Colors.white70),
                   ),
@@ -97,7 +99,7 @@ class AdminEndDrawer extends StatelessWidget {
                   onPressed: () =>
                       AdminAuthenticationRepository.instance.logout(),
                   icon: const Icon(Icons.logout),
-                  label: const Text("Logout"),
+                  label: Text(WasteTexts.logout.tr),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                     side: BorderSide.none,

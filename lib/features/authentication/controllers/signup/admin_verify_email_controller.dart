@@ -41,8 +41,8 @@ class AdminVerifyEmailController extends GetxController {
         Get.off(
           () => SuccessScreen(
             image: WasteImages.successfullyRegisterAnimation,
-            title: WasteTexts.yourAccountCreatedTitle,
-            subTitle: WasteTexts.yourAccountCreatedSubTitle,
+            title: WasteTexts.yourAccountCreatedTitle.tr,
+            subTitle: WasteTexts.yourAccountCreatedSubTitle.tr,
             onPressed: () =>
                 AdminAuthenticationRepository.instance.adminScreenRedirect(),
           ),
@@ -58,8 +58,8 @@ class AdminVerifyEmailController extends GetxController {
       Get.off(
         () => SuccessScreen(
           image: WasteImages.successfullyRegisterAnimation,
-          title: WasteTexts.yourAccountCreatedTitle,
-          subTitle: WasteTexts.yourAccountCreatedSubTitle,
+          title: WasteTexts.yourAccountCreatedTitle.tr,
+          subTitle: WasteTexts.yourAccountCreatedSubTitle.tr,
           onPressed: () =>
               AdminAuthenticationRepository.instance.adminScreenRedirect(),
         ),

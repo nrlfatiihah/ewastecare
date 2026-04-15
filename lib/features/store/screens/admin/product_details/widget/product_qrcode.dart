@@ -1,4 +1,6 @@
+import 'package:get/get.dart';
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/features/store/models/product_model.dart';
 import 'package:flutter/material.dart';
 
@@ -11,14 +13,14 @@ class ProductQrCode extends StatelessWidget {
     return Theme(
       data: ThemeData(brightness: Brightness.light),
       child: Scaffold(
-        appBar: const WasteAppBar(
+        appBar: WasteAppBar(
           showBackArrow: true,
-          title: Text("Item QR Code"),
+          title: Text(WasteTexts.itemQrCode.tr),
         ),
         body: Center(
           child: product.productQR.isNotEmpty
               ? Image.network(product.productQR)
-              : const Text('No QR Code available'),
+              : Text('No QR Code available'),
         ),
       ),
     );

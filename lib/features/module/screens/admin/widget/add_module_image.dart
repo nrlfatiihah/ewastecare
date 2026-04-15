@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ewastecare/features/module/controllers/module_controller.dart';
@@ -18,9 +19,9 @@ class AddModuleImage extends StatelessWidget {
 
       if (imagePath.isEmpty) {
         // No image selected yet
-        imageWidget = const SizedBox(
+        imageWidget = SizedBox(
           height: 150,
-          child: Center(child: Text("No image selected")),
+          child: Center(child: Text(WasteTexts.noImageSelected.tr)),
         );
       } else if (imagePath.startsWith("http")) {
         // Network image (existing module image)
@@ -32,7 +33,7 @@ class AddModuleImage extends StatelessWidget {
             width: double.infinity,
             fit: BoxFit.cover,
             errorBuilder: (_, __, ___) =>
-                const Center(child: Text("Failed to load image")),
+                Center(child: Text(WasteTexts.failedToLoadImage.tr)),
           ),
         );
       } else {
@@ -60,7 +61,7 @@ class AddModuleImage extends StatelessWidget {
               if (path != null) controller.setImagePath(path);
             },
             icon: const Icon(Icons.image),
-            label: const Text("Select Image"),
+            label: Text(WasteTexts.selectImage.tr),
           ),
         ],
       );

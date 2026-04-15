@@ -1,4 +1,6 @@
+import 'package:get/get.dart';
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -7,10 +9,10 @@ class TermsNConditionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       appBar: WasteAppBar(
         showBackArrow: true,
-        title: Text("Terms and Conditions"),
+        title: Text(WasteTexts.termsConditions.tr),
       ),
       body: SingleChildScrollView(
         child: Column(

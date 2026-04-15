@@ -1,4 +1,5 @@
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/data/repositories/authentication/authentication_repository.dart';
 import 'package:ewastecare/data/repositories/user/user_repository.dart';
 import 'package:ewastecare/features/authentication/screens/login/login_user/login.dart';
@@ -167,14 +168,14 @@ class UserController extends GetxController {
           backgroundColor: Colors.red,
           side: const BorderSide(color: Colors.red),
         ),
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: WasteSizes.lg),
-          child: Text("Delete"),
+          child: Text(WasteTexts.delete.tr),
         ),
       ),
       cancel: OutlinedButton(
         onPressed: () => Navigator.of(Get.overlayContext!).pop(),
-        child: const Text("Cancel"),
+        child: Text("Cancel"),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:ewastecare/utils/constants/colors.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ewastecare/features/module/controllers/module_controller.dart';
@@ -84,15 +85,15 @@ class _LearningModuleContentUserState extends State<LearningModuleContentUser> {
                     await controller.markModuleCompleted(widget.module.id);
 
                     Get.snackbar(
-                      "Congratulations!",
-                      "You earned a badge for completing this module!",
+                      WasteTexts.congratulations.tr,
+                      WasteTexts.badgeEarnedMessage.tr,
                       snackPosition: SnackPosition.BOTTOM,
                       backgroundColor: WasteColors.primary,
                       colorText: Colors.white,
                     );
                   },
                   icon: const Icon(Icons.emoji_events),
-                  label: const Text("Finish Module & Earn Badge"),
+                  label: Text(WasteTexts.finishModuleEarnBadge.tr),
                   style:
                       ElevatedButton.styleFrom(
                         backgroundColor: WasteColors.primary,
@@ -112,12 +113,16 @@ class _LearningModuleContentUserState extends State<LearningModuleContentUser> {
               // Show badge if completed
               Center(
                 child: Column(
-                  children: const [
-                    Icon(Icons.emoji_events, size: 48, color: Colors.amber),
-                    SizedBox(height: 8),
+                  children: [
+                    const Icon(
+                      Icons.emoji_events,
+                      size: 48,
+                      color: Colors.amber,
+                    ),
+                    const SizedBox(height: 8),
                     Text(
-                      "Badge Earned!",
-                      style: TextStyle(
+                      WasteTexts.badgeEarned.tr,
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: WasteColors.primary,

@@ -5,6 +5,7 @@ import 'package:ewastecare/features/dashboard/controllers/user_dashboard_control
 import 'package:ewastecare/features/dashboard/screens/user/widget/user_tier_card.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/features/dashboard/screens/user/widget/user_chart.dart';
 import 'package:get/get.dart';
 
@@ -36,7 +37,7 @@ class UserDashboardScreen extends StatelessWidget {
                       title: Transform.translate(
                         offset: const Offset(-12, 0),
                         child: Text(
-                          "Performance Analytics",
+                          WasteTexts.performanceAnalytics.tr,
                           style: Theme.of(context).textTheme.headlineMedium!
                               .apply(color: WasteColors.white),
                           maxLines: 2,
@@ -61,7 +62,7 @@ class UserDashboardScreen extends StatelessWidget {
 
                     // Section Title
                     Text(
-                      "Your Achievement",
+                      WasteTexts.yourAchievement.tr,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -76,7 +77,7 @@ class UserDashboardScreen extends StatelessWidget {
 
                     // Chart Section Title
                     Text(
-                      "Recycling Performance",
+                      WasteTexts.recyclingPerformance.tr,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),

@@ -44,8 +44,7 @@ class WelcomeHeader extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    const Text(
-                      WasteTexts.appName,
+                    Text(WasteTexts.appName.tr,
                       style: TextStyle(
                         color: Color(0xFF388E3C),
                         fontSize: 28,
@@ -61,7 +60,7 @@ class WelcomeHeader extends StatelessWidget {
 
           // title and subtitle
           Text(
-            WasteTexts.title,
+            WasteTexts.title.tr,
             style: Theme.of(
               context,
             ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -69,7 +68,7 @@ class WelcomeHeader extends StatelessWidget {
           const SizedBox(height: WasteSizes.spaceBtwItems),
 
           Text(
-            WasteTexts.subTitle,
+            WasteTexts.subTitle.tr,
             style: Theme.of(
               context,
             ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.normal),
@@ -85,7 +84,7 @@ class WelcomeHeader extends StatelessWidget {
                 backgroundColor: WasteColors.buttonPrimary,
                 side: const BorderSide(color: WasteColors.buttonPrimary),
               ),
-              child: const Text(WasteTexts.loginUser),
+              child: Text(WasteTexts.loginUser.tr),
             ),
           ),
           const SizedBox(height: 13),
@@ -99,7 +98,7 @@ class WelcomeHeader extends StatelessWidget {
                 backgroundColor: WasteColors.buttonPrimary,
                 side: const BorderSide(color: WasteColors.buttonPrimary),
               ),
-              child: const Text(WasteTexts.loginAdmin),
+              child: Text(WasteTexts.loginAdmin.tr),
             ),
           ),
           const SizedBox(height: 13),
@@ -113,7 +112,7 @@ class WelcomeHeader extends StatelessWidget {
                 backgroundColor: WasteColors.buttonPrimary,
                 side: const BorderSide(color: WasteColors.buttonPrimary),
               ),
-              child: const Text(WasteTexts.createAccount),
+              child: Text(WasteTexts.createAccount.tr),
             ),
           ),
           const SizedBox(height: WasteSizes.spaceBtwSections),

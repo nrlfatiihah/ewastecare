@@ -28,7 +28,7 @@ class AdminPointAllocationScreenTest extends StatelessWidget {
                 children: [
                   WasteAppBar(
                     title: Text(
-                      WasteTexts.allocationPage,
+                      WasteTexts.allocationPage.tr,
                       style: Theme.of(context).textTheme.headlineMedium!.apply(
                         color: WasteColors.white,
                       ),
@@ -44,7 +44,7 @@ class AdminPointAllocationScreenTest extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    WasteTexts.pointTitle,
+                    WasteTexts.pointTitle.tr,
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   Form(
@@ -63,9 +63,9 @@ class AdminPointAllocationScreenTest extends StatelessWidget {
                                         "User ID",
                                         value,
                                       ),
-                                  decoration: const InputDecoration(
-                                    labelText: WasteTexts.userID,
-                                    prefixIcon: Icon(Iconsax.user_edit),
+                                  decoration: InputDecoration(
+                                    labelText: WasteTexts.userID.tr,
+                                    prefixIcon: const Icon(Iconsax.user_edit),
                                   ),
                                 ),
                               ),
@@ -194,7 +194,7 @@ class AdminPointAllocationScreenTest extends StatelessWidget {
                                   color: WasteColors.buttonPrimary,
                                 ),
                               ),
-                              child: const Text(WasteTexts.addPoint),
+                              child: Text(WasteTexts.addPoint.tr),
                             ),
                           ),
                         ),

@@ -34,9 +34,9 @@ class RedeemItemFormManual extends StatelessWidget {
         }
       }),
       child: Scaffold(
-        appBar: const WasteAppBar(
+        appBar: WasteAppBar(
           showBackArrow: true,
-          title: Text("Redeem Item"),
+          title: Text(WasteTexts.redeemItem.tr),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -53,11 +53,11 @@ class RedeemItemFormManual extends StatelessWidget {
                           controller: controller.productIdController,
                           validator: (value) =>
                               WasteValidator.validateEmptyText(
-                                "Item ID",
+                                WasteTexts.itemID.tr.replaceAll(':', ''),
                                 value,
                               ),
-                          decoration: const InputDecoration(
-                            labelText: WasteTexts.redeemProductID,
+                          decoration: InputDecoration(
+                            labelText: WasteTexts.redeemProductID.tr,
                             prefixIcon: Icon(Iconsax.box_search),
                           ),
                         ),
@@ -68,11 +68,11 @@ class RedeemItemFormManual extends StatelessWidget {
                   TextFormField(
                     controller: controller.quantityController,
                     validator: (value) => WasteValidator.validateEmptyText(
-                      "Item Quantity",
+                      WasteTexts.productQuantity.tr,
                       value,
                     ),
-                    decoration: const InputDecoration(
-                      labelText: WasteTexts.redeemProductQuantity,
+                    decoration: InputDecoration(
+                      labelText: WasteTexts.redeemProductQuantity.tr,
                       prefixIcon: Icon(Iconsax.shopping_cart),
                     ),
                   ),
@@ -100,7 +100,7 @@ class RedeemItemFormManual extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Text('Next'),
+                      child: Text(WasteTexts.next.tr),
                     ),
                   ),
                 ],

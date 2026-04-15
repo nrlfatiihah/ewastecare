@@ -41,8 +41,8 @@ class ChangeUserName extends StatelessWidget {
                     validator: (value) =>
                         WasteValidator.validateEmptyText("Username", value),
                     expands: false,
-                    decoration: const InputDecoration(
-                      labelText: WasteTexts.username,
+                    decoration: InputDecoration(
+                      labelText: WasteTexts.username.tr,
                       prefixIcon: Icon(Iconsax.user_edit),
                     ),
                   ),
@@ -59,7 +59,7 @@ class ChangeUserName extends StatelessWidget {
                   backgroundColor: WasteColors.buttonPrimary,
                   side: const BorderSide(color: WasteColors.buttonPrimary),
                 ),
-                child: const Text("Save"),
+                child: Text(WasteTexts.save.tr),
               ),
             ),
           ],

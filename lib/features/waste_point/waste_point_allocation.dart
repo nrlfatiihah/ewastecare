@@ -34,7 +34,7 @@ class PointAllocationScreen extends StatelessWidget {
                   children: [
                     WasteAppBar(
                       title: Text(
-                        WasteTexts.allocationPage,
+                        WasteTexts.allocationPage.tr,
                         style: Theme.of(context).textTheme.headlineMedium!
                             .apply(color: WasteColors.white),
                       ),
@@ -53,7 +53,7 @@ class PointAllocationScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      WasteTexts.pointTitle,
+                      WasteTexts.pointTitle.tr,
                       style: Theme.of(context).textTheme.headlineSmall!
                           .copyWith(fontWeight: FontWeight.bold),
                     ),
@@ -83,8 +83,8 @@ class PointAllocationScreen extends StatelessWidget {
                                             "User ID",
                                             value,
                                           ),
-                                      decoration: const InputDecoration(
-                                        labelText: WasteTexts.userID,
+                                      decoration: InputDecoration(
+                                        labelText: WasteTexts.userID.tr,
                                         border: InputBorder.none,
                                         prefixIcon: Icon(Iconsax.user_edit),
                                       ),
@@ -184,8 +184,8 @@ class PointAllocationScreen extends StatelessWidget {
                                       Colors.transparent,
                                     ),
                                   ),
-                              child: const Text(
-                                WasteTexts.addPoint,
+                              child: Text(
+                                WasteTexts.addPoint.tr,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,

@@ -46,7 +46,7 @@ class BarGraphUserInformation extends StatelessWidget {
         children: [
           // TITLE
           Text(
-            'User Information',
+            'userInformation'.tr,
             style: Theme.of(
               context,
             ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
@@ -116,7 +116,9 @@ class BarGraphUserInformation extends StatelessWidget {
                         showTitles: true,
                         reservedSize: 40,
                         getTitlesWidget: (value, meta) {
-                          String text = value.toInt() == 0 ? 'Male' : 'Female';
+                          String text = value.toInt() == 0
+                              ? 'male'.tr
+                              : 'female'.tr;
                           return Padding(
                             padding: const EdgeInsets.only(top: 8),
                             child: Text(

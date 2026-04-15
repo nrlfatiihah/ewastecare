@@ -14,7 +14,7 @@ class ReAuthUserLoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = UserController.instance;
     return Scaffold(
-      appBar: AppBar(title: const Text("Re-Authenticate User")),
+      appBar: AppBar(title: Text(WasteTexts.reAuthenticateUser.tr)),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(WasteSizes.defaultSpace),
@@ -27,9 +27,9 @@ class ReAuthUserLoginForm extends StatelessWidget {
                 TextFormField(
                   controller: controller.verifyEmail,
                   validator: WasteValidator.validateEmail,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     prefixIcon: Icon(Iconsax.direct_right),
-                    labelText: WasteTexts.email,
+                    labelText: WasteTexts.email.tr,
                   ),
                 ),
                 const SizedBox(height: WasteSizes.spaceBtwInputFields),
@@ -41,7 +41,7 @@ class ReAuthUserLoginForm extends StatelessWidget {
                     validator: (value) =>
                         WasteValidator.validateEmptyText("Password", value),
                     decoration: InputDecoration(
-                      labelText: WasteTexts.password,
+                      labelText: WasteTexts.password.tr,
                       prefixIcon: const Icon(Iconsax.password_check),
                       suffixIcon: IconButton(
                         onPressed: () => controller.hidePassword.value =
@@ -61,7 +61,7 @@ class ReAuthUserLoginForm extends StatelessWidget {
                       side: const BorderSide(color: WasteColors.buttonPrimary),
                     ),
                     onPressed: () => controller.reAuthenticateEmaiAndPassword(),
-                    child: const Text("Verify"),
+                    child: Text(WasteTexts.verify.tr),
                   ),
                 ),
               ],

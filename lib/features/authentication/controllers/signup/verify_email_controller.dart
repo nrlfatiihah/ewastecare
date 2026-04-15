@@ -48,8 +48,8 @@ class VerifyEmailController extends GetxController {
         Get.off(
           () => SuccessScreen(
             image: WasteImages.successfullyRegisterAnimation,
-            title: WasteTexts.yourAccountCreatedTitle,
-            subTitle: WasteTexts.yourAccountCreatedSubTitle,
+            title: WasteTexts.yourAccountCreatedTitle.tr,
+            subTitle: WasteTexts.yourAccountCreatedSubTitle.tr,
             onPressed: () =>
                 AuthenticationRepository.instance.userScreenRedirect(),
           ),
@@ -68,8 +68,8 @@ class VerifyEmailController extends GetxController {
       Get.off(
         () => SuccessScreen(
           image: WasteImages.successfullyRegisterAnimation,
-          title: WasteTexts.yourAccountCreatedTitle,
-          subTitle: WasteTexts.yourAccountCreatedSubTitle,
+          title: WasteTexts.yourAccountCreatedTitle.tr,
+          subTitle: WasteTexts.yourAccountCreatedSubTitle.tr,
           onPressed: () =>
               AuthenticationRepository.instance.userScreenRedirect(),
         ),

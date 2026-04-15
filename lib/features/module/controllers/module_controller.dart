@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ewastecare/admin_navigation_menu.dart';
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
@@ -430,21 +431,21 @@ class ModuleController extends GetxController {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Confirm Deletion"),
-          content: const Text("Are you sure you want to delete this module?"),
+          title: Text(WasteTexts.confirmDeletion.tr),
+          content: Text(WasteTexts.confirmDeleteModule.tr),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: const Text("Cancel"),
+              child: Text("Cancel"),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
                 _deleteModule(); // Perform the deletion
               },
-              child: const Text("Confirm"),
+              child: Text(WasteTexts.confirm.tr),
             ),
           ],
         );

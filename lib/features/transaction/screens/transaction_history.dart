@@ -1,4 +1,5 @@
 import 'package:ewastecare/features/transaction/screens/details_transaction_history_page.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:ewastecare/features/personalization/controllers/user_controller.dart';
 import 'package:get/get.dart';
@@ -13,12 +14,12 @@ class TransactionHistoryScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Transaction History"),
+        title: Text(WasteTexts.transactionHistory.tr),
         actions: [
           // Filter / Date Range Picker
           IconButton(
             icon: const Icon(Icons.filter_list),
-            tooltip: 'Pick Date Range',
+            tooltip: WasteTexts.pickDateRange.tr,
             onPressed: () async {
               final DateTimeRange? picked = await showDateRangePicker(
                 context: context,
@@ -58,7 +59,7 @@ class TransactionHistoryScreen extends StatelessWidget {
             return hasDate
                 ? IconButton(
                     icon: const Icon(Icons.refresh),
-                    tooltip: 'Reset Date Range',
+                    tooltip: WasteTexts.resetDateRange.tr,
                     onPressed: () {
                       controller.setDateRange(null, null);
                       controller.transactions.clear();
@@ -92,11 +93,11 @@ class TransactionHistoryScreen extends StatelessWidget {
                 final end = controller.endDate.value;
 
                 if (start == null || end == null) {
-                  return const Center(
+                  return Center(
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 40),
                       child: Text(
-                        "Please use the filter function to select start and end dates.",
+                        WasteTexts.filterDateMessage.tr,
                         style: TextStyle(fontSize: 16),
                         textAlign: TextAlign.left,
                       ),
@@ -105,11 +106,11 @@ class TransactionHistoryScreen extends StatelessWidget {
                 } else if (controller.dataFetched2.value) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (controller.transactions.isEmpty) {
-                  return const Center(
+                  return Center(
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 40),
                       child: Text(
-                        "No data found",
+                        WasteTexts.noDataFound.tr,
                         style: TextStyle(fontSize: 16),
                       ),
                     ),

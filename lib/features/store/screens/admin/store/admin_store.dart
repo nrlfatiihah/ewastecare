@@ -9,6 +9,7 @@ import 'package:ewastecare/features/store/controllers/product_controller.dart';
 import 'package:ewastecare/features/store/screens/admin/store/widget/store_action_button.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +36,7 @@ class AdminStoreScreen extends StatelessWidget {
                     // appBar
                     WasteAppBar(
                       title: Text(
-                        "Waste Store",
+                        WasteTexts.wasteStore.tr,
                         style: Theme.of(context).textTheme.headlineMedium!
                             .apply(color: WasteColors.white),
                       ),
@@ -50,8 +51,8 @@ class AdminStoreScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(WasteSizes.defaultSpace),
                 child: Column(
                   children: [
-                    const WasteSectionHeading(
-                      title: "Redeemable Items",
+                    WasteSectionHeading(
+                      title: WasteTexts.redeemableItems.tr,
                       showActionButton: false,
                     ),
                     const SizedBox(height: WasteSizes.spaceBtwSections),
@@ -62,7 +63,7 @@ class AdminStoreScreen extends StatelessWidget {
                       if (controller.storeProducts.isEmpty) {
                         return Center(
                           child: Text(
-                            "No Data Found!",
+                            WasteTexts.noDataFound.tr,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         );

@@ -47,14 +47,14 @@ class ResetPassword extends StatelessWidget {
               const SizedBox(height: WasteSizes.spaceBtwItems),
 
               Text(
-                WasteTexts.changeYourPasswordTitle,
+                WasteTexts.changeYourPasswordTitle.tr,
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: WasteSizes.spaceBtwItems),
 
               Text(
-                WasteTexts.changeYourPasswordSubTitle,
+                WasteTexts.changeYourPasswordSubTitle.tr,
                 style: Theme.of(context).textTheme.labelMedium,
                 textAlign: TextAlign.center,
               ),
@@ -69,7 +69,7 @@ class ResetPassword extends StatelessWidget {
                     side: const BorderSide(color: WasteColors.buttonPrimary),
                   ),
                   onPressed: () => Get.offAll(() => const LoginScreen()),
-                  child: const Text(WasteTexts.done),
+                  child: Text(WasteTexts.done.tr),
                 ),
               ),
               const SizedBox(height: WasteSizes.spaceBtwItems),
@@ -79,7 +79,7 @@ class ResetPassword extends StatelessWidget {
                 child: TextButton(
                   onPressed: () => ForgetPasswordController.instance
                       .resendPasswordResetEmail(email),
-                  child: const Text(WasteTexts.resendEmail),
+                  child: Text(WasteTexts.resendEmail.tr),
                 ),
               ),
               const SizedBox(height: WasteSizes.spaceBtwItems),

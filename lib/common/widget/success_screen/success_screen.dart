@@ -4,6 +4,7 @@ import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({
@@ -55,7 +56,7 @@ class SuccessScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: WasteColors.buttonPrimary,
                   ),
-                  child: const Text(WasteTexts.tContinue),
+                  child: Text(WasteTexts.tContinue.tr),
                 ),
               ),
             ],

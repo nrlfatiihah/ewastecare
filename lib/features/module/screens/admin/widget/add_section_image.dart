@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ewastecare/features/module/controllers/module_controller.dart';
@@ -61,7 +62,7 @@ class AddSectionImage extends StatelessWidget {
               await controller.pickSectionImage(index);
             },
             icon: const Icon(Icons.image),
-            label: const Text("Select Image"),
+            label: Text(WasteTexts.selectImage.tr),
           ),
         ],
       );
