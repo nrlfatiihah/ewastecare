@@ -53,11 +53,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCbZLZTjGbtJZV19SmpE450o9eRmYKpX7Y',
-    appId: '1:815343670725:android:eaff48870e464147ec27ac',
-    messagingSenderId: '815343670725',
-    projectId: 'ewastecare',
-    storageBucket: 'ewastecare.firebasestorage.app',
+    apiKey: 'AIzaSyBqS3X-mTAZYT_1l7GjVWV9eIFKwscMhWo',
+    appId: '1:895299472255:android:4d30a83899bbeff237a84a',
+    messagingSenderId: '895299472255',
+    projectId: 'ewastecare-10573',
+    storageBucket: 'ewastecare-10573.firebasestorage.app',
   );
 
 }

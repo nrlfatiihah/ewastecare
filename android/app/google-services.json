@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "815343670725",
-    "project_id": "ewastecare",
-    "storage_bucket": "ewastecare.firebasestorage.app"
+    "project_number": "895299472255",
+    "project_id": "ewastecare-10573",
+    "storage_bucket": "ewastecare-10573.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:815343670725:android:eaff48870e464147ec27ac",
+        "mobilesdk_app_id": "1:895299472255:android:4d30a83899bbeff237a84a",
         "android_client_info": {
           "package_name": "com.example.ewastecare"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCbZLZTjGbtJZV19SmpE450o9eRmYKpX7Y"
+          "current_key": "AIzaSyBqS3X-mTAZYT_1l7GjVWV9eIFKwscMhWo"
         }
       ],
       "services": {
