@@ -70,7 +70,10 @@ class ModuleController extends GetxController {
       final module = await moduleRepository.getAllMaterials();
       learningModule.assignAll(module);
     } catch (e) {
-      WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
+      WasteLoaders.errorSnackBar(
+        title: WasteTexts.oops.tr,
+        message: e.toString(),
+      );
     } finally {
       isLoading.value = false;
     }
@@ -119,10 +122,10 @@ class ModuleController extends GetxController {
     } catch (e) {
       imageUploading.value = false;
       WasteLoaders.errorSnackBar(
-        title: "Oops!",
-        message: "Failed to upload image: $e",
+        title: WasteTexts.oops.tr,
+        message: '${WasteTexts.imageUploadFailed.tr}: $e',
       );
-      throw Exception("Image upload failed");
+      throw Exception(WasteTexts.imageUploadFailed.tr);
     }
   }
 
@@ -130,7 +133,7 @@ class ModuleController extends GetxController {
   void addNewModule() async {
     try {
       WasteFullScreenLoader.openLoadingDialog(
-        "We are processing your request",
+        WasteTexts.processingInformation.tr,
         WasteImages.docerAnimation,
       );
 
@@ -147,8 +150,8 @@ class ModuleController extends GetxController {
 
       if (imagePath.value.isEmpty) {
         WasteLoaders.errorSnackBar(
-          title: "Error",
-          message: "Please select a module image.",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.selectModuleImage.tr,
         );
         WasteFullScreenLoader.stopLoading();
         return;
@@ -199,9 +202,8 @@ class ModuleController extends GetxController {
       if (!isUnique) {
         WasteFullScreenLoader.stopLoading();
         WasteLoaders.errorSnackBar(
-          title: "Error",
-          message:
-              "The Id has been used on other modules, please try again with another id",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.moduleIdInUse.tr,
         );
         return;
       }
@@ -213,8 +215,8 @@ class ModuleController extends GetxController {
       WasteFullScreenLoader.stopLoading();
 
       WasteLoaders.successSnackBar(
-        title: "Success",
-        message: "Your module has been successfully added.",
+        title: WasteTexts.success.tr,
+        message: WasteTexts.moduleSuccessfullyAdded.tr,
       );
 
       clearFormData();
@@ -222,7 +224,10 @@ class ModuleController extends GetxController {
       Get.offAll(() => const AdminNavigationMenu());
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
-      WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
+      WasteLoaders.errorSnackBar(
+        title: WasteTexts.oops.tr,
+        message: e.toString(),
+      );
     }
   }
 
@@ -272,7 +277,7 @@ class ModuleController extends GetxController {
   Future<void> updateModule(ModuleModel oldModule) async {
     try {
       WasteFullScreenLoader.openLoadingDialog(
-        "We are processing your request",
+        WasteTexts.processingInformation.tr,
         WasteImages.docerAnimation,
       );
 
@@ -335,14 +340,17 @@ class ModuleController extends GetxController {
 
       WasteFullScreenLoader.stopLoading();
       WasteLoaders.successSnackBar(
-        title: "Success",
-        message: "Your module has been successfully updated.",
+        title: WasteTexts.success.tr,
+        message: WasteTexts.moduleSuccessfullyUpdated.tr,
       );
 
       Get.offAll(() => const AdminNavigationMenu());
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
-      WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
+      WasteLoaders.errorSnackBar(
+        title: WasteTexts.oops.tr,
+        message: e.toString(),
+      );
     }
   }
 
@@ -438,7 +446,7 @@ class ModuleController extends GetxController {
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text("Cancel"),
+              child: Text(WasteTexts.cancel.tr),
             ),
             TextButton(
               onPressed: () {
@@ -458,14 +466,14 @@ class ModuleController extends GetxController {
     try {
       await moduleRepository.deleteModule(id);
       WasteLoaders.successSnackBar(
-        title: "Success",
-        message: "The module have been deleted successfully",
+        title: WasteTexts.success.tr,
+        message: WasteTexts.moduleSuccessfullyDeleted.tr,
       );
       Get.offAll(() => const AdminNavigationMenu());
     } catch (e) {
       WasteLoaders.errorSnackBar(
-        title: "Opps",
-        message: "Failed to delete the module. Please try again",
+        title: WasteTexts.oops.tr,
+        message: WasteTexts.moduleDeleteFailed.tr,
       );
     }
   }

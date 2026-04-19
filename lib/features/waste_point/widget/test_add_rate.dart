@@ -11,6 +11,26 @@ import 'package:iconsax/iconsax.dart';
 class TestAdminAddMaterialScreen extends StatelessWidget {
   const TestAdminAddMaterialScreen({super.key});
 
+  String _localizedMaterialTypeLabel(String type) {
+    final isMalay = Get.locale?.languageCode == 'ms';
+    if (!isMalay) return type;
+
+    switch (type) {
+      case 'Plastic':
+        return 'Plastik';
+      case 'Paper':
+        return 'Kertas';
+      case 'Can':
+        return 'Tin';
+      case 'Used Oil':
+        return 'Minyak Terpakai';
+      case 'Others':
+        return 'Lain-lain';
+      default:
+        return type;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(MaterialController());
@@ -45,6 +65,14 @@ class TestAdminAddMaterialScreen extends StatelessWidget {
 
                     // Material Type
                     Obx(() {
+                      const materialTypeOptions = <String>[
+                        'Plastic',
+                        'Paper',
+                        'Can',
+                        'Used Oil',
+                        'Others',
+                      ];
+
                       return DropdownButtonFormField<String>(
                         value: controller.materialType.value,
                         validator: (value) => WasteValidator.validateDropdown(
@@ -54,19 +82,12 @@ class TestAdminAddMaterialScreen extends StatelessWidget {
                         onChanged: (String? newValue) {
                           controller.materialType.value = newValue!;
                         },
-                        items:
-                            <String>[
-                              'Plastic',
-                              'Paper',
-                              'Can',
-                              'Used Oil',
-                              'Others',
-                            ].map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
+                        items: materialTypeOptions.map((option) {
+                          return DropdownMenuItem<String>(
+                            value: option,
+                            child: Text(_localizedMaterialTypeLabel(option)),
+                          );
+                        }).toList(),
                         decoration: InputDecoration(
                           labelText: WasteTexts.materialType.tr,
                           prefixIcon: Icon(Iconsax.clipboard),

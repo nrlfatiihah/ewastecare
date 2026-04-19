@@ -16,6 +16,7 @@ class WasteTermsAndConditionCheckbox extends StatelessWidget {
     final controller = SignupController.instance;
     final dark = WasteHelperFunctions.isDarkMode(context);
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           width: 24,
@@ -29,78 +30,81 @@ class WasteTermsAndConditionCheckbox extends StatelessWidget {
           ),
         ),
         const SizedBox(width: WasteSizes.spaceBtwItems),
-        Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: '${WasteTexts.iAgreeTo.tr} ',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              TextSpan(
-                text: '${WasteTexts.privacyPolicy.tr} ',
-                style: Theme.of(context).textTheme.bodyMedium!.apply(
-                  color: dark ? WasteColors.white : WasteColors.primary,
-                  fontWeightDelta: 700,
-                  decorationColor: dark
-                      ? WasteColors.white
-                      : WasteColors.primary,
+        Expanded(
+          child: Text.rich(
+            softWrap: true,
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: '${WasteTexts.iAgreeTo.tr} ',
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text(WasteTexts.privacyPolicy.tr),
-                        content: const SingleChildScrollView(
-                          child: Text(
-                            "Your privacy is important to us. We collect personal data only to improve your eWasteCare experience. Your data will not be shared with third parties without your consent. You can request to delete your account and data anytime",
+                TextSpan(
+                  text: '${WasteTexts.privacyPolicy.tr} ',
+                  style: Theme.of(context).textTheme.bodyMedium!.apply(
+                    color: dark ? WasteColors.white : WasteColors.primary,
+                    fontWeightDelta: 700,
+                    decorationColor: dark
+                        ? WasteColors.white
+                        : WasteColors.primary,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text(WasteTexts.privacyPolicy.tr),
+                          content: const SingleChildScrollView(
+                            child: Text(
+                              "Your privacy is important to us. We collect personal data only to improve your eWasteCare experience. Your data will not be shared with third parties without your consent. You can request to delete your account and data anytime",
+                            ),
                           ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text(WasteTexts.close.tr),
+                            ),
+                          ],
                         ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: Text(WasteTexts.close.tr),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-              ),
-              TextSpan(
-                text: '${WasteTexts.and.tr} ',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              TextSpan(
-                text: '${WasteTexts.termsOfUse.tr} ',
-                style: Theme.of(context).textTheme.bodyMedium!.apply(
-                  color: dark ? WasteColors.white : WasteColors.primary,
-                  fontWeightDelta: 700,
-                  decorationColor: dark
-                      ? WasteColors.white
-                      : WasteColors.primary,
+                      );
+                    },
                 ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text(WasteTexts.termsOfUse.tr),
-                        content: const SingleChildScrollView(
-                          child: Text(
-                            "By using eWasteCare, you agree to follow all local e-waste recycling rules and use the app responsibly. You must provide accurate information when creating an account. Your account may be suspended if any misuse or false reporting is detected. eWasteCare reserves the right to update these terms at any time.",
+                TextSpan(
+                  text: '${WasteTexts.and.tr} ',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                TextSpan(
+                  text: '${WasteTexts.termsOfUse.tr} ',
+                  style: Theme.of(context).textTheme.bodyMedium!.apply(
+                    color: dark ? WasteColors.white : WasteColors.primary,
+                    fontWeightDelta: 700,
+                    decorationColor: dark
+                        ? WasteColors.white
+                        : WasteColors.primary,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text(WasteTexts.termsOfUse.tr),
+                          content: const SingleChildScrollView(
+                            child: Text(
+                              "By using eWasteCare, you agree to follow all local e-waste recycling rules and use the app responsibly. You must provide accurate information when creating an account. Your account may be suspended if any misuse or false reporting is detected. eWasteCare reserves the right to update these terms at any time.",
+                            ),
                           ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text(WasteTexts.close.tr),
+                            ),
+                          ],
                         ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: Text(WasteTexts.close.tr),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-              ),
-            ],
+                      );
+                    },
+                ),
+              ],
+            ),
           ),
         ),
       ],

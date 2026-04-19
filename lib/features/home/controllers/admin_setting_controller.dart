@@ -1,6 +1,8 @@
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/admin/admin_setting_repository.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AdminSettingsController {
   final AdminSettingsRepository _repository = AdminSettingsRepository();
@@ -13,11 +15,11 @@ class AdminSettingsController {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Enter Admin Password'),
+          title: Text(WasteTexts.reAuthenticateUser.tr),
           content: TextField(
             controller: passwordController,
             obscureText: true,
-            decoration: const InputDecoration(hintText: 'Password'),
+            decoration: InputDecoration(hintText: WasteTexts.password.tr),
           ),
           actions: [
             TextButton(
@@ -31,18 +33,18 @@ class AdminSettingsController {
                   Navigator.of(context).pop();
                 } catch (e) {
                   WasteLoaders.errorSnackBar(
-                    title: "Authentication Failed",
+                    title: WasteTexts.oops.tr,
                     message: e.toString(),
                   );
                 }
               },
-              child: const Text('Submit'),
+              child: Text(WasteTexts.submit.tr),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancel'),
+              child: Text(WasteTexts.cancel.tr),
             ),
           ],
         );

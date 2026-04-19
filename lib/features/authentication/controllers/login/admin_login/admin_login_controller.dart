@@ -3,6 +3,7 @@ import 'package:ewastecare/admin_navigation_menu.dart';
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/helpers/network_manager.dart';
 import 'package:ewastecare/utils/popups/full_screen_loader.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class AdminLoginController extends GetxController {
     try {
       // Start loading
       WasteFullScreenLoader.openLoadingDialog(
-        "Logging you in....",
+        WasteTexts.loginLoading.tr,
         WasteImages.docerAnimation,
       );
 
@@ -59,7 +60,10 @@ class AdminLoginController extends GetxController {
       redirectToHomePage(role);
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
-      WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
+      WasteLoaders.errorSnackBar(
+        title: WasteTexts.oops.tr,
+        message: e.toString(),
+      );
     }
   }
 
@@ -70,8 +74,8 @@ class AdminLoginController extends GetxController {
     if (role == "user" || role == null || role.isEmpty) {
       WasteFullScreenLoader.stopLoading();
       WasteLoaders.errorSnackBar(
-        title: "Invalid role",
-        message: "This account does not have access to this page.",
+        title: WasteTexts.invalidRoleTitle.tr,
+        message: WasteTexts.invalidRoleMessage.tr,
       );
       return;
     } else if (role == "admin") {

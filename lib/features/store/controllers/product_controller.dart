@@ -48,11 +48,6 @@ class ProductController extends GetxController {
 
   @override
   void onClose() {
-    productID.dispose();
-    productName.dispose();
-    productDesc.dispose();
-    productPoint.dispose();
-    productQuantity.dispose();
     super.onClose();
   }
 
@@ -62,7 +57,10 @@ class ProductController extends GetxController {
       final products = await productRepository.getAllProducts();
       storeProducts.assignAll(products);
     } catch (e) {
-      WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
+      WasteLoaders.errorSnackBar(
+        title: WasteTexts.oops.tr,
+        message: e.toString(),
+      );
     } finally {
       isLoading.value = false;
     }
@@ -140,7 +138,7 @@ class ProductController extends GetxController {
   void addNewProduct() async {
     try {
       WasteFullScreenLoader.openLoadingDialog(
-        "We are processing your request",
+        WasteTexts.processingInformation.tr,
         WasteImages.docerAnimation,
       );
 
@@ -157,8 +155,8 @@ class ProductController extends GetxController {
 
       if (imagePath.value.isEmpty) {
         WasteLoaders.errorSnackBar(
-          title: "Error",
-          message: "Please select a product image.",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.selectProductImage.tr,
         );
         WasteFullScreenLoader.stopLoading();
         return;
@@ -183,9 +181,8 @@ class ProductController extends GetxController {
       if (!isUnique) {
         WasteFullScreenLoader.stopLoading();
         WasteLoaders.errorSnackBar(
-          title: "Error",
-          message:
-              "The Id has been used on other products, please try again with another id",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.productIdInUse.tr,
         );
         return;
       }
@@ -195,8 +192,8 @@ class ProductController extends GetxController {
       WasteFullScreenLoader.stopLoading();
 
       WasteLoaders.successSnackBar(
-        title: "Success",
-        message: "Your product has been successfully added to the store.",
+        title: WasteTexts.success.tr,
+        message: WasteTexts.productSuccessfullyAdded.tr,
       );
 
       clearFormData();
@@ -204,7 +201,10 @@ class ProductController extends GetxController {
       Get.offAll(() => const AdminNavigationMenu(selectedIndex: 1));
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
-      WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
+      WasteLoaders.errorSnackBar(
+        title: WasteTexts.oops.tr,
+        message: e.toString(),
+      );
     }
   }
 
@@ -212,7 +212,7 @@ class ProductController extends GetxController {
     try {
       // Start loading animations
       WasteFullScreenLoader.openLoadingDialog(
-        "We are processing your request",
+        WasteTexts.processingInformation.tr,
         WasteImages.docerAnimation,
       );
 
@@ -251,14 +251,17 @@ class ProductController extends GetxController {
       WasteFullScreenLoader.stopLoading();
 
       WasteLoaders.successSnackBar(
-        title: "Success",
-        message: "Your product has been successfully updated.",
+        title: WasteTexts.success.tr,
+        message: WasteTexts.productSuccessfullyUpdated.tr,
       );
 
       Get.off(() => const AdminNavigationMenu(selectedIndex: 1));
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
-      WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
+      WasteLoaders.errorSnackBar(
+        title: WasteTexts.oops.tr,
+        message: e.toString(),
+      );
     }
   }
 
@@ -278,10 +281,10 @@ class ProductController extends GetxController {
     } catch (e) {
       imageUploading.value = false;
       WasteLoaders.errorSnackBar(
-        title: "Oops!",
-        message: "Failed to upload image: $e",
+        title: WasteTexts.oops.tr,
+        message: '${WasteTexts.productImageUploadFailed.tr}: $e',
       );
-      throw Exception("Image upload failed");
+      throw Exception(WasteTexts.productImageUploadFailed.tr);
     }
   }
 
@@ -333,8 +336,8 @@ class ProductController extends GetxController {
     if (currentStock < quantity) {
       // Show error message and stop the process
       WasteLoaders.errorSnackBar(
-        title: "Insufficient Stock",
-        message: "The product stock is not sufficient to fulfill your request.",
+        title: WasteTexts.insufficientStock.tr,
+        message: WasteTexts.insufficientProductStock.tr,
       );
       return; // Exit the function early
     }
@@ -356,15 +359,15 @@ class ProductController extends GetxController {
 
       // Show success message
       WasteLoaders.successSnackBar(
-        title: "Success",
-        message: "You have successfully redeem the product.",
+        title: WasteTexts.success.tr,
+        message: WasteTexts.productRedeemSuccess.tr,
       );
       Get.off(() => const UserNavigationMenu());
     } catch (e) {
       // Show error message
       WasteLoaders.errorSnackBar(
-        title: "Opps",
-        message: "Failed to redeem the product. Please try again",
+        title: WasteTexts.oops.tr,
+        message: WasteTexts.productRedeemFailed.tr,
       );
     }
   }
@@ -401,14 +404,14 @@ class ProductController extends GetxController {
     try {
       await productRepository.deleteProduct(id);
       WasteLoaders.successSnackBar(
-        title: "Success",
-        message: "The product have been deleted successfully",
+        title: WasteTexts.success.tr,
+        message: WasteTexts.productSuccessfullyDeleted.tr,
       );
       Get.off(() => const AdminNavigationMenu(selectedIndex: 1));
     } catch (e) {
       WasteLoaders.errorSnackBar(
-        title: "Opps",
-        message: "Failed to delete the product. Please try again",
+        title: WasteTexts.oops.tr,
+        message: WasteTexts.productDeleteFailed.tr,
       );
     }
   }

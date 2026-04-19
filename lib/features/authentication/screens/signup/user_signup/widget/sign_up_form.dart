@@ -15,44 +15,74 @@ class WasteSignUpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignupController());
+    final isNarrowScreen = MediaQuery.of(context).size.width < 380;
     return Form(
       key: controller.signupFormKey,
       child: Column(
         children: [
           // First Name & last name
-          Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: controller.firstName,
-                  validator: (value) => WasteValidator.validateStringAlphabetic(
-                    WasteTexts.firstNameValidation.tr,
-                    value,
-                  ),
-                  expands: false,
-                  decoration: InputDecoration(
-                    labelText: WasteTexts.firstName.tr,
-                    prefixIcon: Icon(Iconsax.user),
+          if (isNarrowScreen) ...[
+            TextFormField(
+              controller: controller.firstName,
+              validator: (value) => WasteValidator.validateStringAlphabetic(
+                WasteTexts.firstNameValidation.tr,
+                value,
+              ),
+              expands: false,
+              decoration: InputDecoration(
+                labelText: WasteTexts.firstName.tr,
+                prefixIcon: Icon(Iconsax.user),
+              ),
+            ),
+            const SizedBox(height: WasteSizes.spaceBtwInputFields),
+            TextFormField(
+              controller: controller.lastName,
+              validator: (value) => WasteValidator.validateStringAlphabetic(
+                WasteTexts.lastNameValidation.tr,
+                value,
+              ),
+              expands: false,
+              decoration: InputDecoration(
+                labelText: WasteTexts.lastName.tr,
+                prefixIcon: Icon(Iconsax.user),
+              ),
+            ),
+          ] else
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: controller.firstName,
+                    validator: (value) =>
+                        WasteValidator.validateStringAlphabetic(
+                          WasteTexts.firstNameValidation.tr,
+                          value,
+                        ),
+                    expands: false,
+                    decoration: InputDecoration(
+                      labelText: WasteTexts.firstName.tr,
+                      prefixIcon: Icon(Iconsax.user),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: WasteSizes.spaceBtwInputFields),
-              Expanded(
-                child: TextFormField(
-                  controller: controller.lastName,
-                  validator: (value) => WasteValidator.validateStringAlphabetic(
-                    WasteTexts.lastNameValidation.tr,
-                    value,
-                  ),
-                  expands: false,
-                  decoration: InputDecoration(
-                    labelText: WasteTexts.lastName.tr,
-                    prefixIcon: Icon(Iconsax.user),
+                const SizedBox(width: WasteSizes.spaceBtwInputFields),
+                Expanded(
+                  child: TextFormField(
+                    controller: controller.lastName,
+                    validator: (value) =>
+                        WasteValidator.validateStringAlphabetic(
+                          WasteTexts.lastNameValidation.tr,
+                          value,
+                        ),
+                    expands: false,
+                    decoration: InputDecoration(
+                      labelText: WasteTexts.lastName.tr,
+                      prefixIcon: Icon(Iconsax.user),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
           const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
           // Username
@@ -86,56 +116,96 @@ class WasteSignUpForm extends StatelessWidget {
           const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
           // Age & Gender
-          Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: controller.age,
-                  validator: (value) => WasteValidator.validateAge(
-                    WasteTexts.ageValidation.tr,
-                    value,
+          if (isNarrowScreen) ...[
+            TextFormField(
+              controller: controller.age,
+              validator: (value) => WasteValidator.validateAge(
+                WasteTexts.ageValidation.tr,
+                value,
+              ),
+              expands: false,
+              decoration: InputDecoration(
+                labelText: WasteTexts.age.tr,
+                prefixIcon: Icon(Iconsax.calendar),
+              ),
+            ),
+            const SizedBox(height: WasteSizes.spaceBtwInputFields),
+            DropdownButtonFormField<String>(
+              isExpanded: true,
+              value: controller.gender.value,
+              validator: (value) => WasteValidator.validateGender(
+                WasteTexts.genderValidation.tr,
+                value,
+              ),
+              onChanged: (String? newValue) {
+                controller.gender.value = newValue!;
+              },
+              items: <String>['Male', 'Female'].map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value == 'Male' ? WasteTexts.male.tr : WasteTexts.female.tr,
                   ),
-                  expands: false,
-                  decoration: InputDecoration(
-                    labelText: WasteTexts.age.tr,
-                    prefixIcon: Icon(Iconsax.calendar),
+                );
+              }).toList(),
+              decoration: InputDecoration(
+                labelText: WasteTexts.gender.tr,
+                prefixIcon: Icon(Iconsax.link),
+              ),
+            ),
+          ] else
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: controller.age,
+                    validator: (value) => WasteValidator.validateAge(
+                      WasteTexts.ageValidation.tr,
+                      value,
+                    ),
+                    expands: false,
+                    decoration: InputDecoration(
+                      labelText: WasteTexts.age.tr,
+                      prefixIcon: Icon(Iconsax.calendar),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: WasteSizes.spaceBtwInputFields),
-              Expanded(
-                child: DropdownButtonFormField<String>(
-                  value: controller.gender.value,
-                  validator: (value) => WasteValidator.validateGender(
-                    WasteTexts.genderValidation.tr,
-                    value,
-                  ),
-                  onChanged: (String? newValue) {
-                    controller.gender.value = newValue!;
-                  },
-                  items: <String>['Male', 'Female'].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                        value == 'Male'
-                            ? WasteTexts.male.tr
-                            : WasteTexts.female.tr,
-                      ),
-                    );
-                  }).toList(),
-                  decoration: InputDecoration(
-                    labelText: WasteTexts.gender.tr,
-                    prefixIcon: Icon(Iconsax.link),
+                const SizedBox(width: WasteSizes.spaceBtwInputFields),
+                Expanded(
+                  child: DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    value: controller.gender.value,
+                    validator: (value) => WasteValidator.validateGender(
+                      WasteTexts.genderValidation.tr,
+                      value,
+                    ),
+                    onChanged: (String? newValue) {
+                      controller.gender.value = newValue!;
+                    },
+                    items: <String>['Male', 'Female'].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value == 'Male'
+                              ? WasteTexts.male.tr
+                              : WasteTexts.female.tr,
+                        ),
+                      );
+                    }).toList(),
+                    decoration: InputDecoration(
+                      labelText: WasteTexts.gender.tr,
+                      prefixIcon: Icon(Iconsax.link),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
           const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
           // Role
           Obx(
             () => DropdownButtonFormField<String>(
+              isExpanded: true,
               value: controller.role.value,
               validator: (value) =>
                   value == null ? WasteTexts.selectYourRole.tr : null,

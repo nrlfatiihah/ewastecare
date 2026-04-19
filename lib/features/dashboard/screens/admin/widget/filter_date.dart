@@ -9,7 +9,6 @@ import 'package:intl/intl.dart';
 class BottomSheetContent extends StatelessWidget {
   const BottomSheetContent({super.key});
 
-  // 🔥 FIXED: Use raw keys only (NO .tr here)
   Future<void> _fetchDataBasedOnType({
     required String selectedType,
     required DateTime? startDate,
@@ -94,6 +93,7 @@ class BottomSheetContent extends StatelessWidget {
             const SizedBox(height: 12),
 
             // ================= DATE PICKER =================
+            /// Date Picker Card
             Obx(() {
               final start = controller2.selectedStartDate.value;
               final end = controller2.selectedEndDate.value;
@@ -107,45 +107,103 @@ class BottomSheetContent extends StatelessWidget {
                     firstDate: DateTime(2024),
                     lastDate: DateTime.now(),
                   );
-
                   if (picked != null) {
                     controller2.selectedStartDate.value = picked.start;
                     controller2.selectedEndDate.value = picked.end;
                   }
                 },
                 borderRadius: BorderRadius.circular(20),
-                child: Container(
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
                   padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
-                    color: hasDateSelected
-                        ? theme.colorScheme.primary.withOpacity(0.05)
-                        : theme.cardColor,
+                    gradient: hasDateSelected
+                        ? LinearGradient(
+                            colors: [
+                              theme.colorScheme.primary.withOpacity(0.08),
+                              theme.colorScheme.primary.withOpacity(0.02),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          )
+                        : null,
+                    color: hasDateSelected ? null : theme.cardColor,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                       color: hasDateSelected
                           ? theme.colorScheme.primary
                           : theme.dividerColor.withOpacity(0.3),
+                      width: 1.2,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.04),
+                        blurRadius: 10,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
                   ),
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.calendar_month,
-                        color: hasDateSelected
-                            ? theme.colorScheme.primary
-                            : Colors.grey,
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: hasDateSelected
+                              ? theme.colorScheme.primary.withOpacity(0.12)
+                              : Colors.grey.withOpacity(0.08),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.calendar_month,
+                          color: hasDateSelected
+                              ? theme.colorScheme.primary
+                              : Colors.grey,
+                        ),
                       ),
                       const SizedBox(width: 14),
+
                       Expanded(
-                        child: Text(
-                          hasDateSelected
-                              ? "${dateFormat.format(start)} - ${dateFormat.format(end)}"
-                              : "tapToSelectDateRange".tr,
-                          style: TextStyle(
-                            fontWeight: hasDateSelected
-                                ? FontWeight.w600
-                                : FontWeight.w400,
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "dateRange".tr,
+                              style: theme.textTheme.labelMedium?.copyWith(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 250),
+                              child: Text(
+                                hasDateSelected
+                                    ? "${dateFormat.format(start)} - ${dateFormat.format(end)}"
+                                    : "tapToSelectDateRange".tr,
+                                key: ValueKey(hasDateSelected),
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  fontWeight: hasDateSelected
+                                      ? FontWeight.w600
+                                      : FontWeight.w400,
+                                  color: hasDateSelected
+                                      ? theme.colorScheme.onSurface
+                                      : Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      AnimatedRotation(
+                        turns: hasDateSelected ? 0.5 : 0,
+                        duration: const Duration(milliseconds: 300),
+                        child: Icon(
+                          Icons.expand_more,
+                          color: hasDateSelected
+                              ? theme.colorScheme.primary
+                              : Colors.grey,
                         ),
                       ),
                     ],
@@ -153,7 +211,6 @@ class BottomSheetContent extends StatelessWidget {
                 ),
               );
             }),
-
             const SizedBox(height: 30),
 
             // ================= BUTTONS =================
@@ -161,14 +218,21 @@ class BottomSheetContent extends StatelessWidget {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: controller.resetFilters,
+                    onPressed: () {
+                      controller.selectedType.value = 'userInformation';
+                      controller2.selectedStartDate.value = null;
+                      controller2.selectedEndDate.value = null;
+                    },
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(color: Colors.red.shade400),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                     child: Text(
-                      "reset".tr,
-                      style: const TextStyle(color: Colors.red),
+                      WasteTexts.reset.tr,
+                      style: TextStyle(color: Colors.red),
                     ),
                   ),
                 ),
@@ -181,8 +245,8 @@ class BottomSheetContent extends StatelessWidget {
 
                       await _fetchDataBasedOnType(
                         selectedType: controller.selectedType.value,
-                        startDate: controller.selectedStartDate.value,
-                        endDate: controller.selectedEndDate.value,
+                        startDate: controller2.selectedStartDate.value,
+                        endDate: controller2.selectedEndDate.value,
                       );
 
                       if (currentContext.mounted) {
@@ -207,7 +271,7 @@ class BottomSheetContent extends StatelessWidget {
   // ================= TYPE OPTION WIDGET =================
   Widget _buildTypeOption({
     required BuildContext context,
-    required String title, // 🔥 RAW KEY ONLY
+    required String title,
     required AdminDashboardController controller,
   }) {
     final theme = Theme.of(context);

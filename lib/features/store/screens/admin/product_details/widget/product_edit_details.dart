@@ -63,7 +63,7 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                           },
                           validator: (value) =>
                               WasteValidator.validateEmptyText(
-                                "Item ID",
+                                WasteTexts.productID.tr,
                                 value,
                               ),
                           expands: false,
@@ -81,7 +81,7 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                           },
                           validator: (value) =>
                               WasteValidator.validateEmptyText(
-                                "Item Name",
+                                WasteTexts.productName.tr,
                                 value,
                               ),
                           expands: false,
@@ -99,7 +99,7 @@ class AdminEditItemScreenState extends State<AdminEditItemScreen> {
                           },
                           validator: (value) =>
                               WasteValidator.validateEmptyText(
-                                "Item Description",
+                                WasteTexts.productDesc.tr,
                                 value,
                               ),
                           expands: false,

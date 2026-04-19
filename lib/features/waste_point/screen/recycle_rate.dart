@@ -3,6 +3,7 @@ import 'package:ewastecare/features/waste_point/controller/material_controller.d
 import 'package:ewastecare/features/waste_point/model/material_model.dart';
 import 'package:ewastecare/features/waste_point/widget/test_add_rate_action_button.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +17,7 @@ class RecycleRate extends StatelessWidget {
       appBar: WasteAppBar(
         showBackArrow: true,
         title: Text(
-          "Recycle Rate",
+          WasteTexts.recycleRate.tr,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
@@ -53,7 +54,7 @@ class RecycleRate extends StatelessWidget {
                       // Plastic Materials Panel
                       _buildExpansionPanel(
                         context: context,
-                        title: "Plastic Materials",
+                        title: WasteTexts.plasticMaterials.tr,
                         icon: Icons.recycling,
                         isExpanded: controller.isPlasticExpanded.value,
                         onExpansionChanged: (isExpanded) =>
@@ -65,7 +66,7 @@ class RecycleRate extends StatelessWidget {
                       // Paper Materials Panel
                       _buildExpansionPanel(
                         context: context,
-                        title: "Paper Materials",
+                        title: WasteTexts.paperMaterials.tr,
                         icon: Icons.description,
                         isExpanded: controller.isPaperExpanded.value,
                         onExpansionChanged: (isExpanded) =>
@@ -77,7 +78,7 @@ class RecycleRate extends StatelessWidget {
                       // Can Materials Panel
                       _buildExpansionPanel(
                         context: context,
-                        title: "Can Materials",
+                        title: WasteTexts.canMaterials.tr,
                         icon: Icons.directions_car,
                         isExpanded: controller.isCanExpanded.value,
                         onExpansionChanged: (isExpanded) =>
@@ -89,7 +90,7 @@ class RecycleRate extends StatelessWidget {
                       // Used Oil Materials Panel
                       _buildExpansionPanel(
                         context: context,
-                        title: "Used Oil Materials",
+                        title: WasteTexts.usedOilMaterials.tr,
                         icon: Icons.local_gas_station,
                         isExpanded: controller.isCookingOilExpanded.value,
                         onExpansionChanged: (isExpanded) =>
@@ -100,7 +101,7 @@ class RecycleRate extends StatelessWidget {
 
                       _buildExpansionPanel(
                         context: context,
-                        title: "Others",
+                        title: WasteTexts.otherMaterials.tr,
                         icon: Icons.more,
                         isExpanded: controller.isOthersExpanded.value,
                         onExpansionChanged: (isExpanded) =>
@@ -248,7 +249,7 @@ class RecycleRate extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(16),
                                     ),
                                     title: Text(
-                                      'Edit ${material.name}',
+                                      '${WasteTexts.editMaterial.tr} ${material.name}',
                                       style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -259,8 +260,8 @@ class RecycleRate extends StatelessWidget {
                                           const TextInputType.numberWithOptions(
                                             decimal: true,
                                           ),
-                                      decoration: const InputDecoration(
-                                        labelText: 'Enter new value',
+                                      decoration: InputDecoration(
+                                        labelText: WasteTexts.enterNewValue.tr,
                                         border: OutlineInputBorder(),
                                       ),
                                     ),
@@ -272,7 +273,7 @@ class RecycleRate extends StatelessWidget {
                                       TextButton(
                                         onPressed: () =>
                                             Navigator.of(context).pop(),
-                                        child: const Text('Cancel'),
+                                        child: Text(WasteTexts.cancel.tr),
                                       ),
                                       ElevatedButton(
                                         style: ElevatedButton.styleFrom(
@@ -292,7 +293,7 @@ class RecycleRate extends StatelessWidget {
                                           controller.updateMaterial(material);
                                           Navigator.of(context).pop();
                                         },
-                                        child: const Text('Save'),
+                                        child: Text(WasteTexts.save.tr),
                                       ),
                                     ],
                                   );

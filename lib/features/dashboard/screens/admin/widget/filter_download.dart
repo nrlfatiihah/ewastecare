@@ -26,7 +26,7 @@ class DownloadData extends StatelessWidget {
         children: [
           /// Title
           Text(
-            "Download Waste Data to Excel",
+            WasteTexts.downloadWasteDataToExcel.tr,
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -35,7 +35,7 @@ class DownloadData extends StatelessWidget {
 
           /// Date Range Section
           Text(
-            "Select Date Range",
+            WasteTexts.selectDateRange.tr,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -117,7 +117,7 @@ class DownloadData extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Date Range",
+                            WasteTexts.dateRange.tr,
                             style: theme.textTheme.labelMedium?.copyWith(
                               color: Colors.grey,
                               fontWeight: FontWeight.w500,
@@ -128,8 +128,8 @@ class DownloadData extends StatelessWidget {
                             duration: const Duration(milliseconds: 250),
                             child: Text(
                               hasDateSelected
-                                  ? "${dateFormat.format(start!)} - ${dateFormat.format(end!)}"
-                                  : "Tap to select date range",
+                                  ? "${dateFormat.format(start)} - ${dateFormat.format(end)}"
+                                  : WasteTexts.tapToSelectDateRange.tr,
                               key: ValueKey(hasDateSelected),
                               style: theme.textTheme.bodyMedium?.copyWith(
                                 fontWeight: hasDateSelected
@@ -176,7 +176,7 @@ class DownloadData extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: Text(
-                    "Reset",
+                    WasteTexts.reset.tr,
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
@@ -193,9 +193,8 @@ class DownloadData extends StatelessWidget {
                       );
                     } else {
                       WasteLoaders.errorSnackBar(
-                        title: "Oops!",
-                        message:
-                            "Please select the desired start and end date to download the data",
+                        title: WasteTexts.oops.tr,
+                        message: WasteTexts.selectDateRangeToDownload.tr,
                       );
                     }
                   },

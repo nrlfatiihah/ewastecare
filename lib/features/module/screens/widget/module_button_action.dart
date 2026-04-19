@@ -1,5 +1,5 @@
 import 'package:ewastecare/features/module/controllers/module_controller.dart';
-import 'package:ewastecare/features/store/screens/admin/module/module_edit_details.dart';
+import 'package:ewastecare/features/module/screens/admin/module_edit_details.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -3,6 +3,7 @@ import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/authentication/authentication_repository.dart';
 import 'package:ewastecare/user_navigation_menu.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/helpers/network_manager.dart';
 import 'package:ewastecare/utils/popups/full_screen_loader.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class LoginController extends GetxController {
     try {
       // Start loading
       WasteFullScreenLoader.openLoadingDialog(
-        "Logging you in....",
+        WasteTexts.loginLoading.tr,
         WasteImages.docerAnimation,
       );
 
@@ -77,8 +78,8 @@ class LoginController extends GetxController {
     if (role == "admin" || role == null || role.isEmpty) {
       WasteFullScreenLoader.stopLoading();
       WasteLoaders.errorSnackBar(
-        title: "Invalid role",
-        message: "This account does not have access to this page.",
+        title: WasteTexts.invalidRoleTitle.tr,
+        message: WasteTexts.invalidRoleMessage.tr,
       );
       return;
     } else if (role == "user") {
@@ -95,7 +96,7 @@ class LoginController extends GetxController {
     try {
       // start loading animation
       WasteFullScreenLoader.openLoadingDialog(
-        "Logging you in...",
+        WasteTexts.googleLoginLoading.tr,
         WasteImages.docerAnimation,
       );
 

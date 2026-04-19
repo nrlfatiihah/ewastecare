@@ -44,7 +44,8 @@ class WelcomeHeader extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    Text(WasteTexts.appName.tr,
+                    Text(
+                      WasteTexts.appName.tr,
                       style: TextStyle(
                         color: Color(0xFF388E3C),
                         fontSize: 28,
@@ -61,6 +62,7 @@ class WelcomeHeader extends StatelessWidget {
           // title and subtitle
           Text(
             WasteTexts.title.tr,
+            textAlign: TextAlign.center,
             style: Theme.of(
               context,
             ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),

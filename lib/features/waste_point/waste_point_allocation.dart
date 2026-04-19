@@ -124,35 +124,35 @@ class PointAllocationScreen extends StatelessWidget {
                               children: [
                                 _buildMaterialCard(
                                   context,
-                                  'Plastic Materials',
+                                  WasteTexts.plasticMaterials.tr,
                                   Icons.recycling,
                                   controller.plasticMaterials,
                                   controller.isPlasticExpanded,
                                 ),
                                 _buildMaterialCard(
                                   context,
-                                  'Paper Materials',
+                                  WasteTexts.paperMaterials.tr,
                                   Icons.article,
                                   controller.paperMaterials,
                                   controller.isPaperExpanded,
                                 ),
                                 _buildMaterialCard(
                                   context,
-                                  'Can Materials',
+                                  WasteTexts.canMaterials.tr,
                                   Icons.coffee,
                                   controller.canMaterials,
                                   controller.isCanExpanded,
                                 ),
                                 _buildMaterialCard(
                                   context,
-                                  'Used Oil Materials',
+                                  WasteTexts.usedOilMaterials.tr,
                                   Icons.oil_barrel,
                                   controller.oilMaterials,
                                   controller.isCookingOilExpanded,
                                 ),
                                 _buildMaterialCard(
                                   context,
-                                  'Others Materials',
+                                  WasteTexts.otherMaterials.tr,
                                   Icons.other_houses,
                                   controller.othersMaterials,
                                   controller.isOthersExpanded,
@@ -241,7 +241,7 @@ class PointAllocationScreen extends StatelessWidget {
                 decimal: true,
               ),
               decoration: InputDecoration(
-                labelText: '${material.name} weight (Kg)',
+                labelText: '${material.name} ${WasteTexts.weightKg.tr}',
                 border: const OutlineInputBorder(),
               ),
               validator: (value) =>

@@ -38,7 +38,7 @@ class AdminAddItemScreen extends StatelessWidget {
                           controller: controller.productID,
                           validator: (value) =>
                               WasteValidator.validateEmptyText(
-                                "Product ID",
+                                WasteTexts.productID.tr,
                                 value,
                               ),
                           expands: false,
@@ -53,7 +53,7 @@ class AdminAddItemScreen extends StatelessWidget {
                           controller: controller.productName,
                           validator: (value) =>
                               WasteValidator.validateEmptyText(
-                                "Product Name",
+                                WasteTexts.productName.tr,
                                 value,
                               ),
                           expands: false,
@@ -69,7 +69,7 @@ class AdminAddItemScreen extends StatelessWidget {
                           controller: controller.productDesc,
                           validator: (value) =>
                               WasteValidator.validateEmptyText(
-                                "Product Description",
+                                WasteTexts.productDesc.tr,
                                 value,
                               ),
                           expands: false,

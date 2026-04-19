@@ -4,6 +4,7 @@ import 'package:ewastecare/features/waste_point/waste_point_allocation.dart';
 import 'package:ewastecare/features/home/screens/admin/admin_home.dart';
 import 'package:ewastecare/features/store/screens/admin/store/admin_store.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/helpers/helper_functions.dart';
 import 'package:ewastecare/utils/popups/logout_popup.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class AdminNavigationMenu extends StatelessWidget {
                   color: WasteColors.buttonPrimary,
                   size: 28,
                 ),
-                label: "Home",
+                label: WasteTexts.homeNav.tr,
               ),
               NavigationDestination(
                 icon: Icon(Iconsax.shop, size: 26),
@@ -71,7 +72,7 @@ class AdminNavigationMenu extends StatelessWidget {
                   color: WasteColors.buttonPrimary,
                   size: 28,
                 ),
-                label: "Store",
+                label: WasteTexts.store.tr,
               ),
               NavigationDestination(
                 icon: Icon(Iconsax.status_up, size: 26),
@@ -80,7 +81,7 @@ class AdminNavigationMenu extends StatelessWidget {
                   color: WasteColors.buttonPrimary,
                   size: 28,
                 ),
-                label: "Analytics",
+                label: WasteTexts.analytics.tr,
               ),
               NavigationDestination(
                 icon: Icon(Iconsax.wallet_add_1, size: 26),
@@ -89,7 +90,7 @@ class AdminNavigationMenu extends StatelessWidget {
                   color: WasteColors.buttonPrimary,
                   size: 28,
                 ),
-                label: "Allocate",
+                label: WasteTexts.allocate.tr,
               ),
             ],
           ),

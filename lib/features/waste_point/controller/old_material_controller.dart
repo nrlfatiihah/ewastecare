@@ -2,6 +2,7 @@ import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/material/older_material_repository.dart';
 import 'package:ewastecare/features/waste_point/model/rate_model.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
+import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/helpers/network_manager.dart';
 import 'package:ewastecare/utils/popups/full_screen_loader.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class OldMaterialController extends GetxController {
   void addNewMaterial() async {
     try {
       WasteFullScreenLoader.openLoadingDialog(
-        "We are processing your request",
+        WasteTexts.processingInformation.tr,
         WasteImages.docerAnimation,
       );
 
@@ -49,9 +50,8 @@ class OldMaterialController extends GetxController {
       if (!isUnique) {
         WasteFullScreenLoader.stopLoading();
         WasteLoaders.errorSnackBar(
-          title: "Error",
-          message:
-              "The Id has been used on other products, please try again with another id",
+          title: WasteTexts.oops.tr,
+          message: WasteTexts.materialIdInUse.tr,
         );
         return;
       }
@@ -61,14 +61,17 @@ class OldMaterialController extends GetxController {
       WasteFullScreenLoader.stopLoading();
 
       WasteLoaders.successSnackBar(
-        title: "Success",
-        message: "Your product has been successfully added to the store.",
+        title: WasteTexts.success.tr,
+        message: WasteTexts.materialSuccessfullyAdded.tr,
       );
 
       clearFormData();
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
-      WasteLoaders.errorSnackBar(title: "Oops!", message: e.toString());
+      WasteLoaders.errorSnackBar(
+        title: WasteTexts.oops.tr,
+        message: e.toString(),
+      );
     }
   }
 
