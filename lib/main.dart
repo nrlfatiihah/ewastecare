@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
+import 'package:ewastecare/data/services/notifications/push_notification_service.dart';
 import 'package:ewastecare/features/module/controllers/module_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -31,7 +34,10 @@ Future<void> main() async {
   Get.put(authenticationRepository);
   Get.put(adminAuthenticationRepository);
   Get.put(ModuleController());
+  final pushNotificationService = Get.put(PushNotificationService());
+  await pushNotificationService.init();
   // Get.put(AdminDashboardService());
 
   runApp(const App());
+  unawaited(pushNotificationService.handleInitialMessage());
 }
