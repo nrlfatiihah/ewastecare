@@ -29,7 +29,7 @@ class TermsNConditionScreen extends StatelessWidget {
                   // Title, price, stock
                   SizedBox(height: WasteSizes.spaceBtwItems / 2),
                   Text(
-                    "By using eWasteCare, you agree to follow all local e-waste recycling rules and use the app responsibly. You must provide accurate information when creating an account. Your account may be suspended if any misuse or false reporting is detected. eWasteCare reserves the right to update these terms at any time.",
+                    WasteTexts.termsContent.tr,
                     textAlign: TextAlign.justify,
                   ),
                   SizedBox(height: WasteSizes.spaceBtwItems),

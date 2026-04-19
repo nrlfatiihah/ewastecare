@@ -345,6 +345,8 @@ class AppTranslations extends Translations {
       'noImageSelected': 'No image selected',
       'noModulesFound': 'No modules found.',
       'policyPrivacy': 'Policy & Privacy',
+      'policyContent':
+          'Your privacy is important to us. We collect personal data only to improve your eWasteCare experience. Your data will not be shared with third parties without your consent. You can request to delete your account and data anytime.',
       'rateId': 'Rate ID',
       'reAuthenticateUser': 'Enter Admin Password',
       'recycleRate': 'Recycle Rate',
@@ -353,6 +355,8 @@ class AppTranslations extends Translations {
       'sectionImage': 'Section Image',
       'selectImage': 'Select Image',
       'termsConditions': 'Terms and Conditions',
+      'termsContent':
+          'By using eWasteCare, you agree to follow all local e-waste recycling rules and use the app responsibly. You must provide accurate information when creating an account. Your account may be suspended if any misuse or false reporting is detected. eWasteCare reserves the right to update these terms at any time.',
       'transactionHistory': 'Transaction History',
       'wastePoints': 'Waste Points',
       'wasteScanner': 'Waste Scanner',
@@ -369,6 +373,8 @@ class AppTranslations extends Translations {
       'failedToLoadImage': 'Failed to load image',
       'appInformation': 'App Information',
       'appVersion': 'App Version: 2.0.0.0',
+      'appContent':
+          'eWasteCare is a mobile application designed to encourage sustainable waste management and the 3R (Reduce, Reuse, Recycle) principles. The app allows users to monitor their waste contributions, learn proper recycling practices, and earn reward points for participating in recycling activities. By promoting responsible waste disposal and reducing landfill waste, eWasteCare aims to raise community awareness, encourage recycling, and support environmental sustainability.',
       'learningModule': 'Learning Module',
       'moduleSections': 'Module Sections',
       'addSection': 'Add Section',
@@ -690,6 +696,8 @@ class AppTranslations extends Translations {
       'noImageSelected': 'Tiada imej dipilih',
       'noModulesFound': 'Tiada modul dijumpai.',
       'policyPrivacy': 'Polisi & Privasi',
+      'policyContent':
+          'Privasi anda penting bagi kami. Kami mengumpul data peribadi hanya untuk menambah baik pengalaman anda menggunakan eWasteCare. Data anda tidak akan dikongsi dengan pihak ketiga tanpa persetujuan anda. Anda boleh memohon untuk memadam akaun dan data anda pada bila-bila masa.',
       'rateId': 'ID Kadar',
       'reAuthenticateUser': 'Masukkan Kata Laluan Admin',
       'recycleRate': 'Kadar Kitar Semula',
@@ -698,6 +706,8 @@ class AppTranslations extends Translations {
       'sectionImage': 'Imej Bahagian',
       'selectImage': 'Pilih Imej',
       'termsConditions': 'Terma dan Syarat',
+      'termsContent':
+          'Dengan menggunakan eWasteCare, anda bersetuju untuk mematuhi semua peraturan tempatan berkaitan kitar semula sisa dan menggunakan aplikasi ini secara bertanggungjawab. Anda mesti memberikan maklumat yang tepat semasa membuat akaun. Akaun anda boleh digantung jika sebarang penyalahgunaan atau laporan palsu dikesan. eWasteCare berhak untuk mengemas kini terma ini pada bila-bila masa.',
       'transactionHistory': 'Sejarah Transaksi',
       'wastePoints': 'Mata Sisa',
       'wasteScanner': 'Pengimbas Sisa',
@@ -714,6 +724,8 @@ class AppTranslations extends Translations {
       'failedToLoadImage': 'Gagal memuatkan imej',
       'appInformation': 'Maklumat Aplikasi',
       'appVersion': 'Versi Aplikasi: 2.0.0.0',
+      'appContent':
+          'eWasteCare ialah aplikasi mudah alih yang direka untuk menggalakkan pengurusan sisa mampan dan prinsip 3R (Kurangkan, Guna Semula, Kitar Semula). Aplikasi ini membolehkan pengguna memantau sumbangan sisa mereka, mempelajari amalan kitar semula yang betul, dan memperoleh mata ganjaran dengan menyertai aktiviti kitar semula. Dengan mempromosikan pelupusan sisa yang bertanggungjawab dan mengurangkan sisa tapak pelupusan, eWasteCare bertujuan meningkatkan kesedaran komuniti, menggalakkan kitar semula, dan menyokong kelestarian alam sekitar.',
       'learningModule': 'Modul Pembelajaran',
       'moduleSections': 'Bahagian Modul',
       'addSection': 'Tambah Bahagian',

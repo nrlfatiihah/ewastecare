@@ -283,6 +283,7 @@ class WasteTexts {
   static const String detectedWaste = 'detectedWaste';
   static const String noDisposalInfoAvailable = 'noDisposalInfoAvailable';
   static const String policyPrivacy = 'policyPrivacy';
+  static const String policyContent = 'policyContent';
   static const String rateId = 'rateId';
   static const String reAuthenticateUser = 'reAuthenticateUser';
   static const String recycleRate = 'recycleRate';
@@ -293,6 +294,7 @@ class WasteTexts {
   static const String sectionImage = 'sectionImage';
   static const String selectImage = 'selectImage';
   static const String termsConditions = 'termsConditions';
+  static const String termsContent = 'termsContent';
   static const String transactionHistory = 'transactionHistory';
   static const String pickDateRange = 'pickDateRange';
   static const String resetDateRange = 'resetDateRange';
@@ -303,6 +305,7 @@ class WasteTexts {
   static const String failedToLoadImage = 'failedToLoadImage';
   static const String appInformation = 'appInformation';
   static const String appVersion = 'appVersion';
+  static const String appContent = 'appContent';
   static const String profile = 'profile';
   static const String logout = 'logout';
   static const String learningModule = 'learningModule';

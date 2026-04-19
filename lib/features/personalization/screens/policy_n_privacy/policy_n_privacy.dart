@@ -29,7 +29,7 @@ class PolicyNPrivacyScreen extends StatelessWidget {
                   // Title, price, stock
                   SizedBox(height: WasteSizes.spaceBtwItems / 2),
                   Text(
-                    "Your privacy is important to us. We collect personal data only to improve your eWasteCare experience. Your data will not be shared with third parties without your consent. You can request to delete your account and data anytime",
+                    WasteTexts.policyContent.tr,
                     textAlign: TextAlign.justify,
                   ),
                   SizedBox(height: WasteSizes.spaceBtwItems),
