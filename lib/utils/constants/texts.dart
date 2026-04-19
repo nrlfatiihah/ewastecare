@@ -165,6 +165,7 @@ class WasteTexts {
   // -- Home
   static const String userHomeAppbarTitle = 'userHomeAppbarTitle';
   static const String userHomeAppbarSubTitle = 'userHomeAppbarSubTitle';
+  static const String messages = 'messages';
 
   // -- Point Allocation
   static const String allocationPage = 'allocationPage';

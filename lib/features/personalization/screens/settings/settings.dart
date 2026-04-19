@@ -4,6 +4,8 @@ import 'package:ewastecare/common/widget/list_tiles/settings_menu_tile.dart';
 import 'package:ewastecare/common/widget/list_tiles/user_profile_tiles.dart';
 import 'package:ewastecare/common/widget/texts/section_heading.dart';
 import 'package:ewastecare/data/repositories/authentication/authentication_repository.dart';
+import 'package:ewastecare/features/chat/controllers/chat_controller.dart';
+import 'package:ewastecare/features/chat/screens/chat_list_screen.dart';
 import 'package:ewastecare/features/dashboard/screens/user/user_dashboard.dart';
 import 'package:ewastecare/features/personalization/screens/app_information/app_information.dart';
 import 'package:ewastecare/features/personalization/screens/policy_n_privacy/policy_n_privacy.dart';
@@ -19,8 +21,35 @@ import 'package:iconsax/iconsax.dart';
 class UserSettingScreen extends StatelessWidget {
   const UserSettingScreen({super.key});
 
+  Widget _buildUnreadBadge(int count) {
+    if (count <= 0) return const SizedBox.shrink();
+    final label = count > 99 ? '99+' : '$count';
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: Colors.red,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      constraints: const BoxConstraints(minWidth: 20),
+      child: Text(
+        label,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 10,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final chatController = Get.isRegistered<ChatController>()
+        ? Get.find<ChatController>()
+        : Get.put(ChatController());
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -74,6 +103,29 @@ class UserSettingScreen extends StatelessWidget {
                     title: "performance_analytics".tr,
                     subTitle: "view_your_performance".tr,
                     onTap: () => Get.to(() => const UserDashboardScreen()),
+                  ),
+
+                  StreamBuilder(
+                    stream: chatController.conversationsStream(),
+                    builder: (context, snapshot) {
+                      final conversations = snapshot.data ?? [];
+                      final unreadCount = conversations.fold<int>(
+                        0,
+                        (sum, conversation) =>
+                            sum +
+                            conversation.unreadFor(
+                              chatController.currentUserId,
+                            ),
+                      );
+
+                      return WasteSettingMenuTile(
+                        icon: Iconsax.message_text,
+                        title: "messages".tr,
+                        subTitle: "open_messages".tr,
+                        trailing: _buildUnreadBadge(unreadCount),
+                        onTap: () => Get.to(() => const ChatListScreen()),
+                      );
+                    },
                   ),
 
                   // Language Options

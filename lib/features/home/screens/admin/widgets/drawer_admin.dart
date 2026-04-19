@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
+import 'package:ewastecare/features/chat/controllers/chat_controller.dart';
+import 'package:ewastecare/features/chat/screens/chat_list_screen.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/features/waste_point/screen/recycle_rate.dart';
 import 'package:ewastecare/features/home/controllers/admin_setting_controller.dart';
@@ -12,8 +14,35 @@ class AdminEndDrawer extends StatelessWidget {
 
   final AdminSettingsController _controller = AdminSettingsController();
 
+  Widget _buildUnreadBadge(int count) {
+    if (count <= 0) return const SizedBox.shrink();
+    final label = count > 99 ? '99+' : '$count';
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: Colors.red,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      constraints: const BoxConstraints(minWidth: 20),
+      child: Text(
+        label,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 10,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final chatController = Get.isRegistered<ChatController>()
+        ? Get.find<ChatController>()
+        : Get.put(ChatController());
+
     return Drawer(
       child: SafeArea(
         child: Column(
@@ -89,6 +118,31 @@ class AdminEndDrawer extends StatelessWidget {
                     icon: Icons.language,
                     title: 'language'.tr,
                     onTap: () => _showLanguageSheet(context),
+                  ),
+                  StreamBuilder(
+                    stream: chatController.conversationsStream(),
+                    builder: (context, snapshot) {
+                      final conversations = snapshot.data ?? [];
+                      final unreadCount = conversations.fold<int>(
+                        0,
+                        (sum, conversation) =>
+                            sum +
+                            conversation.unreadFor(
+                              chatController.currentUserId,
+                            ),
+                      );
+
+                      return _buildMenuTile(
+                        context,
+                        icon: Icons.chat_bubble_outline,
+                        title: 'messages'.tr,
+                        trailing: _buildUnreadBadge(unreadCount),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Get.to(() => const ChatListScreen());
+                        },
+                      );
+                    },
                   ),
 
                   const SizedBox(height: 10),
@@ -185,6 +239,7 @@ class AdminEndDrawer extends StatelessWidget {
     BuildContext context, {
     required IconData icon,
     required String title,
+    Widget? trailing,
     required VoidCallback onTap,
   }) {
     return Padding(
@@ -198,7 +253,14 @@ class AdminEndDrawer extends StatelessWidget {
             title,
             style: const TextStyle(fontWeight: FontWeight.w500),
           ),
-          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (trailing != null) trailing,
+              const SizedBox(width: 8),
+              const Icon(Icons.arrow_forward_ios, size: 16),
+            ],
+          ),
           onTap: onTap,
         ),
       ),
