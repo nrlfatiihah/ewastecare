@@ -171,6 +171,38 @@ class ChatRepository {
     await batch.commit();
   }
 
+  Future<void> deleteConversation({
+    required String conversationId,
+    required String currentUserId,
+  }) async {
+    final conversationRef = _db.collection('Conversations').doc(conversationId);
+    final conversationDoc = await conversationRef.get();
+    if (!conversationDoc.exists) return;
+
+    final data = conversationDoc.data() ?? <String, dynamic>{};
+    final participants = List<String>.from(
+      data['participants'] ?? const <String>[],
+    );
+    if (!participants.contains(currentUserId)) return;
+
+    while (true) {
+      final messages = await conversationRef
+          .collection('Messages')
+          .limit(400)
+          .get();
+
+      if (messages.docs.isEmpty) break;
+
+      final batch = _db.batch();
+      for (final doc in messages.docs) {
+        batch.delete(doc.reference);
+      }
+      await batch.commit();
+    }
+
+    await conversationRef.delete();
+  }
+
   Stream<List<ChatUserModel>> streamChatUsers(String currentUserId) {
     final controller = StreamController<List<ChatUserModel>>();
 

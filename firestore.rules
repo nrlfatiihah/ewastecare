@@ -21,7 +21,7 @@ service cloud.firestore {
       allow update: if inConversation(conversationId) &&
           request.resource.data.participants == resource.data.participants;
 
-      allow delete: if false;
+        allow delete: if inConversation(conversationId);
 
       match /Messages/{messageId} {
         allow read: if inConversation(conversationId);
@@ -34,7 +34,7 @@ service cloud.firestore {
             request.resource.data.senderId == resource.data.senderId &&
             request.resource.data.text == resource.data.text;
 
-        allow delete: if false;
+        allow delete: if inConversation(conversationId);
       }
     }
 

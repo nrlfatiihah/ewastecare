@@ -62,6 +62,14 @@ class ChatController extends GetxController {
     }
   }
 
+  Future<void> deleteConversation(String conversationId) async {
+    if (currentUserId.isEmpty) return;
+    await _repository.deleteConversation(
+      conversationId: conversationId,
+      currentUserId: currentUserId,
+    );
+  }
+
   String otherParticipantId(ChatConversationModel conversation) {
     return conversation.participants.firstWhere(
       (id) => id != currentUserId,

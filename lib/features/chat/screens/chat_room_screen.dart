@@ -25,6 +25,48 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   static const Color _chatGreenSoft = Color(0xFFE8F5E9);
   String _profileImageUrl = '';
 
+  Future<void> _confirmDeleteChat(ChatController controller) async {
+    final confirmed =
+        await showDialog<bool>(
+          context: context,
+          builder: (dialogContext) {
+            return AlertDialog(
+              title: Text('delete_chat_title'.tr),
+              content: Text(
+                'delete_chat_confirm'.trParams({'name': widget.otherUserName}),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(dialogContext).pop(false),
+                  child: Text('cancel'.tr),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(dialogContext).pop(true),
+                  child: Text('delete'.tr),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false;
+
+    if (!confirmed) return;
+
+    try {
+      await controller.deleteConversation(widget.conversationId);
+      if (!mounted) return;
+      Get.back<void>();
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('chat_deleted'.tr)));
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('chat_delete_failed'.tr)));
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -103,6 +145,13 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            tooltip: 'delete_chat_tooltip'.tr,
+            onPressed: () => _confirmDeleteChat(controller),
+            icon: const Icon(Icons.delete_outline),
+          ),
+        ],
       ),
       backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
       body: Column(

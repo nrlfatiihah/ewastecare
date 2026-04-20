@@ -396,6 +396,12 @@ class AppTranslations extends Translations {
       'no_matching_users': 'No matching users found',
       'search_chats': 'Search chats',
       'no_matching_chats': 'No matching chats found',
+      'delete_chat_title': 'Delete chat',
+      'delete_chat_confirm':
+          'Delete your conversation with @name? This cannot be undone.',
+      'chat_deleted': 'Chat deleted.',
+      'chat_delete_failed': 'Unable to delete chat.',
+      'delete_chat_tooltip': 'Delete chat',
     },
     'ms_MY': {
       'app_title': 'E-Waste Care',
@@ -759,6 +765,12 @@ class AppTranslations extends Translations {
       'no_matching_users': 'Tiada pengguna sepadan dijumpai',
       'search_chats': 'Cari perbualan',
       'no_matching_chats': 'Tiada perbualan sepadan dijumpai',
+      'delete_chat_title': 'Padam perbualan',
+      'delete_chat_confirm':
+          'Padam perbualan anda dengan @name? Tindakan ini tidak boleh dibatalkan.',
+      'chat_deleted': 'Perbualan dipadam.',
+      'chat_delete_failed': 'Tidak dapat memadam perbualan.',
+      'delete_chat_tooltip': 'Padam perbualan',
     },
   };
 }

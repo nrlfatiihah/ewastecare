@@ -28,6 +28,49 @@ class _ChatListScreenState extends State<ChatListScreen> {
   bool _isPrimingMetadata = false;
   bool _hasPrimedMetadata = false;
 
+  Future<void> _confirmDeleteConversation(
+    ChatController controller,
+    ChatConversationModel conversation,
+    String userName,
+  ) async {
+    final confirm =
+        await showDialog<bool>(
+          context: context,
+          builder: (dialogContext) {
+            return AlertDialog(
+              title: Text('delete_chat_title'.tr),
+              content: Text('delete_chat_confirm'.trParams({'name': userName})),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(dialogContext).pop(false),
+                  child: Text('cancel'.tr),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(dialogContext).pop(true),
+                  child: Text('delete'.tr),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false;
+
+    if (!confirm) return;
+
+    try {
+      await controller.deleteConversation(conversation.id);
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('chat_deleted'.tr)));
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('chat_delete_failed'.tr)));
+    }
+  }
+
   @override
   void dispose() {
     _searchDebounce?.cancel();
@@ -233,6 +276,11 @@ class _ChatListScreenState extends State<ChatListScreen> {
                                   otherUserName: userName,
                                 ),
                               ),
+                              onLongPress: () => _confirmDeleteConversation(
+                                controller,
+                                conversation,
+                                userName,
+                              ),
                             );
                           },
                         ),
@@ -295,6 +343,7 @@ class _ConversationCard extends StatelessWidget {
     required this.timeLabel,
     required this.unreadCount,
     required this.onTap,
+    required this.onLongPress,
   });
 
   final String name;
@@ -303,6 +352,7 @@ class _ConversationCard extends StatelessWidget {
   final String timeLabel;
   final int unreadCount;
   final VoidCallback onTap;
+  final VoidCallback onLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -311,6 +361,7 @@ class _ConversationCard extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(14),
       onTap: onTap,
+      onLongPress: onLongPress,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
