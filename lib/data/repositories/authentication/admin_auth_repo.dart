@@ -28,10 +28,8 @@ class AdminAuthenticationRepository extends GetxController {
   // called from main.dart on app launch
   @override
   void onReady() {
-    // Remove the native splash screen
-    FlutterNativeSplash.remove();
-    // Redirect to the appropriate screen
-    adminScreenRedirect();
+    // AuthenticationRepository handles startup redirects for both roles.
+    super.onReady();
   }
 
   Future<void> adminScreenRedirect() async {

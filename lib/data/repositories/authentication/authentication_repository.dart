@@ -1,9 +1,11 @@
 // use and checked
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ewastecare/admin_navigation_menu.dart';
 import 'package:ewastecare/data/repositories/user/user_repository.dart';
 import 'package:ewastecare/features/authentication/screens/welcome/welcome.dart';
 import 'package:ewastecare/features/authentication/screens/login/login_user/login.dart';
 import 'package:ewastecare/features/authentication/screens/onboarding/onboarding.dart';
+import 'package:ewastecare/features/authentication/screens/signup/admin_signup/admin_verify_email.dart';
 import 'package:ewastecare/features/authentication/screens/signup/user_signup/verify_email.dart';
 import 'package:ewastecare/user_navigation_menu.dart';
 import 'package:ewastecare/utils/exceptions/firebase_auth_exceptions.dart';
@@ -42,20 +44,36 @@ class AuthenticationRepository extends GetxController {
     final box = GetStorage();
     final isUserLoggedIn =
         box.read('user_logged_in') ?? false; // Check login flag
+    final isAdminLoggedIn = box.read('admin_logged_in') ?? false;
+
     if (user != null) {
-      if (user.emailVerified && isUserLoggedIn) {
-        // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to Welcome
-        Get.offAll(() => const UserNavigationMenu());
-        return;
-      } else if (!isUserLoggedIn) {
-        // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to Welcome
-        Get.offAll(() => const Welcome());
-        return;
-      } else {
-        // User email not verified, redirect to email verification screen
+      if (!user.emailVerified) {
+        if (isAdminLoggedIn) {
+          Get.offAll(
+            () => AdminVerifyEmailScreen(email: _auth.currentUser?.email),
+          );
+          return;
+        }
+
         Get.offAll(
           () => VerifyEmailScreen(email: _auth.currentUser?.email, role: ''),
         );
+        return;
+      }
+
+      if (isUserLoggedIn) {
+        Get.offAll(() => const UserNavigationMenu());
+        return;
+      }
+
+      if (isAdminLoggedIn) {
+        Get.offAll(() => const AdminNavigationMenu());
+        return;
+      }
+
+      if (!isUserLoggedIn && !isAdminLoggedIn) {
+        Get.offAll(() => const Welcome());
+        return;
       }
     } else {
       // User not logged in, handle first-time launch or other scenarios
