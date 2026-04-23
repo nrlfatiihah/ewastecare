@@ -1,11 +1,13 @@
 // use and checked
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/authentication/authentication_repository.dart';
+import 'package:ewastecare/features/authentication/screens/signup/user_signup/verify_email.dart';
 import 'package:ewastecare/user_navigation_menu.dart';
 import 'package:ewastecare/utils/constants/image_strings.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/utils/helpers/network_manager.dart';
 import 'package:ewastecare/utils/popups/full_screen_loader.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -74,6 +76,14 @@ class LoginController extends GetxController {
   // Check role for user then redirect to dedicated home page
   void redirectToHomePage(String? role) async {
     final box = GetStorage();
+    final user = FirebaseAuth.instance.currentUser;
+
+    // Check if email is verified
+    if (user != null && !user.emailVerified) {
+      WasteFullScreenLoader.stopLoading();
+      Get.offAll(() => VerifyEmailScreen(email: user.email, role: 'user'));
+      return;
+    }
 
     if (role == "admin" || role == null || role.isEmpty) {
       WasteFullScreenLoader.stopLoading();
