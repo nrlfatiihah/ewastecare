@@ -12,6 +12,17 @@ class UserDashboardRepository extends GetxController {
 
   final _db = FirebaseFirestore.instance;
 
+  Stream<NewUserDashboardModel> watchUserDashboardTryData(String userId) {
+    return _db.collection("UserDashboardTry").doc(userId).snapshots().map((
+      snapshot,
+    ) {
+      if (snapshot.exists) {
+        return NewUserDashboardModel.fromSnapshot(snapshot);
+      }
+      return NewUserDashboardModel.empty();
+    });
+  }
+
   Future<NewUserDashboardModel> fetchUserDashboardTryData(String userId) async {
     try {
       print("Print from repo here $userId");

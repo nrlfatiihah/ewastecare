@@ -133,6 +133,28 @@ class NewUserDashboardModel {
     }
   }
 
+  Map<String, double> getMaterialGroupTotals() {
+    final totals = <String, double>{};
+
+    for (final entry in materials.entries) {
+      final groupTotal = entry.value.values.fold<double>(
+        0.0,
+        (sum, weight) => sum + weight,
+      );
+      totals[entry.key] = groupTotal;
+    }
+
+    return Map.fromEntries(
+      totals.entries.toList()..sort((a, b) => b.value.compareTo(a.value)),
+    );
+  }
+
+  double getMaterialDistributionPercentage(String materialGroup) {
+    if (totalWeightAllMaterials <= 0) return 0;
+    final groupWeight = getMaterialGroupTotals()[materialGroup] ?? 0.0;
+    return (groupWeight / totalWeightAllMaterials) * 100;
+  }
+
   // Provide a method to return an empty instance if needed
   factory NewUserDashboardModel.empty() {
     return NewUserDashboardModel(

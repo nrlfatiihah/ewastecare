@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ewastecare/data/repositories/dashboard/user_dashboard_repository.dart';
 import 'package:ewastecare/features/dashboard/models/new_user_dashboard_model.dart';
 import 'package:ewastecare/features/personalization/controllers/user_controller.dart';
@@ -12,6 +14,7 @@ class UserDashboardController extends GetxController {
   final userDashboardRepository = UserDashboardRepository();
   bool dataFetched = false;
   final RxBool dataFetched2 = false.obs;
+  StreamSubscription<NewUserDashboardModel>? _dashboardSubscription;
   // Rx<UserDashboardModel> userDashboardData = UserDashboardModel.empty().obs;
   Rx<NewUserDashboardModel> newUserDashboardData =
       NewUserDashboardModel.empty().obs;
@@ -19,8 +22,7 @@ class UserDashboardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // fetchUserRecord();
-    NewfetchUserRecord();
+    listenToUserDashboardChanges();
   }
   // Future<void> fetchUserRecord() async {
   //   try {
@@ -61,6 +63,31 @@ class UserDashboardController extends GetxController {
   //       isLoading.value = false;
   //     }
   //   }
+  Future<void> listenToUserDashboardChanges() async {
+    try {
+      isLoading.value = true;
+      final userId = await userController.getCurrentUserId();
+
+      await _dashboardSubscription?.cancel();
+      _dashboardSubscription = userDashboardRepository
+          .watchUserDashboardTryData(userId)
+          .listen(
+            (dashboardData) {
+              newUserDashboardData(dashboardData);
+              dataFetched = true;
+              isLoading.value = false;
+            },
+            onError: (_) {
+              newUserDashboardData(NewUserDashboardModel.empty());
+              isLoading.value = false;
+            },
+          );
+    } catch (e) {
+      newUserDashboardData(NewUserDashboardModel.empty());
+      isLoading.value = false;
+    }
+  }
+
   Future<void> NewfetchUserRecord() async {
     try {
       isLoading.value = true;
@@ -103,5 +130,11 @@ class UserDashboardController extends GetxController {
 
   void resetDataFetched() {
     dataFetched = false;
+  }
+
+  @override
+  void onClose() {
+    _dashboardSubscription?.cancel();
+    super.onClose();
   }
 }

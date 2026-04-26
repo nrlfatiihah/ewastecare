@@ -13,6 +13,33 @@ import 'package:intl/intl.dart';
 class WasteSignUpForm extends StatelessWidget {
   const WasteSignUpForm({super.key});
 
+  Widget _buildPasswordRequirement(
+    BuildContext context, {
+    required bool met,
+    required String text,
+  }) {
+    final textTheme = Theme.of(context).textTheme.bodySmall;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          met ? Icons.check_circle : Icons.radio_button_unchecked,
+          size: 16,
+          color: met ? WasteColors.success : WasteColors.darkGrey,
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            text,
+            style: textTheme?.copyWith(
+              color: met ? WasteColors.success : WasteColors.textSecondary,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignupController());
@@ -288,25 +315,68 @@ class WasteSignUpForm extends StatelessWidget {
           const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
           //Password
-          Obx(
-            () => TextFormField(
-              controller: controller.password,
-              validator: (value) => WasteValidator.validatePassword(value),
-              obscureText: controller.hidePassword.value,
-              decoration: InputDecoration(
-                labelText: WasteTexts.password.tr,
-                prefixIcon: const Icon(Iconsax.password_check),
-                suffixIcon: IconButton(
-                  onPressed: () => controller.hidePassword.value =
-                      !controller.hidePassword.value,
-                  icon: Icon(
-                    controller.hidePassword.value
-                        ? Iconsax.eye_slash
-                        : Iconsax.eye,
+          ValueListenableBuilder<TextEditingValue>(
+            valueListenable: controller.password,
+            builder: (context, passwordValue, _) {
+              final passwordText = passwordValue.text;
+              final hasMinLength = passwordText.length >= 6;
+              final hasUppercase = passwordText.contains(RegExp(r'[A-Z]'));
+              final hasNumber = passwordText.contains(RegExp(r'[0-9]'));
+              final hasSpecialCharacter = passwordText.contains(
+                RegExp(r'[!@#$%^&*(),.?":{}|<>]'),
+              );
+
+              return Column(
+                children: [
+                  Obx(
+                    () => TextFormField(
+                      controller: controller.password,
+                      validator: (value) =>
+                          WasteValidator.validatePassword(value),
+                      obscureText: controller.hidePassword.value,
+                      decoration: InputDecoration(
+                        labelText: WasteTexts.password.tr,
+                        prefixIcon: const Icon(Iconsax.password_check),
+                        suffixIcon: IconButton(
+                          onPressed: () => controller.hidePassword.value =
+                              !controller.hidePassword.value,
+                          icon: Icon(
+                            controller.hidePassword.value
+                                ? Iconsax.eye_slash
+                                : Iconsax.eye,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
+                  const SizedBox(height: 8),
+                  _buildPasswordRequirement(
+                    context,
+                    met: hasMinLength,
+                    text: WasteTexts.passwordMinLength.tr,
+                  ),
+                  const SizedBox(height: 4),
+                  _buildPasswordRequirement(
+                    context,
+                    met: hasUppercase,
+                    text: WasteTexts.passwordUppercase.tr,
+                  ),
+                  const SizedBox(height: 4),
+                  _buildPasswordRequirement(
+                    context,
+                    met: hasNumber,
+                    text: WasteTexts.passwordNumber.tr,
+                  ),
+                  const SizedBox(height: 4),
+                  _buildPasswordRequirement(
+                    context,
+                    met: hasSpecialCharacter,
+                    text:
+                        '${WasteTexts.passwordSpecialChar.tr} (e.g. !, @, #, \$)',
+                  ),
+                ],
+              );
+            },
           ),
           const SizedBox(height: WasteSizes.spaceBtwInputFields),
 

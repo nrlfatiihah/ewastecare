@@ -184,6 +184,16 @@ class AppTranslations extends Translations {
       'userInformation': 'User Information',
       'chooseAType': 'Choose a Type',
       'materialsDistribution': 'Materials Distribution',
+      'materialDistributionTitle': 'Material Distribution',
+      'materialDistributionSubtitle':
+          'A quick look at what you have recycled so far.',
+      'totalWeight': 'Total weight',
+      'materialTypes': 'Material types',
+      'topMaterial': 'Top material',
+      'materialDistributionHint': 'Share of your recycled materials',
+      'noMaterialDistributionYet': 'No material distribution yet',
+      'materialDistributionEmptyMessage':
+          'Once you recycle materials, the breakdown will appear here automatically.',
       'selectDateRange': 'Select Date Range',
       'dateRange': 'Date Range',
       'tapToSelectDateRange': 'Tap to select date range',
@@ -687,6 +697,16 @@ class AppTranslations extends Translations {
       'userInformation': 'Maklumat Pengguna',
       'chooseAType': 'Pilih Jenis',
       'materialsDistribution': 'Pengagihan Bahan',
+      'materialDistributionTitle': 'Pengagihan Bahan',
+      'materialDistributionSubtitle':
+          'Lihat ringkas bahan yang telah anda kitar semula setakat ini.',
+      'totalWeight': 'Jumlah berat',
+      'materialTypes': 'Jenis bahan',
+      'topMaterial': 'Bahan tertinggi',
+      'materialDistributionHint': 'Bahagian bahan kitar semula anda',
+      'noMaterialDistributionYet': 'Belum ada pengagihan bahan',
+      'materialDistributionEmptyMessage':
+          'Apabila anda mengitar semula bahan, pecahan akan dipaparkan di sini secara automatik.',
       'selectDateRange': 'Pilih Julat Tarikh',
       'dateRange': 'Julat Tarikh',
       'tapToSelectDateRange': 'Ketik untuk pilih julat tarikh',

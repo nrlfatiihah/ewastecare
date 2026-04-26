@@ -129,6 +129,16 @@ class WasteTexts {
   static const String totalRecycledItems = 'totalRecycledItems';
   static const String userInformation = 'userInformation';
   static const String chooseAType = 'chooseAType';
+  static const String materialDistributionTitle = 'materialDistributionTitle';
+  static const String materialDistributionSubtitle =
+      'materialDistributionSubtitle';
+  static const String totalWeight = 'totalWeight';
+  static const String materialTypes = 'materialTypes';
+  static const String topMaterial = 'topMaterial';
+  static const String materialDistributionHint = 'materialDistributionHint';
+  static const String noMaterialDistributionYet = 'noMaterialDistributionYet';
+  static const String materialDistributionEmptyMessage =
+      'materialDistributionEmptyMessage';
   static const String materialsDistribution = 'materialsDistribution';
   static const String selectDateRange = 'selectDateRange';
   static const String dateRange = 'dateRange';
