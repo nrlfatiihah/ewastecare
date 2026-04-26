@@ -167,8 +167,8 @@ class ProfileScreen extends StatelessWidget {
                 icon: Iconsax.lock,
               ),
               WasteProfileMenu(
-                title: WasteTexts.age.tr,
-                value: controller.user.value.age,
+                title: WasteTexts.dateOfBirth.tr,
+                value: controller.user.value.dateOfBirth,
                 onPressed: () {
                   WasteLoaders.cannotEdit(
                     title: WasteTexts.oops.tr,

@@ -25,7 +25,11 @@ class SignupController extends GetxController {
   final username = TextEditingController(); // controller for username input
   final homeAddress = TextEditingController(); // controller for address input
   final gender = Rx<String?>(null); // controller for gender input
-  final age = TextEditingController(); // controller for age input
+  final dateOfBirthController =
+      TextEditingController(); // controller for date of birth input
+  final selectedDateOfBirth = Rx<DateTime?>(
+    null,
+  ); // Observable for selected date of birth
   final role = Rx<String?>(null); // controller for role input
   final email = TextEditingController(); // controller for email input
   final phoneNo = TextEditingController(); // controller for phone number input
@@ -83,7 +87,7 @@ class SignupController extends GetxController {
           username: username.text.trim(),
           homeAddress: homeAddress.text.trim(),
           gender: gender.value?.trim() ?? "",
-          age: age.text.trim(),
+          dateOfBirth: dateOfBirthController.text.trim(),
           email: email.text.trim(),
           phoneNo: phoneNo.text.trim(),
           profilePicture: "",

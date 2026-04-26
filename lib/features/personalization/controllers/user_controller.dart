@@ -135,7 +135,7 @@ class UserController extends GetxController {
           username: username,
           homeAddress: "",
           gender: "",
-          age: "",
+          dateOfBirth: "",
           email: userCredentials.user!.email ?? "",
           phoneNo: userCredentials.user!.phoneNumber ?? "",
           profilePicture: userCredentials.user!.photoURL ?? "",

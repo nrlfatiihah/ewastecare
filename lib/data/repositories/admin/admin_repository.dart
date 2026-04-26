@@ -89,6 +89,27 @@ class AdminRepository extends GetxController {
     }
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> pendingAdminRequests() {
+    return _db
+        .collection("Admins")
+        .where("Approved", isEqualTo: false)
+        .snapshots();
+  }
+
+  Future<void> approveAdminRequest(String adminId) async {
+    try {
+      await _db.collection("Admins").doc(adminId).update({"Approved": true});
+    } on FirebaseException catch (e) {
+      throw WasteFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const WasteFormatException();
+    } on PlatformException catch (e) {
+      throw WastePlatformException(e.code).message;
+    } catch (e) {
+      throw "Something went wrong, Please try again";
+    }
+  }
+
   // Function to remove user data from Firestore
   Future<void> removeAdminRecord(String adminID) async {
     try {

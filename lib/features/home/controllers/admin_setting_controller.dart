@@ -15,7 +15,7 @@ class AdminSettingsController {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(WasteTexts.reAuthenticateUser.tr),
+          title: Text(WasteTexts.reAuthenticateAdmin.tr),
           content: TextField(
             controller: passwordController,
             obscureText: true,

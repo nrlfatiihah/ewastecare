@@ -141,6 +141,13 @@ class WasteValidator {
     return null;
   }
 
+  static String? validateDateOfBirth(String? value) {
+    if (value == null || value.isEmpty) {
+      return WasteTexts.dateOfBirthRequired.tr;
+    }
+    return null;
+  }
+
   static String? validateDecimalPlaces(String fieldName, String? value) {
     if (value == null || value.isEmpty) {
       return '$fieldName is required';

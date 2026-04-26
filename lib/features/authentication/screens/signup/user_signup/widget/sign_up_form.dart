@@ -8,6 +8,7 @@ import 'package:ewastecare/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 
 class WasteSignUpForm extends StatelessWidget {
   const WasteSignUpForm({super.key});
@@ -115,17 +116,31 @@ class WasteSignUpForm extends StatelessWidget {
           ),
           const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
-          // Age & Gender
+          // Date of Birth & Gender
           if (isNarrowScreen) ...[
             TextFormField(
-              controller: controller.age,
-              validator: (value) => WasteValidator.validateAge(
-                WasteTexts.ageValidation.tr,
-                value,
-              ),
+              controller: controller.dateOfBirthController,
+              readOnly: true,
+              validator: (value) => WasteValidator.validateDateOfBirth(value),
+              onTap: () async {
+                final DateTime? picked = await showDatePicker(
+                  context: context,
+                  initialDate:
+                      controller.selectedDateOfBirth.value ??
+                      DateTime.now().subtract(Duration(days: 365 * 18)),
+                  firstDate: DateTime(1924),
+                  lastDate: DateTime.now().subtract(Duration(days: 365 * 7)),
+                );
+                if (picked != null) {
+                  controller.selectedDateOfBirth.value = picked;
+                  controller.dateOfBirthController.text = DateFormat(
+                    'yyyy-MM-dd',
+                  ).format(picked);
+                }
+              },
               expands: false,
               decoration: InputDecoration(
-                labelText: WasteTexts.age.tr,
+                labelText: WasteTexts.dateOfBirth.tr,
                 prefixIcon: Icon(Iconsax.calendar),
               ),
             ),
@@ -158,14 +173,31 @@ class WasteSignUpForm extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextFormField(
-                    controller: controller.age,
-                    validator: (value) => WasteValidator.validateAge(
-                      WasteTexts.ageValidation.tr,
-                      value,
-                    ),
+                    controller: controller.dateOfBirthController,
+                    readOnly: true,
+                    validator: (value) =>
+                        WasteValidator.validateDateOfBirth(value),
+                    onTap: () async {
+                      final DateTime? picked = await showDatePicker(
+                        context: context,
+                        initialDate:
+                            controller.selectedDateOfBirth.value ??
+                            DateTime.now().subtract(Duration(days: 365 * 18)),
+                        firstDate: DateTime(1924),
+                        lastDate: DateTime.now().subtract(
+                          Duration(days: 365 * 7),
+                        ),
+                      );
+                      if (picked != null) {
+                        controller.selectedDateOfBirth.value = picked;
+                        controller.dateOfBirthController.text = DateFormat(
+                          'yyyy-MM-dd',
+                        ).format(picked);
+                      }
+                    },
                     expands: false,
                     decoration: InputDecoration(
-                      labelText: WasteTexts.age.tr,
+                      labelText: WasteTexts.dateOfBirth.tr,
                       prefixIcon: Icon(Iconsax.calendar),
                     ),
                   ),

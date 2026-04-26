@@ -78,6 +78,7 @@ class WasteTexts {
   static const String country = 'country';
   static const String gender = 'gender';
   static const String age = 'age';
+  static const String dateOfBirth = 'dateOfBirth';
   static const String password = 'password';
   static const String newPassword = 'newPassword';
   static const String username = 'username';
@@ -98,6 +99,7 @@ class WasteTexts {
   static const String ageValidation = 'ageValidation';
   static const String genderValidation = 'genderValidation';
   static const String ageRequired = 'ageRequired';
+  static const String dateOfBirthRequired = 'dateOfBirthRequired';
   static const String ageMustBeNumeric = 'ageMustBeNumeric';
   static const String ageRangeError = 'ageRangeError';
   static const String genderRequired = 'genderRequired';
@@ -287,6 +289,7 @@ class WasteTexts {
   static const String policyContent = 'policyContent';
   static const String rateId = 'rateId';
   static const String reAuthenticateUser = 'reAuthenticateUser';
+  static const String reAuthenticateAdmin = 'reAuthenticateAdmin';
   static const String recycleRate = 'recycleRate';
   static const String adminPanel = 'adminPanel';
   static const String manageSystemSettings = 'manageSystemSettings';

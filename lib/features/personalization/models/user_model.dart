@@ -8,7 +8,7 @@ class UserModel {
   String username;
   String homeAddress;
   String gender;
-  String age;
+  String dateOfBirth;
   final String email;
   String phoneNo;
   String profilePicture;
@@ -23,7 +23,7 @@ class UserModel {
     required this.username,
     required this.homeAddress,
     required this.gender,
-    required this.age,
+    required this.dateOfBirth,
     required this.email,
     required this.phoneNo,
     required this.profilePicture,
@@ -61,7 +61,7 @@ class UserModel {
     username: "",
     homeAddress: "",
     gender: "",
-    age: "",
+    dateOfBirth: "",
     email: "",
     phoneNo: "",
     profilePicture: "",
@@ -78,7 +78,7 @@ class UserModel {
       "Username": username,
       "Address": homeAddress,
       "Gender": gender,
-      "Age": age,
+      "DateOfBirth": dateOfBirth,
       "Email": email,
       "PhoneNumber": phoneNo,
       "ProfilePicture": profilePicture,
@@ -102,7 +102,7 @@ class UserModel {
         username: data["Username"] ?? "",
         homeAddress: data["Address"] ?? "",
         gender: data["Gender"] ?? "",
-        age: data["Age"] ?? "",
+        dateOfBirth: data["DateOfBirth"] ?? "",
         email: data["Email"] ?? "",
         phoneNo: data["PhoneNumber"] ?? "",
         profilePicture: data["ProfilePicture"] ?? "",

@@ -39,13 +39,18 @@ class AdminAuthenticationRepository extends GetxController {
         box.read('admin_logged_in') ?? false; // Check login flag
 
     if (user != null) {
-      if (user.emailVerified && isAdminLoggedIn) {
+      final isApproved = await isAdminApproved(user.uid);
+
+      if (user.emailVerified && isAdminLoggedIn && isApproved) {
         // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to ChooseRole
         Get.offAll(() => const AdminNavigationMenu());
         return;
-      } else if (user.emailVerified) {
+      } else if (user.emailVerified && isApproved) {
         // If the user did not log in using the adminEmailAndPasswordSignIn function, redirect to ChooseRole
         Get.offAll(() => const Welcome());
+        return;
+      } else if (user.emailVerified && !isApproved) {
+        await logout();
         return;
       } else {
         // User email not verified, redirect to email verification screen
@@ -118,6 +123,24 @@ class AdminAuthenticationRepository extends GetxController {
     } catch (e) {
       // Handle errors
       return null;
+    }
+  }
+
+  Future<bool> isAdminApproved(String uid) async {
+    try {
+      final adminDoc = await FirebaseFirestore.instance
+          .collection("Admins")
+          .doc(uid)
+          .get();
+
+      if (!adminDoc.exists) {
+        return false;
+      }
+
+      final approved = adminDoc.data()?['Approved'];
+      return approved == true;
+    } catch (e) {
+      return false;
     }
   }
 

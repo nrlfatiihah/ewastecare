@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ewastecare/admin_navigation_menu.dart';
 import 'package:ewastecare/data/repositories/user/user_repository.dart';
+import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ewastecare/features/authentication/screens/welcome/welcome.dart';
 import 'package:ewastecare/features/authentication/screens/login/login_user/login.dart';
 import 'package:ewastecare/features/authentication/screens/onboarding/onboarding.dart';
@@ -67,7 +68,14 @@ class AuthenticationRepository extends GetxController {
       }
 
       if (isAdminLoggedIn) {
-        Get.offAll(() => const AdminNavigationMenu());
+        final isApproved = await AdminAuthenticationRepository.instance
+            .isAdminApproved(user.uid);
+
+        if (isApproved) {
+          Get.offAll(() => const AdminNavigationMenu());
+        } else {
+          await AdminAuthenticationRepository.instance.logout();
+        }
         return;
       }
 

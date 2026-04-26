@@ -61,19 +61,6 @@ class AdminVerifyEmailScreen extends StatelessWidget {
               ),
               const SizedBox(height: WasteSizes.spaceBtwItems),
 
-              // Buttons
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => controller.checkEmailVerificationStatus(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: WasteColors.buttonPrimary,
-                  ),
-                  child: Text(WasteTexts.tContinue.tr),
-                ),
-              ),
-              const SizedBox(height: WasteSizes.spaceBtwItems),
-
               SizedBox(
                 width: double.infinity,
                 child: TextButton(

@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ewastecare/features/chat/controllers/chat_controller.dart';
 import 'package:ewastecare/features/chat/screens/chat_list_screen.dart';
+import 'package:ewastecare/features/personalization/controllers/admin_controller.dart';
+import 'package:ewastecare/features/home/screens/admin/pending_admin_requests_screen.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
 import 'package:ewastecare/features/waste_point/screen/recycle_rate.dart';
 import 'package:ewastecare/features/home/controllers/admin_setting_controller.dart';
@@ -39,6 +41,9 @@ class AdminEndDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final adminController = Get.isRegistered<AdminController>()
+        ? Get.find<AdminController>()
+        : Get.put(AdminController());
     final chatController = Get.isRegistered<ChatController>()
         ? Get.find<ChatController>()
         : Get.put(ChatController());
@@ -119,6 +124,30 @@ class AdminEndDrawer extends StatelessWidget {
                     title: 'language'.tr,
                     onTap: () => _showLanguageSheet(context),
                   ),
+                  Obx(() {
+                    if (!adminController.user.value.isDeveloper) {
+                      return const SizedBox.shrink();
+                    }
+
+                    return StreamBuilder(
+                      stream: adminController.adminRepository
+                          .pendingAdminRequests(),
+                      builder: (context, snapshot) {
+                        final pendingCount = snapshot.data?.docs.length ?? 0;
+
+                        return _buildMenuTile(
+                          context,
+                          icon: Icons.verified_user,
+                          title: 'Pending Admin Requests',
+                          trailing: _buildUnreadBadge(pendingCount),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Get.to(() => const PendingAdminRequestsScreen());
+                          },
+                        );
+                      },
+                    );
+                  }),
                   StreamBuilder(
                     stream: chatController.conversationsStream(),
                     builder: (context, snapshot) {

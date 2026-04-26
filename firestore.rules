@@ -47,8 +47,12 @@ service cloud.firestore {
 
     match /Admins/{adminId} {
       allow read: if signedIn();
-      allow create: if signedIn() && request.auth.uid == adminId;
-      allow update: if signedIn() && request.auth.uid == adminId;
+      allow create: if signedIn()
+        && request.auth.uid == adminId
+        && request.resource.data.Approved == false;
+      allow update: if signedIn()
+        && request.auth.uid == adminId
+        && request.resource.data.Approved == resource.data.Approved;
       allow delete: if false;
     }
 

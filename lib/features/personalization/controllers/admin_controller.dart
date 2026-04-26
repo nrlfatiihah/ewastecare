@@ -52,6 +52,7 @@ class AdminController extends GetxController {
           email: userCredentials.user!.email ?? "",
           profilePicture: userCredentials.user!.photoURL ?? "",
           role: "admin",
+          approved: false,
         );
 
         // save user data

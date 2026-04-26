@@ -6,6 +6,46 @@ const {setGlobalOptions} = require("firebase-functions/v2");
 admin.initializeApp();
 setGlobalOptions({region: "asia-southeast1", maxInstances: 10});
 
+async function getAdminNotificationTokens() {
+  const snapshot = await admin
+      .firestore()
+      .collection("Admins")
+      .where("IsDeveloper", "==", true)
+      .get();
+
+  const tokens = [];
+  snapshot.forEach((doc) => {
+    const data = doc.data() || {};
+    const docTokens = Array.isArray(data.FcmTokens) ? data.FcmTokens : [];
+    tokens.push(...docTokens);
+  });
+
+  return [...new Set(tokens.filter((token) => token && token.trim()))];
+}
+
+async function sendNotificationToAdminTokens(tokens, payload) {
+  if (!Array.isArray(tokens) || tokens.length === 0) {
+    return;
+  }
+
+  await admin.messaging().sendEachForMulticast({
+    tokens,
+    notification: {
+      title: payload.title,
+      body: payload.body,
+    },
+    data: payload.data || {},
+    android: {
+      priority: "high",
+    },
+    apns: {
+      headers: {
+        "apns-priority": "10",
+      },
+    },
+  });
+}
+
 async function getProfileByUid(uid) {
   const usersRef = admin.firestore().collection("Users").doc(uid);
   const adminsRef = admin.firestore().collection("Admins").doc(uid);
@@ -114,6 +154,47 @@ exports.notifyNewChatMessage = onDocumentCreated(
         totalTokens: recipientTokens.length,
         successCount: response.successCount,
         failureCount: response.failureCount,
+      });
+    },
+);
+
+exports.notifyDeveloperOnNewAdminRequest = onDocumentCreated(
+    "Admins/{adminId}",
+    async (event) => {
+      const adminDoc = event.data ? event.data.data() : null;
+      if (!adminDoc) return;
+
+      const isApproved = adminDoc.Approved === true;
+      if (isApproved) return;
+
+      const adminId = (event.params.adminId || "").toString();
+      const adminEmail = (adminDoc.Email || "").toString().trim();
+      const adminName = (adminDoc.Username || "New admin request").toString().trim();
+
+      const tokens = await getAdminNotificationTokens();
+      if (tokens.length === 0) {
+        logger.info("No developer tokens available for new admin request", {
+          adminId,
+          adminEmail,
+        });
+        return;
+      }
+
+      await sendNotificationToAdminTokens(tokens, {
+        title: "New admin request",
+        body: `${adminName} (${adminEmail || "no email"}) is waiting for approval`,
+        data: {
+          type: "admin_request",
+          adminId,
+          adminEmail,
+          adminName,
+        },
+      });
+
+      logger.info("Developer notified about new admin request", {
+        adminId,
+        adminEmail,
+        tokenCount: tokens.length,
       });
     },
 );

@@ -59,7 +59,10 @@ class AdminLoginController extends GetxController {
         adminCredentials.user?.uid ?? "",
       );
 
-      redirectToHomePage(role);
+      final isApproved = await AdminAuthenticationRepository.instance
+          .isAdminApproved(adminCredentials.user?.uid ?? "");
+
+      redirectToHomePage(role, isApproved);
     } catch (e) {
       WasteFullScreenLoader.stopLoading();
       WasteLoaders.errorSnackBar(
@@ -70,7 +73,7 @@ class AdminLoginController extends GetxController {
   }
 
   // Chechk role for admin and user then redirect to dedicated home page
-  void redirectToHomePage(String? role) async {
+  void redirectToHomePage(String? role, bool isApproved) async {
     final box = GetStorage();
     final user = FirebaseAuth.instance.currentUser;
 
@@ -78,6 +81,17 @@ class AdminLoginController extends GetxController {
     if (user != null && !user.emailVerified) {
       WasteFullScreenLoader.stopLoading();
       Get.offAll(() => AdminVerifyEmailScreen(email: user.email));
+      return;
+    }
+
+    if (!isApproved) {
+      WasteFullScreenLoader.stopLoading();
+      WasteLoaders.errorSnackBar(
+        title: "Approval required",
+        message:
+            "Your admin account is pending developer approval. Please wait until it is approved.",
+      );
+      await AdminAuthenticationRepository.instance.logout();
       return;
     }
 
