@@ -77,7 +77,7 @@ class PointAllocationScreen extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: TextFormField(
-                                      controller: controller.userID,
+                                      controller: controller.customUserId,
                                       validator: (value) =>
                                           WasteValidator.validateEmptyText(
                                             "User ID",
@@ -97,7 +97,8 @@ class PointAllocationScreen extends StatelessWidget {
                                         () => const QRScannerScreen(),
                                       );
                                       if (scannedData != null) {
-                                        controller.userID.text = scannedData;
+                                        controller.customUserId.text =
+                                            scannedData;
                                       }
                                     },
                                     child: Container(

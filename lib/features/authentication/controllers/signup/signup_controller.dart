@@ -4,7 +4,6 @@ import 'package:ewastecare/data/repositories/admin/admin_repository.dart';
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ewastecare/data/repositories/authentication/authentication_repository.dart';
 import 'package:ewastecare/data/repositories/user/user_repository.dart';
-import 'package:ewastecare/features/authentication/screens/signup/admin_signup/admin_verify_email.dart';
 import 'package:ewastecare/features/authentication/screens/signup/user_signup/verify_email.dart';
 import 'package:ewastecare/features/personalization/models/admin_modal.dart';
 import 'package:ewastecare/features/personalization/models/user_model.dart';
@@ -72,12 +71,17 @@ class SignupController extends GetxController {
 
       // User Registration
       if (role.value == "user") {
+        final userRepository = Get.put(UserRepository());
+
         // Register user in the Firebase Authentication & Save user data in the Firebase
         final userCredential = await AuthenticationRepository.instance
             .registerWithEmailAndPassword(
               email.text.trim(),
               password.text.trim(),
             );
+
+        final generatedCustomUserId = await userRepository
+            .generateUniqueCustomUserIdFromAddress(homeAddress.text.trim());
 
         // Save Authenticated user data in the Firebase Firestore
         final newUser = UserModel(
@@ -94,9 +98,8 @@ class SignupController extends GetxController {
           wastePoint: 0,
           role: "user",
           userQR: '',
+          customUserId: generatedCustomUserId,
         );
-
-        final userRepository = Get.put(UserRepository());
         await userRepository.saveUserRecord(newUser);
 
         WasteFullScreenLoader.stopLoading();

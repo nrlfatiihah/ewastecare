@@ -34,6 +34,76 @@ class UserRepository extends GetxController {
     }
   }
 
+  // Build an address-based CustomUserId and append a numeric suffix when needed.
+  Future<String> generateUniqueCustomUserIdFromAddress(String address) async {
+    try {
+      final base = UserModel.generateCustomUserIdFromAddress(address);
+      var candidate = base;
+      var suffix = 2;
+
+      while (suffix < 10000) {
+        final existing = await _db
+            .collection("Users")
+            .where("CustomUserId", isEqualTo: candidate)
+            .limit(1)
+            .get();
+
+        if (existing.docs.isEmpty) return candidate;
+
+        final suffixText = suffix.toString();
+        final maxBaseLength = 100 - suffixText.length;
+        final trimmedBase = base.length > maxBaseLength
+            ? base.substring(0, maxBaseLength)
+            : base;
+        candidate = '$trimmedBase$suffixText';
+        suffix++;
+      }
+
+      throw "Unable to generate a unique CustomUserId. Please try again.";
+    } on FirebaseException catch (e) {
+      throw WasteFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const WasteFormatException();
+    } on PlatformException catch (e) {
+      throw WastePlatformException(e.code).message;
+    } catch (e) {
+      throw "Something went wrong, Please try again";
+    }
+  }
+
+  // Resolve either a Firebase Auth user ID or a scanned CustomUserId.
+  Future<String?> resolveUserIdFromInput(String input) async {
+    try {
+      final trimmedInput = input.trim();
+      if (trimmedInput.isEmpty) return null;
+
+      final directDoc = await _db.collection("Users").doc(trimmedInput).get();
+      if (directDoc.exists) {
+        return trimmedInput;
+      }
+
+      final customIdSnapshot = await _db
+          .collection("Users")
+          .where("CustomUserId", isEqualTo: trimmedInput)
+          .limit(1)
+          .get();
+
+      if (customIdSnapshot.docs.isNotEmpty) {
+        return customIdSnapshot.docs.first.id;
+      }
+
+      return null;
+    } on FirebaseException catch (e) {
+      throw WasteFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const WasteFormatException();
+    } on PlatformException catch (e) {
+      throw WastePlatformException(e.code).message;
+    } catch (e) {
+      throw "Something went wrong, Please try again";
+    }
+  }
+
   // Function to fetch user details based on user ID
   Future<UserModel> fetchUserDetails() async {
     try {
@@ -179,12 +249,17 @@ class UserRepository extends GetxController {
   }
 
   // Generate User qr code, render in image format and save in database
-  Future<String> generateAndSaveQRCode(String userId) async {
+  Future<String> generateAndSaveQRCode(
+    String authUserId, {
+    String? qrData,
+    String? customUserId,
+  }) async {
     try {
-      // Generate QR code
-      final qrData = userId;
+      // qrData can be a custom display ID while authUserId remains the
+      // Firestore/Storage key to keep user records consistent.
+      final payload = qrData ?? authUserId;
       final qrPainter = QrPainter(
-        data: qrData,
+        data: payload,
         version: QrVersions.auto,
         gapless: true,
         eyeStyle: const QrEyeStyle(
@@ -203,7 +278,7 @@ class UserRepository extends GetxController {
 
       // Upload QR code image to Firebase Storage
       final storageRef = _storage.ref().child(
-        'Users/Images/qr_codes/$userId.png',
+        'Users/Images/qr_codes/$authUserId.png',
       );
       await storageRef.putData(imageData);
 
@@ -211,7 +286,11 @@ class UserRepository extends GetxController {
       final downloadUrl = await storageRef.getDownloadURL();
 
       // Update UserQR field in Firestore with the download URL
-      await _db.collection('Users').doc(userId).update({'UserQR': downloadUrl});
+      await _db.collection('Users').doc(authUserId).update({
+        'UserQR': downloadUrl,
+        if (customUserId != null && customUserId.isNotEmpty)
+          'CustomUserId': customUserId,
+      });
 
       return downloadUrl;
     } catch (e) {

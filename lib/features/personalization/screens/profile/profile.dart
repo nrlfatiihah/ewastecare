@@ -131,11 +131,13 @@ class ProfileScreen extends StatelessWidget {
                   icon: Iconsax.edit,
                 ),
               ),
-              WasteProfileMenu(
-                title: WasteTexts.userID.tr,
-                value: controller.user.value.id,
-                icon: Iconsax.lock,
-                onPressed: () {},
+              Obx(
+                () => WasteProfileMenu(
+                  title: WasteTexts.userID.tr,
+                  value: controller.getDisplayUserId(),
+                  icon: Iconsax.lock,
+                  onPressed: () {},
+                ),
               ),
 
               const SizedBox(height: 32),

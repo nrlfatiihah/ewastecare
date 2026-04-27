@@ -15,6 +15,7 @@ class UserModel {
   int wastePoint;
   final String role;
   String userQR;
+  String customUserId;
 
   UserModel({
     required this.id,
@@ -30,6 +31,7 @@ class UserModel {
     required this.wastePoint,
     required this.role,
     required this.userQR,
+    this.customUserId = "",
   });
 
   // helper fx to get full name
@@ -53,6 +55,14 @@ class UserModel {
     return usernameWithPrefix;
   }
 
+  static String generateCustomUserIdFromAddress(String address) {
+    final normalized = address.toLowerCase().trim();
+    final slug = normalized.replaceAll(RegExp(r'[^a-z0-9]+'), '');
+
+    if (slug.isEmpty) return 'address-not-set';
+    return slug.length > 100 ? slug.substring(0, 100) : slug;
+  }
+
   // static function to create an empty user model
   static UserModel empty() => UserModel(
     id: "",
@@ -68,6 +78,7 @@ class UserModel {
     wastePoint: 0,
     role: "",
     userQR: "",
+    customUserId: "",
   );
 
   // convert model to JSON structure for storing data in firebase
@@ -85,6 +96,7 @@ class UserModel {
       "WastePoint": wastePoint,
       "Role": role,
       "UserQR": userQR,
+      "CustomUserId": customUserId,
     };
   }
 
@@ -109,6 +121,7 @@ class UserModel {
         wastePoint: data["WastePoint"] ?? "",
         role: data["Role"] ?? "",
         userQR: data["UserQR"] ?? "",
+        customUserId: data["CustomUserId"] ?? "",
       );
     } else {
       throw Exception("Document data is null");

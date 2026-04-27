@@ -277,12 +277,28 @@ class UserController extends GetxController {
     }
   }
 
+  String _buildCustomQrUserId() {
+    if (user.value.customUserId.isNotEmpty) return user.value.customUserId;
+    return UserModel.generateCustomUserIdFromAddress(user.value.homeAddress);
+  }
+
+  String getDisplayUserId() {
+    if (user.value.customUserId.isNotEmpty) return user.value.customUserId;
+    return _buildCustomQrUserId();
+  }
+
   // get user qr image and redirect to userQrCode page
-  Future<String> generateAndSaveQRCode(String userId) async {
+  Future<String> generateAndSaveQRCode(String authUserId) async {
     try {
-      final downloadUrl = await userRepository.generateAndSaveQRCode(userId);
+      final customQrUserId = _buildCustomQrUserId();
+      final downloadUrl = await userRepository.generateAndSaveQRCode(
+        authUserId,
+        qrData: customQrUserId,
+        customUserId: customQrUserId,
+      );
       user.update((val) {
         val?.userQR = downloadUrl;
+        val?.customUserId = customQrUserId;
       });
 
       Get.to(() => const UserQrCode());

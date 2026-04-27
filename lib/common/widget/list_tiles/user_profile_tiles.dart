@@ -37,11 +37,13 @@ class WasteUserProfileTile extends StatelessWidget {
           context,
         ).textTheme.headlineSmall!.apply(color: WasteColors.white),
       ),
-      subtitle: Text(
-        controller.user.value.id,
-        style: Theme.of(
-          context,
-        ).textTheme.bodyMedium!.apply(color: WasteColors.white),
+      subtitle: Obx(
+        () => Text(
+          controller.getDisplayUserId(),
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium!.apply(color: WasteColors.white),
+        ),
       ),
       trailing: IconButton(
         onPressed: () =>

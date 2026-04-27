@@ -35,7 +35,7 @@ class AllocateWastePointController extends GetxController {
   // var weightControllers = <String, TextEditingController>{}.obs; // Track weight input controllers
   Map<String, TextEditingController> weightControllers = {};
 
-  var userID = TextEditingController();
+  var customUserId = TextEditingController();
   final addPointFormKey = GlobalKey<FormState>();
   final transactionCollection = TransactionRepository();
   final userRepository = UserRepository();
@@ -241,6 +241,20 @@ class AllocateWastePointController extends GetxController {
       // Prepare grouped materials data
       final materials = _prepareMaterialsForSaving();
 
+      final scannedInput = customUserId.text.trim();
+      final resolvedUserId = await userRepository.resolveUserIdFromInput(
+        scannedInput,
+      );
+
+      if (resolvedUserId == null) {
+        WasteFullScreenLoader.stopLoading();
+        WasteLoaders.errorSnackBar(
+          title: WasteTexts.oops.tr,
+          message: 'No user found for this Custom User ID.',
+        );
+        return;
+      }
+
       // Validate that at least one material has been filled
       bool hasMaterials = materials.values.any(
         (materialMap) => materialMap.isNotEmpty,
@@ -265,7 +279,7 @@ class AllocateWastePointController extends GetxController {
       // Create a TransactionModel instance
       AllocatePoint transaction = AllocatePoint(
         transactionId: _generateTransactionId(), // Generate a unique ID
-        userId: userID.text,
+        userId: resolvedUserId,
         totalPoints: result.finalPoints, // Total
         totalPrice: result.totalPrice, // Total
         transactionDate: DateTime.now(),
@@ -275,21 +289,24 @@ class AllocateWastePointController extends GetxController {
 
       // Fetch existing points
       final existingPoints = await userRepository.fetchUserWastePoints(
-        userID.text,
+        resolvedUserId,
       );
 
       // Adding new point with existing points
       final newTotalPoints = existingPoints + result.finalPoints;
 
       // Update user points with new total points
-      await userRepository.updateUserWastePoints(userID.text, newTotalPoints);
+      await userRepository.updateUserWastePoints(
+        resolvedUserId,
+        newTotalPoints,
+      );
 
       // Save the transaction using the repository
       await _materialRepository.saveUserPoints(transaction);
 
       // log for transaction data
       await transactionCollection.AddPointLog(
-        userId: userID.text,
+        userId: resolvedUserId,
         type: 'Add',
         amount: result.finalPoints,
         description: WasteTexts.wastePointsAdded.tr,
@@ -298,7 +315,7 @@ class AllocateWastePointController extends GetxController {
       // await newUserDashboardRepository.updateUserDashboardWithTransaction(transaction);
 
       await newUserDashboardRepository.updateUserDashboardWithTransaction(
-        userId: userID.text,
+        userId: resolvedUserId,
         materials: materials,
         totalPoints: result.finalPoints, // Total
         totalPrice: result.totalPrice,
@@ -328,7 +345,7 @@ class AllocateWastePointController extends GetxController {
 
   // Clear input fields after saving
   void clearFields() {
-    userID.clear();
+    customUserId.clear();
     weightControllers.forEach((key, controller) => controller.clear());
   }
 
