@@ -1,4 +1,5 @@
 // use and checked
+import 'package:ewastecare/common/widget/form_fields/address_autocomplete_field.dart';
 import 'package:ewastecare/features/authentication/controllers/signup/signup_controller.dart';
 import 'package:ewastecare/features/authentication/screens/signup/user_signup/widget/terms_conditions_checkbox.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
@@ -129,17 +130,14 @@ class WasteSignUpForm extends StatelessWidget {
           const SizedBox(height: WasteSizes.spaceBtwInputFields),
 
           // Address line
-          TextFormField(
+          WasteAddressAutocompleteField(
+            controller: controller.homeAddress,
             validator: (value) => WasteValidator.validateAddress(
               WasteTexts.homeAddressValidation.tr,
               value,
             ),
-            controller: controller.homeAddress,
-            expands: false,
-            decoration: InputDecoration(
-              labelText: WasteTexts.homeAddress.tr,
-              prefixIcon: Icon(Iconsax.location),
-            ),
+            labelText: WasteTexts.homeAddress.tr,
+            prefixIcon: const Icon(Iconsax.location),
           ),
           const SizedBox(height: WasteSizes.spaceBtwInputFields),
 

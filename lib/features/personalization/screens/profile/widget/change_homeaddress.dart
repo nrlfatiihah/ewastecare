@@ -1,4 +1,5 @@
 import 'package:ewastecare/common/widget/appbar/appbar.dart';
+import 'package:ewastecare/common/widget/form_fields/address_autocomplete_field.dart';
 import 'package:ewastecare/features/personalization/controllers/update_homeaddress_controller.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
@@ -28,7 +29,7 @@ class ChangeHomeAddress extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "This home address will be display and store in this application",
+              "Choose a registered address from the list.",
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(height: WasteSizes.spaceBtwSections),
@@ -36,15 +37,15 @@ class ChangeHomeAddress extends StatelessWidget {
               key: controller.updateHomeAddressFormKey,
               child: Column(
                 children: [
-                  TextFormField(
+                  WasteAddressAutocompleteField(
                     controller: controller.homeAddress,
-                    validator: (value) =>
-                        WasteValidator.validateEmptyText("homeAddress", value),
-                    expands: false,
-                    decoration: InputDecoration(
-                      labelText: WasteTexts.homeAddress.tr,
-                      prefixIcon: Icon(Iconsax.location),
+                    validator: (value) => WasteValidator.validateEmptyText(
+                      WasteTexts.homeAddressValidation.tr,
+                      value,
                     ),
+                    labelText: WasteTexts.homeAddress.tr,
+                    prefixIcon: const Icon(Iconsax.location),
+                    hintText: 'Search your address',
                   ),
                   const SizedBox(height: WasteSizes.spaceBtwInputFields),
                 ],

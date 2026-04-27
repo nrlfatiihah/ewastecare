@@ -56,6 +56,17 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    function isApprovedAdmin() {
+      return signedIn() &&
+          exists(/databases/$(database)/documents/Admins/$(request.auth.uid)) &&
+          get(/databases/$(database)/documents/Admins/$(request.auth.uid)).data.Approved == true;
+    }
+
+    match /Addresses/{addressId} {
+      allow read: if true;
+      allow create, update, delete: if isApprovedAdmin();
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }

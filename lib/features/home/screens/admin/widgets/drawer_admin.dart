@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:ewastecare/data/repositories/authentication/admin_auth_repo.dart';
 import 'package:ewastecare/features/chat/controllers/chat_controller.dart';
 import 'package:ewastecare/features/chat/screens/chat_list_screen.dart';
+import 'package:ewastecare/features/home/screens/admin/address_management_screen.dart';
 import 'package:ewastecare/features/personalization/controllers/admin_controller.dart';
 import 'package:ewastecare/features/home/screens/admin/pending_admin_requests_screen.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
@@ -116,6 +117,15 @@ class AdminEndDrawer extends StatelessWidget {
                           ),
                         );
                       }
+                    },
+                  ),
+                  _buildMenuTile(
+                    context,
+                    icon: Icons.location_on_outlined,
+                    title: WasteTexts.manageAddresses.tr,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Get.to(() => const AddressManagementScreen());
                     },
                   ),
                   _buildMenuTile(

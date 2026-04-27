@@ -63,6 +63,7 @@ class WasteTexts {
   static const String loginAdmin = 'loginAdmin';
   static const String title = 'title';
   static const String subTitle = 'subTitle';
+  static const String manageAddresses = 'manageAddresses';
 
   //Admin login page details
   static const String adminLoginTitle = 'adminLoginTitle';
@@ -96,6 +97,7 @@ class WasteTexts {
   static const String lastNameValidation = 'lastNameValidation';
   static const String usernameValidation = 'usernameValidation';
   static const String homeAddressValidation = 'homeAddressValidation';
+  static const String selectAddressFromList = 'selectAddressFromList';
   static const String ageValidation = 'ageValidation';
   static const String genderValidation = 'genderValidation';
   static const String ageRequired = 'ageRequired';
