@@ -5,9 +5,12 @@ import 'package:excel/excel.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:flutter/services.dart';
 
 class TestDownloadWasteDataController extends GetxController {
+  static const MethodChannel _downloadsChannel = MethodChannel(
+    'ewastecare/downloads',
+  );
   static TestDownloadWasteDataController get instance =>
       Get.put(TestDownloadWasteDataController());
   final TestDownloadWasteDataRepo testDownloadWasteDataRepo =
@@ -60,24 +63,19 @@ class TestDownloadWasteDataController extends GetxController {
       String outputPath = await saveExcel(dataSets);
       print('Excel file saved at: $outputPath');
 
-      // Share file
       if (outputPath.isNotEmpty) {
-        final xFile = XFile(outputPath);
-        final result = await Share.shareXFiles(
-          [xFile],
-          text: 'Here is your file',
-          subject: 'Check out this file',
-        );
+        final downloadedPath = await copyFileToDownloads(outputPath);
 
-        if (result != ShareResult.unavailable) {
+        if (downloadedPath != null) {
           WasteLoaders.successSnackBar(
-            title: "Success",
-            message: "File downloaded and shared successfully",
+            title: "Downloaded",
+            message: "File downloaded to: $downloadedPath",
           );
         } else {
           WasteLoaders.errorSnackBar(
-            title: "Error",
-            message: "Failed to share file",
+            title: "Not In Downloads",
+            message:
+                "Could not save to public Downloads. File is in app storage: $outputPath",
           );
         }
       } else {
@@ -89,9 +87,70 @@ class TestDownloadWasteDataController extends GetxController {
     } catch (e) {
       WasteLoaders.errorSnackBar(
         title: "Error",
-        message: "Error generating or sharing file",
+        message: "Error generating or downloading file",
       );
-      print('Error generating or sharing file: $e');
+      print('Error generating or downloading file: $e');
+    }
+  }
+
+  Future<String?> copyFileToDownloads(String sourcePath) async {
+    try {
+      final sourceFile = File(sourcePath);
+      if (!sourceFile.existsSync()) {
+        return null;
+      }
+
+      final fileName = sourcePath.split(Platform.pathSeparator).last;
+
+      if (Platform.isAndroid) {
+        try {
+          final bytes = await sourceFile.readAsBytes();
+          final savedUri = await _downloadsChannel.invokeMethod<String>(
+            'saveFileToDownloads',
+            {
+              'fileName': fileName,
+              'mimeType':
+                  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+              'bytes': bytes,
+            },
+          );
+
+          if (savedUri != null && savedUri.isNotEmpty) {
+            return savedUri;
+          }
+        } on PlatformException catch (e) {
+          print('MediaStore save failed: ${e.message}');
+        }
+      }
+
+      Directory? downloadsDirectory;
+      try {
+        downloadsDirectory = await getDownloadsDirectory();
+      } catch (_) {
+        downloadsDirectory = null;
+      }
+
+      // Android fallback for public Downloads path if provider returns null.
+      if (downloadsDirectory == null && Platform.isAndroid) {
+        downloadsDirectory = Directory('/storage/emulated/0/Download');
+      }
+
+      if (downloadsDirectory == null) {
+        return null;
+      }
+
+      if (!downloadsDirectory.existsSync()) {
+        downloadsDirectory.createSync(recursive: true);
+      }
+
+      final destinationPath =
+          '${downloadsDirectory.path}${Platform.pathSeparator}$fileName';
+
+      await sourceFile.copy(destinationPath);
+      return destinationPath;
+    } catch (e) {
+      print('Failed to copy file to Downloads: $e');
+      return null;
     }
   }
 
