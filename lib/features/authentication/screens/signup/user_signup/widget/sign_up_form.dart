@@ -153,8 +153,8 @@ class WasteSignUpForm extends StatelessWidget {
                   initialDate:
                       controller.selectedDateOfBirth.value ??
                       DateTime.now().subtract(Duration(days: 365 * 18)),
-                  firstDate: DateTime(1924),
-                  lastDate: DateTime.now().subtract(Duration(days: 365 * 7)),
+                  firstDate: DateTime(1950),
+                  lastDate: DateTime.now(),
                 );
                 if (picked != null) {
                   controller.selectedDateOfBirth.value = picked;
@@ -205,13 +205,9 @@ class WasteSignUpForm extends StatelessWidget {
                     onTap: () async {
                       final DateTime? picked = await showDatePicker(
                         context: context,
-                        initialDate:
-                            controller.selectedDateOfBirth.value ??
-                            DateTime.now().subtract(Duration(days: 365 * 18)),
-                        firstDate: DateTime(1924),
-                        lastDate: DateTime.now().subtract(
-                          Duration(days: 365 * 7),
-                        ),
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1950),
+                        lastDate: DateTime.now(),
                       );
                       if (picked != null) {
                         controller.selectedDateOfBirth.value = picked;
