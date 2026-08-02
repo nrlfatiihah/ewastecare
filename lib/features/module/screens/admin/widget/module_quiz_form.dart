@@ -1,4 +1,5 @@
 import 'package:ewastecare/features/module/controllers/module_controller.dart';
+import 'package:ewastecare/features/module/screens/admin/widget/module_quiz_preview.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -31,10 +32,35 @@ class ModuleQuizForm extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: ElevatedButton.icon(
+                onPressed: () => Get.to(
+                  () => ModuleQuizPreviewScreen(controller: controller),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  foregroundColor: WasteColors.primary,
+                  side: const BorderSide(color: WasteColors.primary),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 16,
+                  ),
+                  elevation: 0,
+                ),
+                icon: const Icon(Icons.visibility),
+                label: const Text('Preview Quiz'),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton.icon(
                 onPressed: controller.addQuizQuestion,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: WasteColors.primary,
                   side: BorderSide.none,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 16,
+                  ),
                 ),
                 icon: const Icon(Icons.add),
                 label: const Text('Add Question'),
