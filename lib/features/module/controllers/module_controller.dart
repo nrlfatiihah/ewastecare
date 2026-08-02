@@ -5,6 +5,8 @@ import 'package:ewastecare/admin_navigation_menu.dart';
 import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/data/repositories/module/module_repository.dart';
 import 'package:ewastecare/features/module/models/learning_module_model.dart';
+import 'package:ewastecare/features/module/models/quiz_question_form_model.dart';
+import 'package:ewastecare/features/module/models/quiz_question_model.dart';
 import 'package:ewastecare/features/module/models/section_form_model.dart';
 import 'package:ewastecare/features/module/models/section_model.dart';
 import 'package:ewastecare/features/module/screens/admin/admin_module.dart';
@@ -31,6 +33,7 @@ class ModuleController extends GetxController {
   final moduleTitle = TextEditingController();
   final moduleSubtitle = TextEditingController();
   final sections = <SectionFormModel>[].obs;
+  final quizQuestions = <QuizQuestionFormModel>[].obs;
   RxList<ModuleModel> learningModule = <ModuleModel>[].obs;
   bool moduleDataFetched = false;
   final isEditing = false.obs;
@@ -58,6 +61,10 @@ class ModuleController extends GetxController {
       for (var point in section.points) {
         point.dispose();
       }
+    }
+
+    for (var question in quizQuestions) {
+      question.dispose();
     }
 
     super.onClose();
@@ -160,6 +167,7 @@ class ModuleController extends GetxController {
       final imageUrl = await uploadImageToStorage(imagePath.value);
 
       final List<SectionModel> contentSections = [];
+      final List<QuizQuestionModel> moduleQuizQuestions = _buildQuizQuestions();
 
       for (var section in sections) {
         String? sectionImageUrl;
@@ -194,6 +202,7 @@ class ModuleController extends GetxController {
         moduleSubtitle: moduleSubtitle.text.trim(),
         moduleImage: imageUrl,
         contentSections: contentSections,
+        quizQuestions: moduleQuizQuestions,
       );
 
       final bool isUnique = await moduleRepository.isIdUnique(
@@ -242,6 +251,10 @@ class ModuleController extends GetxController {
     imagePath.value = module.moduleImage;
 
     sections.clear();
+    for (var question in quizQuestions) {
+      question.dispose();
+    }
+    quizQuestions.clear();
 
     for (var section in module.contentSections) {
       final sectionForm = SectionFormModel();
@@ -272,6 +285,8 @@ class ModuleController extends GetxController {
       }
       sections.add(sectionForm);
     }
+
+    loadQuizQuestionsForEditing(module.quizQuestions);
   }
 
   Future<void> updateModule(ModuleModel oldModule) async {
@@ -332,6 +347,7 @@ class ModuleController extends GetxController {
         moduleSubtitle: moduleSubtitle.text.trim(),
         moduleImage: moduleImageUrl,
         contentSections: contentSections,
+        quizQuestions: _buildQuizQuestions(),
       );
 
       await moduleRepository.updateModuleRecord(updatedModule);
@@ -378,6 +394,48 @@ class ModuleController extends GetxController {
     sections[sectionIndex].points[pointIndex].text = newPoint;
   }
 
+  void addQuizQuestion() {
+    quizQuestions.add(QuizQuestionFormModel());
+  }
+
+  void removeQuizQuestion(int index) {
+    quizQuestions[index].dispose();
+    quizQuestions.removeAt(index);
+  }
+
+  List<QuizQuestionModel> _buildQuizQuestions() {
+    return quizQuestions
+        .map((question) => question.toModel())
+        .where(
+          (question) =>
+              question.question.isNotEmpty &&
+              question.options.every((option) => option.isNotEmpty),
+        )
+        .toList();
+  }
+
+  void loadQuizQuestionsForEditing(List<QuizQuestionModel> questions) {
+    for (var question in quizQuestions) {
+      question.dispose();
+    }
+    quizQuestions.clear();
+
+    for (final question in questions) {
+      final form = QuizQuestionFormModel(
+        correctAnswerIndex: question.correctAnswerIndex,
+      );
+      form.questionController.text = question.question;
+      for (
+        var i = 0;
+        i < form.optionControllers.length && i < question.options.length;
+        i++
+      ) {
+        form.optionControllers[i].text = question.options[i];
+      }
+      quizQuestions.add(form);
+    }
+  }
+
   void addSection() {
     sections.add(SectionFormModel());
   }
@@ -401,6 +459,11 @@ class ModuleController extends GetxController {
       }
     }
     sections.clear();
+
+    for (var question in quizQuestions) {
+      question.dispose();
+    }
+    quizQuestions.clear();
   }
 
   Future<void> fetchUserCompletedModules() async {

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ewastecare/features/module/models/quiz_question_model.dart';
 import 'package:ewastecare/features/module/models/section_model.dart';
 
 class ModuleModel {
@@ -7,6 +8,7 @@ class ModuleModel {
   String moduleSubtitle;
   String moduleImage;
   List<SectionModel> contentSections;
+  List<QuizQuestionModel> quizQuestions;
 
   ModuleModel({
     required this.id,
@@ -14,6 +16,7 @@ class ModuleModel {
     required this.moduleSubtitle,
     required this.moduleImage,
     required this.contentSections,
+    required this.quizQuestions,
   });
 
   static ModuleModel empty() => ModuleModel(
@@ -22,6 +25,7 @@ class ModuleModel {
     moduleSubtitle: "",
     moduleImage: "",
     contentSections: [],
+    quizQuestions: [],
   );
 
   toJson() {
@@ -30,6 +34,7 @@ class ModuleModel {
       "moduleSubtitle": moduleSubtitle,
       "moduleImage": moduleImage,
       "contentSections": contentSections.map((e) => e.toJson()).toList(),
+      "quizQuestions": quizQuestions.map((e) => e.toJson()).toList(),
     };
   }
 
@@ -43,12 +48,19 @@ class ModuleModel {
     final sections = sectionsData
         .map((e) => SectionModel.fromMap(e as Map<String, dynamic>))
         .toList();
+
+    final quizQuestionsData = data['quizQuestions'] as List<dynamic>? ?? [];
+    final quizQuestions = quizQuestionsData
+        .map((e) => QuizQuestionModel.fromMap(e as Map<String, dynamic>))
+        .toList();
+
     return ModuleModel(
       id: document.id,
       moduleTitle: data["moduleTitle"] ?? "",
       moduleSubtitle: data["moduleSubtitle"] ?? "",
       moduleImage: data["moduleImage"] ?? "",
       contentSections: sections,
+      quizQuestions: quizQuestions,
     );
   }
 }

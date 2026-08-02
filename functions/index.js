@@ -1,10 +1,13 @@
 const admin = require("firebase-admin");
 const {logger} = require("firebase-functions");
 const {onDocumentCreated} = require("firebase-functions/v2/firestore");
+const {onRequest} = require("firebase-functions/v2/https");
+const {defineSecret} = require("firebase-functions/params");
 const {setGlobalOptions} = require("firebase-functions/v2");
 
 admin.initializeApp();
 setGlobalOptions({region: "asia-southeast1", maxInstances: 10});
+const googleTranslateApiKey = defineSecret("GOOGLE_TRANSLATE_API_KEY");
 
 async function getAdminNotificationTokens() {
   const snapshot = await admin
@@ -196,5 +199,87 @@ exports.notifyDeveloperOnNewAdminRequest = onDocumentCreated(
         adminEmail,
         tokenCount: tokens.length,
       });
+    },
+);
+
+exports.translateText = onRequest(
+    {
+      region: "asia-southeast1",
+      secrets: [googleTranslateApiKey],
+    },
+    async (req, res) => {
+      res.set("Access-Control-Allow-Origin", "*");
+      res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+      res.set("Access-Control-Allow-Headers", "Content-Type");
+
+      if (req.method === "OPTIONS") {
+        res.status(204).send("");
+        return;
+      }
+
+      if (req.method !== "POST") {
+        res.status(405).json({error: "Method not allowed"});
+        return;
+      }
+
+      const body = req.body || {};
+      const text = (body.text || "").toString().trim();
+      const targetLanguage = (body.targetLanguage || "").toString().trim();
+      const sourceLanguage = (body.sourceLanguage || "").toString().trim();
+
+      if (!text) {
+        res.status(400).json({error: "text is required"});
+        return;
+      }
+
+      if (!targetLanguage) {
+        res.status(400).json({error: "targetLanguage is required"});
+        return;
+      }
+
+      const endpoint = new URL("https://translation.googleapis.com/language/translate/v2");
+      endpoint.searchParams.set("key", googleTranslateApiKey.value());
+      endpoint.searchParams.set("q", text);
+      endpoint.searchParams.set("target", targetLanguage);
+      endpoint.searchParams.set("format", "text");
+
+      if (sourceLanguage) {
+        endpoint.searchParams.set("source", sourceLanguage);
+      }
+
+      try {
+        const response = await fetch(endpoint, {method: "POST"});
+        const payload = await response.json();
+
+        if (!response.ok) {
+          logger.error("Translate API request failed", {
+            status: response.status,
+            payload,
+          });
+
+          res.status(response.status).json({
+            error: "Google Translate API request failed",
+          });
+          return;
+        }
+
+        const translation = payload && payload.data && payload.data.translations
+            ? payload.data.translations[0]
+            : null;
+        const translatedText = translation ? translation.translatedText : null;
+
+        if (!translatedText) {
+          res.status(500).json({error: "No translated text returned"});
+          return;
+        }
+
+        res.status(200).json({
+          translatedText,
+          detectedSourceLanguage: translation.detectedSourceLanguage || null,
+        });
+      } catch (error) {
+        logger.error("Translate function failed", error);
+        res.status(500).json({error: "Translation failed"});
+      }
     },
 );

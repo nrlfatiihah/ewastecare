@@ -50,6 +50,7 @@ dependencies:
   flutter_native_splash: ^2.4.4
   get_storage: ^2.1.1
   connectivity_plus: ^7.0.0
+  http: ^1.2.2
   image_picker: ^1.2.1
   cached_network_image: ^3.4.1
   lottie: ^3.3.0

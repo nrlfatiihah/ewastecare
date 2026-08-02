@@ -4,6 +4,7 @@ import 'package:ewastecare/features/module/controllers/module_controller.dart';
 import 'package:ewastecare/features/module/models/learning_module_model.dart';
 import 'package:ewastecare/features/module/screens/admin/widget/add_module_image.dart';
 import 'package:ewastecare/features/module/screens/admin/widget/add_section_image.dart';
+import 'package:ewastecare/features/module/screens/admin/widget/module_quiz_form.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -216,6 +217,10 @@ class AdminEditModuleScreen extends StatelessWidget {
                     }),
                   ),
                 ),
+
+                const SizedBox(height: WasteSizes.spaceBtwSections),
+
+                ModuleQuizForm(controller: controller),
 
                 const SizedBox(height: WasteSizes.spaceBtwSections),
 

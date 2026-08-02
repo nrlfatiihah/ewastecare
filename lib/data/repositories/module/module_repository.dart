@@ -75,6 +75,9 @@ class ModuleRepository extends GetxController {
         "moduleSubtitle": module.moduleSubtitle,
         "moduleImage": module.moduleImage,
         "contentSections": sectionsData,
+        "quizQuestions": module.quizQuestions
+            .map((question) => question.toJson())
+            .toList(),
         "updatedAt": FieldValue.serverTimestamp(),
       };
 

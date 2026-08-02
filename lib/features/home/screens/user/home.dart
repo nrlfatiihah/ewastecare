@@ -11,19 +11,35 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class UserHomeScreen extends StatelessWidget {
+class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({super.key});
 
   @override
+  State<UserHomeScreen> createState() => _UserHomeScreenState();
+}
+
+class _UserHomeScreenState extends State<UserHomeScreen> {
+  final controller = UserController.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadHomeData();
+    });
+  }
+
+  Future<void> _loadHomeData() async {
+    controller.resetDataFetched();
+    await controller.fetchUserRecord();
+    await controller.fetchTransactions();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controller = UserController.instance;
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async {
-          controller.resetDataFetched(); // Reset dataFetched flag
-          await controller.fetchUserRecord();
-          await controller.fetchTransactions(); // Fetch user record again
-        },
+        onRefresh: _loadHomeData,
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Column(

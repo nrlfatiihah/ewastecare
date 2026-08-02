@@ -291,6 +291,8 @@ class UserController extends GetxController {
   Future<String> generateAndSaveQRCode(String authUserId) async {
     try {
       final customQrUserId = _buildCustomQrUserId();
+      Get.to(() => UserQrCode(qrData: customQrUserId));
+
       final downloadUrl = await userRepository.generateAndSaveQRCode(
         authUserId,
         qrData: customQrUserId,
@@ -300,8 +302,6 @@ class UserController extends GetxController {
         val?.userQR = downloadUrl;
         val?.customUserId = customQrUserId;
       });
-
-      Get.to(() => const UserQrCode());
 
       return downloadUrl;
     } catch (e) {
