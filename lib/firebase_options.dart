@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -58,6 +55,15 @@ class DefaultFirebaseOptions {
     messagingSenderId: '895299472255',
     projectId: 'ewastecare-10573',
     storageBucket: 'ewastecare-10573.firebasestorage.app',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyDD7-973YHBLGhzZB0g5MZ_HA5kN8B-Mko',
+    appId: '1:895299472255:ios:fff1ef9a3b4f56c637a84a',
+    messagingSenderId: '895299472255',
+    projectId: 'ewastecare-10573',
+    storageBucket: 'ewastecare-10573.firebasestorage.app',
+    iosBundleId: 'com.example.ewastecare',
   );
 
 }
