@@ -11,6 +11,7 @@ workflows:
       vars:
         XCODE_WORKSPACE: ios/Runner.xcworkspace
         XCODE_SCHEME: Runner
+        SWIFT_PACKAGE_MANAGER: false
       xcode: latest
       flutter: stable
     
@@ -23,7 +24,8 @@ workflows:
       - name: Build iOS
         script: |
           flutter build ios --release \
-            --no-codesign
+            --no-codesign \
+            --no-swift-package-manager
       
       - name: Package for distribution
         script: |
@@ -52,6 +54,7 @@ workflows:
       vars:
         XCODE_WORKSPACE: ios/Runner.xcworkspace
         XCODE_SCHEME: Runner
+        SWIFT_PACKAGE_MANAGER: false
       xcode: latest
       flutter: stable
     
@@ -64,7 +67,8 @@ workflows:
       - name: Build iOS Debug
         script: |
           flutter build ios --debug \
-            --no-codesign
+            --no-codesign \
+            --no-swift-package-manager
     
     artifacts:
       - build/ios/iphoneos
