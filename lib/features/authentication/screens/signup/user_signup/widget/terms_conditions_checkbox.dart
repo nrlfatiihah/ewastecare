@@ -1,5 +1,7 @@
 // use and checked
 import 'package:ewastecare/features/authentication/controllers/signup/signup_controller.dart';
+import 'package:ewastecare/features/personalization/screens/policy_n_privacy/policy_n_privacy.dart';
+import 'package:ewastecare/features/personalization/screens/terms_n_condition/terms_n_condition.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
 import 'package:ewastecare/utils/constants/sizes.dart';
 import 'package:ewastecare/utils/constants/texts.dart';
@@ -49,25 +51,7 @@ class WasteTermsAndConditionCheckbox extends StatelessWidget {
                         : WasteColors.primary,
                   ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text(WasteTexts.privacyPolicy.tr),
-                          content: const SingleChildScrollView(
-                            child: Text(
-                              "Your privacy is important to us. We collect personal data only to improve your eWasteCare experience. Your data will not be shared with third parties without your consent. You can request to delete your account and data anytime",
-                            ),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text(WasteTexts.close.tr),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                    ..onTap = () => Get.to(() => const PolicyNPrivacyScreen()),
                 ),
                 TextSpan(
                   text: '${WasteTexts.and.tr} ',
@@ -83,25 +67,7 @@ class WasteTermsAndConditionCheckbox extends StatelessWidget {
                         : WasteColors.primary,
                   ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text(WasteTexts.termsOfUse.tr),
-                          content: const SingleChildScrollView(
-                            child: Text(
-                              "By using eWasteCare, you agree to follow all local e-waste recycling rules and use the app responsibly. You must provide accurate information when creating an account. Your account may be suspended if any misuse or false reporting is detected. eWasteCare reserves the right to update these terms at any time.",
-                            ),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text(WasteTexts.close.tr),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                    ..onTap = () => Get.to(() => const TermsNConditionScreen()),
                 ),
               ],
             ),

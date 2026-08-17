@@ -16,6 +16,8 @@ class UserModel {
   final String role;
   String userQR;
   String customUserId;
+  String? pdpaConsentAt;
+  String? pdpaNoticeVersion;
 
   UserModel({
     required this.id,
@@ -32,6 +34,8 @@ class UserModel {
     required this.role,
     required this.userQR,
     this.customUserId = "",
+    this.pdpaConsentAt,
+    this.pdpaNoticeVersion,
   });
 
   // helper fx to get full name
@@ -79,6 +83,8 @@ class UserModel {
     role: "",
     userQR: "",
     customUserId: "",
+    pdpaConsentAt: null,
+    pdpaNoticeVersion: null,
   );
 
   // convert model to JSON structure for storing data in firebase
@@ -97,6 +103,8 @@ class UserModel {
       "Role": role,
       "UserQR": userQR,
       "CustomUserId": customUserId,
+      "PDPAConsentAt": pdpaConsentAt,
+      "PDPANoticeVersion": pdpaNoticeVersion,
     };
   }
 
@@ -118,10 +126,12 @@ class UserModel {
         email: data["Email"] ?? "",
         phoneNo: data["PhoneNumber"] ?? "",
         profilePicture: data["ProfilePicture"] ?? "",
-        wastePoint: data["WastePoint"] ?? "",
+        wastePoint: data["WastePoint"] ?? 0,
         role: data["Role"] ?? "",
         userQR: data["UserQR"] ?? "",
         customUserId: data["CustomUserId"] ?? "",
+        pdpaConsentAt: data["PDPAConsentAt"] ?? null,
+        pdpaNoticeVersion: data["PDPANoticeVersion"] ?? null,
       );
     } else {
       throw Exception("Document data is null");

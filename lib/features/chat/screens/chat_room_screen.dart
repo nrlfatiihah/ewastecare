@@ -1,3 +1,4 @@
+import 'package:ewastecare/common/widget/loaders/loaders.dart';
 import 'package:ewastecare/features/chat/controllers/chat_controller.dart';
 import 'package:ewastecare/features/chat/models/chat_message_model.dart';
 import 'package:flutter/material.dart';
@@ -56,14 +57,16 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       await controller.deleteConversation(widget.conversationId);
       if (!mounted) return;
       Get.back<void>();
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('chat_deleted'.tr)));
+      WasteLoaders.successSnackBar(
+        title: 'success'.tr,
+        message: 'chat_deleted'.tr,
+      );
     } catch (_) {
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('chat_delete_failed'.tr)));
+      WasteLoaders.errorSnackBar(
+        title: 'oops'.tr,
+        message: 'chat_delete_failed'.tr,
+      );
     }
   }
 

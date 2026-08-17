@@ -18,7 +18,8 @@ class SignupController extends GetxController {
 
   // variables
   final hidePassword = true.obs; // Observable for hiding/showing password
-  final privacyPolicy = true.obs; // Observable for hiding/showing password
+  final privacyPolicy =
+      false.obs; // User must explicitly accept policy before signup
   final firstName = TextEditingController(); // controller for first name input
   final lastName = TextEditingController(); // controller for last name input
   final username = TextEditingController(); // controller for username input
@@ -82,6 +83,8 @@ class SignupController extends GetxController {
 
         final generatedCustomUserId = await userRepository
             .generateUniqueCustomUserIdFromAddress(homeAddress.text.trim());
+        final consentedAt = DateTime.now().toUtc().toIso8601String();
+        const noticeVersion = 'PDPA-2026-08';
 
         // Save Authenticated user data in the Firebase Firestore
         final newUser = UserModel(
@@ -99,6 +102,8 @@ class SignupController extends GetxController {
           role: "user",
           userQR: '',
           customUserId: generatedCustomUserId,
+          pdpaConsentAt: consentedAt,
+          pdpaNoticeVersion: noticeVersion,
         );
         await userRepository.saveUserRecord(newUser);
 
