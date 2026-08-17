@@ -2,7 +2,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ewastecare/admin_navigation_menu.dart';
 import 'package:ewastecare/features/authentication/screens/welcome/welcome.dart';
-import 'package:ewastecare/features/authentication/screens/login/login_admin/admin_login.dart';
 import 'package:ewastecare/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:ewastecare/features/authentication/screens/signup/admin_signup/admin_verify_email.dart';
 import 'package:ewastecare/utils/exceptions/firebase_auth_exceptions.dart';

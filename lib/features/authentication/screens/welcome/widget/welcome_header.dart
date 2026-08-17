@@ -1,5 +1,4 @@
 // use and checked
-import 'package:ewastecare/features/authentication/screens/login/login_admin/admin_login.dart';
 import 'package:ewastecare/features/authentication/screens/login/login_user/login.dart';
 import 'package:ewastecare/features/authentication/screens/signup/user_signup/signup.dart';
 import 'package:ewastecare/utils/constants/colors.dart';
@@ -219,7 +218,7 @@ class WelcomeHeader extends StatelessWidget {
       child: Material(
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
-          onTap: () => _showSelectionDialog(context),
+          onTap: () => Get.to(() => const LoginScreen()),
           borderRadius: BorderRadius.circular(16),
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
@@ -303,154 +302,6 @@ class WelcomeHeader extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  // Show selection dialog with two options
-  void _showSelectionDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Header
-                const Icon(Iconsax.login, size: 48, color: Color(0xFF388E3C)),
-                const SizedBox(height: 16),
-                Text(
-                  WasteTexts.selectYourRole.tr,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 20,
-                  ),
-                ),
-                const SizedBox(height: 28),
-
-                // User Login Option
-                _buildDialogOption(
-                  context: context,
-                  icon: Iconsax.user,
-                  title: WasteTexts.loginUser.tr,
-                  subtitle: WasteTexts.userRole.tr,
-                  onTap: () {
-                    Get.back();
-                    Get.to(() => const LoginScreen());
-                  },
-                ),
-                const SizedBox(height: 12),
-
-                // Admin Login Option
-                _buildDialogOption(
-                  context: context,
-                  icon: Iconsax.shield_tick,
-                  title: WasteTexts.loginAdmin.tr,
-                  subtitle: WasteTexts.adminRole.tr,
-                  onTap: () {
-                    Get.back();
-                    Get.to(() => const AdminLoginScreen());
-                  },
-                ),
-                const SizedBox(height: 20),
-
-                // Close Button
-                SizedBox(
-                  width: double.infinity,
-                  child: TextButton(
-                    onPressed: () => Get.back(),
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                    ),
-                    child: Text(
-                      WasteTexts.cancel.tr,
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  /// Build individual option tile in dialog
-  Widget _buildDialogOption({
-    required BuildContext context,
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required VoidCallback onTap,
-  }) {
-    return Material(
-      borderRadius: BorderRadius.circular(12),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: WasteColors.buttonPrimary.withOpacity(0.2),
-              width: 1.5,
-            ),
-            color: WasteColors.buttonPrimary.withOpacity(0.05),
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: WasteColors.buttonPrimary.withOpacity(0.15),
-                ),
-                child: Icon(icon, color: WasteColors.buttonPrimary, size: 24),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Text(
-                      subtitle,
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(
-                Iconsax.arrow_right,
-                color: WasteColors.buttonPrimary,
-                size: 20,
-              ),
-            ],
           ),
         ),
       ),

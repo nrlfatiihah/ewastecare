@@ -13,6 +13,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class AdminLoginController extends GetxController {
+  static const _rememberEmailKey = 'ADMIN_REMEMBER_ME_EMAIL';
+  static const _rememberPasswordKey = 'ADMIN_REMEMBER_ME_PASSWORD';
+
   // variables
   final rememberMe = false.obs;
   final hidePassword = true.obs;
@@ -23,8 +26,8 @@ class AdminLoginController extends GetxController {
 
   @override
   void onInit() {
-    email.text = localStorage.read("REMEMBER_ME_EMAIL") ?? "";
-    password.text = localStorage.read("REMEMBER_ME_PASSWORD") ?? "";
+    email.text = localStorage.read(_rememberEmailKey) ?? "";
+    password.text = localStorage.read(_rememberPasswordKey) ?? "";
     super.onInit();
   }
 

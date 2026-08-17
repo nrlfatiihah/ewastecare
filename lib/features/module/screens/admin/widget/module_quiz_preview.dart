@@ -99,7 +99,7 @@ class ModuleQuizPreviewScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: isCorrect
                               ? WasteColors.primary.withOpacity(0.08)
-                              : Colors.grey.shade100,
+                              : Colors.black.withOpacity(0.04),
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                             color: isCorrect
